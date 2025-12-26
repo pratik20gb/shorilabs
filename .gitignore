@@ -24,3 +24,6 @@ cli/node_modules
 *.njsproj
 *.sln
 *.sw?
+
+# Documentation (exclude from GitHub)
+LEARNING_ROADMAP.md
