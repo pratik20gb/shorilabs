@@ -1,9 +1,6 @@
 <div align="center">
   <img src="./public/logo-green-dark.svg" alt="shorilabs" height="100">
 </div>
-
-# shorilabs 🎨
-
 > Beautiful CSS and Tailwind background patterns for modern web projects
 
 [![Website](https://img.shields.io/badge/website-shorilabs.xyz-blue)](https://shorilabs.xyz)
