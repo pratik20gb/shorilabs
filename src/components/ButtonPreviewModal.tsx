@@ -29,7 +29,7 @@ export const ButtonPreviewModal = ({
       const colonIndex = trimmed.indexOf(':');
       if (colonIndex === -1) return;
       const prop = trimmed.substring(0, colonIndex).trim();
-      let value = trimmed.substring(colonIndex + 1).trim().replace(/;$/, '');
+      const value = trimmed.substring(colonIndex + 1).trim().replace(/;$/, '');
       const camelProp = prop.replace(/-([a-z])/g, (_, l) => l.toUpperCase());
       (style as Record<string, string>)[camelProp] = value;
     });

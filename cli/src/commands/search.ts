@@ -1,11 +1,12 @@
 import chalk from 'chalk';
 import { loadPatterns, loadButtons } from '../utils/patterns';
+import { Pattern, Button } from '../types';
 
 export async function searchPatterns(query: string, options: { json?: boolean; type?: string }) {
   const componentType = options.type?.toLowerCase() || 'all';
   const searchQuery = query.toLowerCase();
   
-  const results: { patterns: any[]; buttons: any[] } = { patterns: [], buttons: [] };
+  const results: { patterns: Pattern[]; buttons: Button[] } = { patterns: [], buttons: [] };
   
   // Search patterns
   if (componentType === 'all' || componentType === 'pattern' || componentType === 'patterns') {

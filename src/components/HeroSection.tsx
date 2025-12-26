@@ -49,7 +49,7 @@ const HeroButtonCard = ({
       const colonIndex = trimmed.indexOf(':');
       if (colonIndex === -1) return;
       const prop = trimmed.substring(0, colonIndex).trim();
-      let value = trimmed.substring(colonIndex + 1).trim().replace(/;$/, '');
+      const value = trimmed.substring(colonIndex + 1).trim().replace(/;$/, '');
       const camelProp = prop.replace(/-([a-z])/g, (_, l) => l.toUpperCase());
       (style as Record<string, string>)[camelProp] = value;
     });
@@ -152,7 +152,7 @@ const getMixedPatterns = () => {
   const mixed: Pattern[] = [];
   
   // Get patterns from each category in rotation
-  let maxPerCategory = Math.ceil(16 / categories.length);
+  const maxPerCategory = Math.ceil(16 / categories.length);
   categories.forEach(cat => {
     const categoryPatterns = patterns.filter(p => p.category === cat);
     mixed.push(...categoryPatterns.slice(0, maxPerCategory));
