@@ -1,7 +1,7 @@
 {
-  "name": "@shorilabs/patterns-cli",
-  "version": "1.0.1",
-  "description": "CLI tool to browse and install shorilabs background patterns",
+  "name": "@shorilabs/cli",
+  "version": "2.0.0",
+  "description": "CLI tool to browse and install shorilabs patterns and buttons",
   "main": "dist/index.js",
   "bin": {
     "shorilabs": "./dist/index.js"
@@ -15,9 +15,12 @@
   "keywords": [
     "css",
     "patterns",
+    "buttons",
     "backgrounds",
     "tailwind",
-    "cli"
+    "cli",
+    "ui",
+    "components"
   ],
   "author": {
     "name": "Pratik",
@@ -57,6 +60,7 @@
   "files": [
     "dist",
     "patterns.json",
+    "buttons.json",
     "LICENSE",
     "README.md"
   ]

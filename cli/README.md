@@ -1,102 +1,127 @@
-# @shorilabs/patterns-cli
+# @shorilabs/cli
 
-[![npm](https://img.shields.io/npm/v/@shorilabs/patterns-cli)](https://www.npmjs.com/package/@shorilabs/patterns-cli)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-
-CLI tool to browse and install shorilabs background patterns.
+CLI tool to browse and install shorilabs patterns and buttons.
 
 ## Installation
 
 ```bash
-npm install -g @shorilabs/patterns-cli
+npm install -g @shorilabs/cli
 ```
 
 ## Usage
 
-### List all patterns
+### List Components
 
 ```bash
-shorilabs list
+# List all patterns
+shorilabs patterns
+
+# List all buttons
+shorilabs buttons
+
+# Filter by category
+shorilabs patterns --category gradients
+shorilabs buttons --category neon
+
+# Output as JSON
+shorilabs patterns --json
 ```
 
-Filter by category:
-```bash
-shorilabs list --category gradients
-```
-
-Output as JSON:
-```bash
-shorilabs list --json
-```
-
-### Get a specific pattern
+### Get Component Details
 
 ```bash
+# Get pattern CSS
 shorilabs get aurora-glow
-```
 
-Get only CSS:
-```bash
-shorilabs get aurora-glow --format css
-```
+# Get button CSS
+shorilabs get neon-blue --type button
 
-Get only Tailwind:
-```bash
+# Get only Tailwind classes
 shorilabs get aurora-glow --format tailwind
 ```
 
-### Add pattern to project
-
-Add as CSS:
-```bash
-shorilabs add aurora-glow --file styles/patterns.css
-```
-
-Add as Tailwind:
-```bash
-shorilabs add aurora-glow --tailwind --file styles/patterns.css
-```
-
-Append to existing file:
-```bash
-shorilabs add grid-fade --append
-```
-
-### Search patterns
+### Add to Project
 
 ```bash
-shorilabs search aurora
+# Add pattern to patterns.css
+shorilabs add aurora-glow
+
+# Add button to buttons.css
+shorilabs add neon-blue --type button
+
+# Specify output file
+shorilabs add aurora-glow --file src/styles/backgrounds.css
+
+# Append instead of overwrite
+shorilabs add cyber-sunset --append
+
+# Output Tailwind classes
+shorilabs add aurora-glow --tailwind
 ```
 
-## Development
+### Search Components
 
 ```bash
-# Install dependencies
-npm install
+# Search all components
+shorilabs search gradient
 
-# Build
-npm run build
+# Search only patterns
+shorilabs search geometric --type patterns
 
-# Run in development
-npm run dev list
+# Search only buttons
+shorilabs search neon --type buttons
+
+# Output as JSON
+shorilabs search gradient --json
 ```
 
-## Commands
+### Get Info
 
-- `shorilabs list` - List all available patterns
-- `shorilabs get <id>` - Get a specific pattern
-- `shorilabs add <id>` - Add pattern to your project
-- `shorilabs search <query>` - Search patterns
+```bash
+shorilabs info
+```
+
+## Pattern Categories
+
+| Category | Description |
+|----------|-------------|
+| gradients | Gradient backgrounds |
+| geometric | Geometric patterns |
+| decorative | Decorative patterns |
+| effects | Special effects |
+
+## Button Categories
+
+| Category | Description |
+|----------|-------------|
+| primary | Primary action buttons |
+| secondary | Secondary buttons |
+| outline | Outline/bordered buttons |
+| ghost | Ghost/transparent buttons |
+| animated | Buttons with animations |
+| 3d | 3D effect buttons |
+| neon | Neon glow buttons |
+
+## Examples
+
+```bash
+# Quick workflow
+shorilabs patterns                    # See all patterns
+shorilabs get aurora-glow             # Preview CSS
+shorilabs add aurora-glow             # Add to project
+
+# Working with buttons
+shorilabs buttons                     # See all buttons
+shorilabs get neon-blue -t button     # Preview button CSS
+shorilabs add neon-blue -t button     # Add to project
+```
 
 ## Links
 
-- **Website:** [shorilabs.xyz](https://shorilabs.xyz)
-- **GitHub:** [github.com/pratik20gb/shorilabs](https://github.com/pratik20gb/shorilabs)
-- **npm:** [npmjs.com/package/@shorilabs/patterns-cli](https://www.npmjs.com/package/@shorilabs/patterns-cli)
-- **Twitter:** [@sage_pratik](https://twitter.com/sage_pratik)
-- **Author:** [thepratik.xyz](https://thepratik.xyz)
+- Website: https://shorilabs.xyz
+- GitHub: https://github.com/pratik20gb/shorilabs
+- Author: [Pratik](https://thepratik.xyz)
 
 ## License
 
-MIT © 2025 shorilabs
-
+MIT

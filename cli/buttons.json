@@ -1,0 +1,246 @@
+[
+  {
+    "id": "primary-solid",
+    "name": "Primary Solid",
+    "category": "primary",
+    "css": "background: #3b82f6;\r\ncolor: #ffffff;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: none;\r\ncursor: pointer;\r\ntransition: background 0.2s ease;",
+    "tailwind": "bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors",
+    "label": "Click Me"
+  },
+  {
+    "id": "primary-gradient",
+    "name": "Primary Gradient",
+    "category": "primary",
+    "css": "background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\r\ncolor: #ffffff;\r\npadding: 12px 28px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: none;\r\ncursor: pointer;\r\ntransition: transform 0.2s ease, box-shadow 0.2s ease;",
+    "tailwind": "bg-gradient-to-br from-indigo-500 to-purple-600 text-white px-7 py-3 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all",
+    "label": "Get Started",
+    "isNew": true
+  },
+  {
+    "id": "primary-rounded",
+    "name": "Primary Rounded",
+    "category": "primary",
+    "css": "background: #10b981;\r\ncolor: #ffffff;\r\npadding: 12px 32px;\r\nborder-radius: 9999px;\r\nfont-weight: 600;\r\nborder: none;\r\ncursor: pointer;\r\ntransition: background 0.2s ease;",
+    "tailwind": "bg-emerald-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-emerald-600 transition-colors",
+    "label": "Subscribe"
+  },
+  {
+    "id": "primary-dark",
+    "name": "Primary Dark",
+    "category": "primary",
+    "css": "background: #1f2937;\r\ncolor: #ffffff;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: none;\r\ncursor: pointer;\r\ntransition: background 0.2s ease;",
+    "tailwind": "bg-gray-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-900 transition-colors",
+    "label": "Continue"
+  },
+  {
+    "id": "secondary-light",
+    "name": "Secondary Light",
+    "category": "secondary",
+    "css": "background: #f3f4f6;\r\ncolor: #374151;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 500;\r\nborder: none;\r\ncursor: pointer;\r\ntransition: background 0.2s ease;",
+    "tailwind": "bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors",
+    "label": "Learn More"
+  },
+  {
+    "id": "secondary-muted",
+    "name": "Secondary Muted",
+    "category": "secondary",
+    "css": "background: #e5e7eb;\r\ncolor: #4b5563;\r\npadding: 10px 20px;\r\nborder-radius: 6px;\r\nfont-weight: 500;\r\nborder: none;\r\ncursor: pointer;\r\ntransition: background 0.2s ease;",
+    "tailwind": "bg-gray-200 text-gray-600 px-5 py-2.5 rounded-md font-medium hover:bg-gray-300 transition-colors",
+    "label": "View Details"
+  },
+  {
+    "id": "secondary-soft",
+    "name": "Secondary Soft",
+    "category": "secondary",
+    "css": "background: #dbeafe;\r\ncolor: #1d4ed8;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 500;\r\nborder: none;\r\ncursor: pointer;\r\ntransition: background 0.2s ease;",
+    "tailwind": "bg-blue-100 text-blue-700 px-6 py-3 rounded-lg font-medium hover:bg-blue-200 transition-colors",
+    "label": "Explore",
+    "isNew": true
+  },
+  {
+    "id": "outline-default",
+    "name": "Outline Default",
+    "category": "outline",
+    "css": "background: transparent;\r\ncolor: #374151;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 500;\r\nborder: 2px solid #d1d5db;\r\ncursor: pointer;\r\ntransition: all 0.2s ease;",
+    "tailwind": "bg-transparent text-gray-700 px-6 py-3 rounded-lg font-medium border-2 border-gray-300 hover:bg-gray-100 transition-all",
+    "label": "Cancel"
+  },
+  {
+    "id": "outline-primary",
+    "name": "Outline Primary",
+    "category": "outline",
+    "css": "background: transparent;\r\ncolor: #3b82f6;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: 2px solid #3b82f6;\r\ncursor: pointer;\r\ntransition: all 0.2s ease;",
+    "tailwind": "bg-transparent text-blue-500 px-6 py-3 rounded-lg font-semibold border-2 border-blue-500 hover:bg-blue-500 hover:text-white transition-all",
+    "label": "Sign Up"
+  },
+  {
+    "id": "outline-gradient",
+    "name": "Outline Gradient",
+    "category": "outline",
+    "css": "background: transparent;\r\ncolor: #8b5cf6;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: 2px solid transparent;\r\nbackground-image: linear-gradient(#ffffff, #ffffff), linear-gradient(135deg, #8b5cf6, #ec4899);\r\nbackground-origin: border-box;\r\nbackground-clip: padding-box, border-box;\r\ncursor: pointer;\r\ntransition: all 0.2s ease;",
+    "tailwind": "bg-transparent text-violet-500 px-6 py-3 rounded-lg font-semibold border-2 border-transparent bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text hover:opacity-80 transition-all",
+    "label": "Join Now",
+    "isNew": true
+  },
+  {
+    "id": "outline-dark",
+    "name": "Outline Dark",
+    "category": "outline",
+    "css": "background: transparent;\r\ncolor: #1f2937;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: 2px solid #1f2937;\r\ncursor: pointer;\r\ntransition: all 0.2s ease;",
+    "tailwind": "bg-transparent text-gray-800 px-6 py-3 rounded-lg font-semibold border-2 border-gray-800 hover:bg-gray-800 hover:text-white transition-all",
+    "label": "Download"
+  },
+  {
+    "id": "ghost-default",
+    "name": "Ghost Default",
+    "category": "ghost",
+    "css": "background: transparent;\r\ncolor: #6b7280;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 500;\r\nborder: none;\r\ncursor: pointer;\r\ntransition: background 0.2s ease;",
+    "tailwind": "bg-transparent text-gray-500 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors",
+    "label": "Skip"
+  },
+  {
+    "id": "ghost-primary",
+    "name": "Ghost Primary",
+    "category": "ghost",
+    "css": "background: transparent;\r\ncolor: #3b82f6;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 500;\r\nborder: none;\r\ncursor: pointer;\r\ntransition: background 0.2s ease;",
+    "tailwind": "bg-transparent text-blue-500 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors",
+    "label": "View All"
+  },
+  {
+    "id": "ghost-underline",
+    "name": "Ghost Underline",
+    "category": "ghost",
+    "css": "background: transparent;\r\ncolor: #374151;\r\npadding: 8px 4px;\r\nborder-radius: 0;\r\nfont-weight: 500;\r\nborder: none;\r\nborder-bottom: 2px solid transparent;\r\ncursor: pointer;\r\ntransition: border-color 0.2s ease;",
+    "tailwind": "bg-transparent text-gray-700 px-1 py-2 font-medium border-b-2 border-transparent hover:border-gray-700 transition-colors",
+    "label": "Read More"
+  },
+  {
+    "id": "animated-pulse",
+    "name": "Animated Pulse",
+    "category": "animated",
+    "css": "background: #ef4444;\r\ncolor: #ffffff;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: none;\r\ncursor: pointer;\r\nanimation: pulse 2s infinite;\r\n@keyframes pulse {\r\n  0%, 100% { transform: scale(1); }\r\n  50% { transform: scale(1.05); }\r\n}",
+    "tailwind": "bg-red-500 text-white px-6 py-3 rounded-lg font-semibold animate-pulse hover:bg-red-600 transition-colors",
+    "label": "Notify Me",
+    "isNew": true
+  },
+  {
+    "id": "animated-bounce",
+    "name": "Animated Bounce",
+    "category": "animated",
+    "css": "background: #f59e0b;\r\ncolor: #ffffff;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: none;\r\ncursor: pointer;\r\nanimation: bounce 1s infinite;\r\n@keyframes bounce {\r\n  0%, 100% { transform: translateY(0); }\r\n  50% { transform: translateY(-8px); }\r\n}",
+    "tailwind": "bg-amber-500 text-white px-6 py-3 rounded-lg font-semibold animate-bounce hover:bg-amber-600 transition-colors",
+    "label": "Jump In"
+  },
+  {
+    "id": "animated-shimmer",
+    "name": "Animated Shimmer",
+    "category": "animated",
+    "css": "background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #3b82f6 100%);\r\nbackground-size: 200% 100%;\r\ncolor: #ffffff;\r\npadding: 12px 28px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: none;\r\ncursor: pointer;\r\nanimation: shimmer 2s linear infinite;\r\n@keyframes shimmer {\r\n  0% { background-position: 200% 0; }\r\n  100% { background-position: -200% 0; }\r\n}",
+    "tailwind": "bg-gradient-to-r from-blue-500 via-violet-500 to-blue-500 bg-[length:200%_100%] text-white px-7 py-3 rounded-lg font-semibold animate-[shimmer_2s_linear_infinite]",
+    "label": "Discover",
+    "isNew": true
+  },
+  {
+    "id": "animated-slide",
+    "name": "Animated Slide",
+    "category": "animated",
+    "css": "background: #10b981;\r\ncolor: #ffffff;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: none;\r\ncursor: pointer;\r\nposition: relative;\r\noverflow: hidden;\r\ntransition: color 0.3s ease;",
+    "tailwind": "bg-emerald-500 text-white px-6 py-3 rounded-lg font-semibold relative overflow-hidden group hover:bg-emerald-600 transition-colors",
+    "label": "Slide Right"
+  },
+  {
+    "id": "animated-glow",
+    "name": "Animated Glow",
+    "category": "animated",
+    "css": "background: #8b5cf6;\r\ncolor: #ffffff;\r\npadding: 12px 28px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: none;\r\ncursor: pointer;\r\nbox-shadow: 0 0 20px rgba(139, 92, 246, 0.5);\r\nanimation: glow 2s ease-in-out infinite;\r\n@keyframes glow {\r\n  0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }\r\n  50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.8); }\r\n}",
+    "tailwind": "bg-violet-500 text-white px-7 py-3 rounded-lg font-semibold shadow-[0_0_20px_rgba(139,92,246,0.5)] animate-[glow_2s_ease-in-out_infinite]",
+    "label": "Glow Up",
+    "isNew": true
+  },
+  {
+    "id": "3d-push",
+    "name": "3D Push",
+    "category": "3d",
+    "css": "background: #3b82f6;\r\ncolor: #ffffff;\r\npadding: 12px 24px;\r\nborder-radius: 8px;\r\nfont-weight: 600;\r\nborder: none;\r\ncursor: pointer;\r\nbox-shadow: 0 6px 0 #1d4ed8;\r\ntransform: translateY(0);\r\ntransition: all 0.1s ease;",
+    "tailwind": "bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold shadow-[0_6px_0_#1d4ed8] hover:translate-y-1 hover:shadow-[0_4px_0_#1d4ed8] active:translate-y-1.5 active:shadow-[0_2px_0_#1d4ed8] transition-all",
+    "label": "Press Me"
+  },
+  {
+    "id": "3d-lift",
+    "name": "3D Lift",
+    "category": "3d",
+    "css": "background: #ffffff;\r\ncolor: #1f2937;\r\npadding: 12px 24px;\r\nborder-radius: 12px;\r\nfont-weight: 600;\r\nborder: 1px solid #e5e7eb;\r\ncursor: pointer;\r\nbox-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\r\ntransition: all 0.2s ease;",
+    "tailwind": "bg-white text-gray-800 px-6 py-3 rounded-xl font-semibold border border-gray-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all",
+    "label": "Hover Me",
+    "isNew": true
+  },
+  {
+    "id": "3d-depth",
+    "name": "3D Depth",
+    "category": "3d",
+    "css": "background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);\r\ncolor: #ffffff;\r\npadding: 14px 28px;\r\nborder-radius: 10px;\r\nfont-weight: 700;\r\nborder: none;\r\ncursor: pointer;\r\nbox-shadow: 0 8px 0 #15803d, 0 12px 20px rgba(0, 0, 0, 0.2);\r\ntransform: translateY(0);\r\ntransition: all 0.15s ease;",
+    "tailwind": "bg-gradient-to-b from-green-400 to-green-500 text-white px-7 py-3.5 rounded-[10px] font-bold shadow-[0_8px_0_#15803d,0_12px_20px_rgba(0,0,0,0.2)] hover:translate-y-1 hover:shadow-[0_6px_0_#15803d,0_10px_16px_rgba(0,0,0,0.2)] active:translate-y-2 active:shadow-[0_4px_0_#15803d] transition-all",
+    "label": "Click Here"
+  },
+  {
+    "id": "3d-glass",
+    "name": "3D Glass",
+    "category": "3d",
+    "css": "background: rgba(255, 255, 255, 0.1);\r\ncolor: #ffffff;\r\npadding: 12px 28px;\r\nborder-radius: 12px;\r\nfont-weight: 600;\r\nborder: 1px solid rgba(255, 255, 255, 0.2);\r\ncursor: pointer;\r\nbackdrop-filter: blur(10px);\r\nbox-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);\r\ntransition: all 0.2s ease;",
+    "tailwind": "bg-white/10 text-white px-7 py-3 rounded-xl font-semibold border border-white/20 backdrop-blur-lg shadow-lg hover:bg-white/20 hover:shadow-xl transition-all",
+    "label": "Explore",
+    "isNew": true
+  },
+  {
+    "id": "neon-blue",
+    "name": "Neon Blue",
+    "category": "neon",
+    "css": "background: transparent;\r\ncolor: #00d4ff;\r\npadding: 12px 28px;\r\nborder-radius: 4px;\r\nfont-weight: 600;\r\nborder: 2px solid #00d4ff;\r\ncursor: pointer;\r\ntext-shadow: 0 0 10px #00d4ff;\r\nbox-shadow: 0 0 10px #00d4ff, inset 0 0 10px rgba(0, 212, 255, 0.1);\r\ntransition: all 0.3s ease;",
+    "tailwind": "bg-transparent text-cyan-400 px-7 py-3 rounded font-semibold border-2 border-cyan-400 shadow-[0_0_10px_#00d4ff,inset_0_0_10px_rgba(0,212,255,0.1)] hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_#00d4ff] transition-all",
+    "label": "Cyber",
+    "isNew": true
+  },
+  {
+    "id": "neon-pink",
+    "name": "Neon Pink",
+    "category": "neon",
+    "css": "background: transparent;\r\ncolor: #ff00ff;\r\npadding: 12px 28px;\r\nborder-radius: 4px;\r\nfont-weight: 600;\r\nborder: 2px solid #ff00ff;\r\ncursor: pointer;\r\ntext-shadow: 0 0 10px #ff00ff;\r\nbox-shadow: 0 0 10px #ff00ff, inset 0 0 10px rgba(255, 0, 255, 0.1);\r\ntransition: all 0.3s ease;",
+    "tailwind": "bg-transparent text-fuchsia-500 px-7 py-3 rounded font-semibold border-2 border-fuchsia-500 shadow-[0_0_10px_#ff00ff,inset_0_0_10px_rgba(255,0,255,0.1)] hover:bg-fuchsia-500 hover:text-white hover:shadow-[0_0_20px_#ff00ff] transition-all",
+    "label": "Party"
+  },
+  {
+    "id": "neon-green",
+    "name": "Neon Green",
+    "category": "neon",
+    "css": "background: transparent;\r\ncolor: #00ff41;\r\npadding: 12px 28px;\r\nborder-radius: 4px;\r\nfont-weight: 600;\r\nfont-family: monospace;\r\nborder: 2px solid #00ff41;\r\ncursor: pointer;\r\ntext-shadow: 0 0 10px #00ff41;\r\nbox-shadow: 0 0 10px #00ff41, inset 0 0 10px rgba(0, 255, 65, 0.1);\r\ntransition: all 0.3s ease;",
+    "tailwind": "bg-transparent text-green-400 px-7 py-3 rounded font-semibold font-mono border-2 border-green-400 shadow-[0_0_10px_#00ff41,inset_0_0_10px_rgba(0,255,65,0.1)] hover:bg-green-400 hover:text-black hover:shadow-[0_0_20px_#00ff41] transition-all",
+    "label": "Matrix",
+    "isNew": true
+  },
+  {
+    "id": "neon-orange",
+    "name": "Neon Orange",
+    "category": "neon",
+    "css": "background: transparent;\r\ncolor: #ff6600;\r\npadding: 12px 28px;\r\nborder-radius: 4px;\r\nfont-weight: 600;\r\nborder: 2px solid #ff6600;\r\ncursor: pointer;\r\ntext-shadow: 0 0 10px #ff6600;\r\nbox-shadow: 0 0 10px #ff6600, inset 0 0 10px rgba(255, 102, 0, 0.1);\r\ntransition: all 0.3s ease;",
+    "tailwind": "bg-transparent text-orange-500 px-7 py-3 rounded font-semibold border-2 border-orange-500 shadow-[0_0_10px_#ff6600,inset_0_0_10px_rgba(255,102,0,0.1)] hover:bg-orange-500 hover:text-white hover:shadow-[0_0_20px_#ff6600] transition-all",
+    "label": "Fire"
+  },
+  {
+    "id": "neon-purple",
+    "name": "Neon Purple",
+    "category": "neon",
+    "css": "background: transparent;\r\ncolor: #a855f7;\r\npadding: 12px 28px;\r\nborder-radius: 4px;\r\nfont-weight: 600;\r\nborder: 2px solid #a855f7;\r\ncursor: pointer;\r\ntext-shadow: 0 0 10px #a855f7;\r\nbox-shadow: 0 0 10px #a855f7, inset 0 0 10px rgba(168, 85, 247, 0.1);\r\ntransition: all 0.3s ease;",
+    "tailwind": "bg-transparent text-purple-500 px-7 py-3 rounded font-semibold border-2 border-purple-500 shadow-[0_0_10px_#a855f7,inset_0_0_10px_rgba(168,85,247,0.1)] hover:bg-purple-500 hover:text-white hover:shadow-[0_0_20px_#a855f7] transition-all",
+    "label": "Vibe",
+    "isNew": true
+  },
+  {
+    "id": "neon-dual",
+    "name": "Neon Dual",
+    "category": "neon",
+    "css": "background: transparent;\r\ncolor: #ffffff;\r\npadding: 12px 28px;\r\nborder-radius: 4px;\r\nfont-weight: 600;\r\nborder: 2px solid transparent;\r\nborder-image: linear-gradient(90deg, #00d4ff, #ff00ff) 1;\r\ncursor: pointer;\r\ntext-shadow: 0 0 10px rgba(255, 255, 255, 0.5);\r\nbox-shadow: 0 0 15px rgba(0, 212, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.5);\r\ntransition: all 0.3s ease;",
+    "tailwind": "bg-transparent text-white px-7 py-3 rounded font-semibold border-2 border-transparent bg-gradient-to-r from-cyan-400 to-fuchsia-500 shadow-[0_0_15px_rgba(0,212,255,0.5),0_0_15px_rgba(255,0,255,0.5)] hover:shadow-[0_0_25px_rgba(0,212,255,0.7),0_0_25px_rgba(255,0,255,0.7)] transition-all",
+    "label": "Synth",
+    "isNew": true
+  }
+]
