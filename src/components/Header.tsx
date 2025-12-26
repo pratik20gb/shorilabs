@@ -58,8 +58,8 @@ export const Header = ({ onSearch }: HeaderProps) => {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-16 gap-4">
-          {/* Logo */}
-          <Logo size="sm" />
+          {/* Logo - h-8 (32px) for header */}
+          <Logo size="sm" variant="wordmark" />
 
           {/* Center Navigation - Hidden on mobile */}
           <nav className="hidden lg:flex items-center gap-2">

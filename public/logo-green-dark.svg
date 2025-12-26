@@ -1,0 +1,7 @@
+<svg viewBox="0 0 280 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g>
+<path d="M8 20L2 30L8 40" stroke="#00ff41" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14 40H20" stroke="#00ff41" stroke-width="2.5" stroke-linecap="round"/>
+</g>
+<text x="32" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="32" font-weight="600" fill="#FFFFFF" letter-spacing="-0.5">shorilabs</text>
+</svg>

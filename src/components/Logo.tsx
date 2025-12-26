@@ -1,36 +1,73 @@
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 interface LogoProps {
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
   showText?: boolean;
   className?: string;
+  variant?: "wordmark" | "icon";
 }
 
-export const Logo = ({ size = "md", showText = true, className }: LogoProps) => {
-  const sizes = {
-    sm: {
-      icon: "w-6 h-6 text-xs",
-      text: "text-base",
-    },
-    md: {
-      icon: "w-8 h-8 text-sm",
-      text: "text-lg",
-    },
-    lg: {
-      icon: "w-12 h-12 text-lg",
-      text: "text-2xl",
-    },
+export const Logo = ({ size = "md", showText = false, className, variant = "wordmark" }: LogoProps) => {
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Wordmark logo sizes (maintain aspect ratio ~4.67:1)
+  const wordmarkSizes = {
+    xs: "h-6",      // 24px - Footer, mobile
+    sm: "h-8",      // 32px - Header (default)
+    md: "h-10",     // 40px - Medium
+    lg: "h-16",     // 64px - Hero section
+    xl: "h-20",     // 80px - Large hero
   };
 
+  // Icon sizes (square 1:1)
+  const iconSizes = {
+    xs: "w-4 h-4",  // 16px
+    sm: "w-6 h-6",  // 24px - Mobile header
+    md: "w-8 h-8",  // 32px
+    lg: "w-12 h-12", // 48px
+    xl: "w-16 h-16", // 64px
+  };
+
+  // Determine which logo to use based on theme
+  // Use resolvedTheme to handle system theme preference
+  const currentTheme = mounted ? (resolvedTheme || theme) : "light";
+  
+  const logoSrc = variant === "icon"
+    ? "/icon-green.svg"
+    : currentTheme === "dark" 
+      ? "/logo-green-dark.svg" 
+      : "/logo-green.svg";
+
+  const sizeClass = variant === "icon" 
+    ? iconSizes[size] 
+    : wordmarkSizes[size];
+
   return (
-    <div className={cn("flex items-center", className)}>
+    <a 
+      href="/" 
+      className={cn("flex items-center hover:opacity-80 transition-opacity", showText && "gap-2", className)}
+      aria-label="shorilabs home"
+    >
+      {/* Logo Image */}
+      <img 
+        src={logoSrc} 
+        alt="shorilabs logo" 
+        className={cn(sizeClass, variant === "wordmark" && "w-auto")}
+      />
       {/* Text */}
       {showText && (
-        <span className={cn("font-bold text-foreground", sizes[size].text)}>
+        <span className={cn("font-bold text-foreground", size === "xs" ? "text-sm" : size === "sm" ? "text-base" : size === "md" ? "text-lg" : "text-xl")}>
           shorilabs
         </span>
       )}
-    </div>
+    </a>
   );
 };
 

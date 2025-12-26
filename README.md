@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="./public/logo-green-dark.svg" alt="shorilabs" height="100">
+</div>
+
 # shorilabs 🎨
 
 > Beautiful CSS and Tailwind background patterns for modern web projects
@@ -226,4 +230,8 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-© 2025 shorilabs. All rights reserved.
+<div align="center">
+  <img src="./public/logo-green-dark.svg" alt="shorilabs" height="60">
+  <br />
+  <p>© 2025 shorilabs. All rights reserved.</p>
+</div>
