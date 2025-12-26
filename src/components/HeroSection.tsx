@@ -190,11 +190,14 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
             "text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight",
             isPreviewActive ? textClass : "text-foreground"
           )}>
-            Reusable UI.{" "}
-            <span className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent">
-              Instantly usable.
-            </span>
+            Stop building from scratch.
           </h1>
+          <p className={cn(
+            "mt-6 text-lg md:text-xl",
+            isPreviewActive ? mutedClass : "text-muted-foreground"
+          )}>
+            Patterns, buttons, and more — via web or CLI.
+          </p>
           
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
