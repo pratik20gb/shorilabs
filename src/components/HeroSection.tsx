@@ -142,20 +142,10 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
             isPreviewActive ? textClass : "text-foreground"
           )}>
             Reusable UI.{" "}
-            <span className={cn(
-              "bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent"
-            )}>
+            <span className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent">
               Instantly usable.
             </span>
           </h1>
-          <p className={cn(
-            "mt-6 text-lg md:text-xl max-w-xl mx-auto leading-relaxed",
-            isPreviewActive ? mutedClass : "text-muted-foreground"
-          )}>
-            Buttons, components, and patterns —
-            <br className="hidden sm:block" />
-            available via web and CLI.
-          </p>
           
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
