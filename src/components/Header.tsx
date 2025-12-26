@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, Github, X, Menu } from "lucide-react";
+import { Search, Github, Twitter, X, Menu } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
@@ -133,6 +133,24 @@ export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderPro
               aria-label="GitHub"
             >
               <Github className="w-4 h-4" />
+            </a>
+
+            {/* X (Twitter) */}
+            <a
+              href="https://twitter.com/sage_pratik"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "p-2 rounded-md transition-colors",
+                isPreviewActive 
+                  ? brightness === "dark"
+                    ? "text-white/60 hover:text-white"
+                    : "text-gray-500 hover:text-gray-900"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+              )}
+              aria-label="X (Twitter)"
+            >
+              <Twitter className="w-4 h-4" />
             </a>
 
             {/* Clear Background Pattern */}
