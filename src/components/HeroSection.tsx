@@ -16,15 +16,19 @@ interface HeroSectionProps {
   onNavigate: (view: "patterns" | "buttons") => void;
 }
 
-// Minimal ButtonCard for hero section
+// Minimal ButtonCard for hero section with adaptive styling
 const HeroButtonCard = ({ 
   button, 
   isFavorite, 
-  onToggleFavorite 
+  onToggleFavorite,
+  isPreviewActive,
+  brightness
 }: { 
   button: Button; 
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
+  isPreviewActive: boolean;
+  brightness: "dark" | "light" | "auto";
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -54,39 +58,84 @@ const HeroButtonCard = ({
 
   return (
     <div className="group relative cursor-pointer">
-      <div className="aspect-square rounded-lg overflow-hidden border border-border bg-muted/30 flex items-center justify-center transition-all duration-200 hover:border-border/80 hover:shadow-md p-4">
+      <div className={cn(
+        "aspect-square rounded-lg overflow-hidden border flex items-center justify-center transition-all duration-200 hover:shadow-md p-4",
+        isPreviewActive
+          ? brightness === "dark"
+            ? "border-white/20 bg-white/5"
+            : "border-black/10 bg-black/5"
+          : "border-border bg-muted/30"
+      )}>
         <button style={getButtonStyle()} className="pointer-events-none scale-90">
           {button.label || "Button"}
         </button>
 
         {button.isNew && (
-          <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-foreground text-background text-[10px] font-medium">
+          <div className={cn(
+            "absolute top-2 right-2 px-1.5 py-0.5 rounded text-[10px] font-medium",
+            isPreviewActive
+              ? brightness === "dark"
+                ? "bg-white text-black"
+                : "bg-gray-900 text-white"
+              : "bg-foreground text-background"
+          )}>
             New
           </div>
         )}
 
-        <div className="absolute inset-0 bg-background/0 group-hover:bg-background/95 transition-all duration-200 flex flex-col justify-between p-3">
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-            <p className="text-sm font-medium text-foreground">{button.name}</p>
-            <p className="text-xs text-muted-foreground capitalize">{button.category}</p>
+        <div className={cn(
+          "absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-200 flex flex-col justify-between p-3",
+          isPreviewActive
+            ? brightness === "dark"
+              ? "bg-black/90"
+              : "bg-white/95"
+            : "bg-background/95"
+        )}>
+          <div>
+            <p className={cn(
+              "text-sm font-medium",
+              isPreviewActive
+                ? brightness === "dark" ? "text-white" : "text-gray-900"
+                : "text-foreground"
+            )}>{button.name}</p>
+            <p className={cn(
+              "text-xs capitalize",
+              isPreviewActive
+                ? brightness === "dark" ? "text-white/60" : "text-gray-500"
+                : "text-muted-foreground"
+            )}>{button.category}</p>
           </div>
           
-          <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 justify-end">
+          <div className="flex gap-1 justify-end">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 onToggleFavorite(button.id);
               }}
               className={cn(
-                "p-1.5 rounded-md bg-muted hover:bg-muted/80 transition-colors",
-                isFavorite ? "text-red-500" : "text-muted-foreground"
+                "p-1.5 rounded-md transition-colors",
+                isPreviewActive
+                  ? brightness === "dark"
+                    ? "bg-white/10 hover:bg-white/20"
+                    : "bg-black/5 hover:bg-black/10"
+                  : "bg-muted hover:bg-muted/80",
+                isFavorite ? "text-red-500" : isPreviewActive
+                  ? brightness === "dark" ? "text-white/60" : "text-gray-500"
+                  : "text-muted-foreground"
               )}
             >
               <Heart className={cn("w-3.5 h-3.5", isFavorite && "fill-current")} />
             </button>
             <button
               onClick={copyToClipboard}
-              className="p-1.5 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground transition-colors"
+              className={cn(
+                "p-1.5 rounded-md transition-colors",
+                isPreviewActive
+                  ? brightness === "dark"
+                    ? "bg-white/10 hover:bg-white/20 text-white/60"
+                    : "bg-black/5 hover:bg-black/10 text-gray-500"
+                  : "bg-muted hover:bg-muted/80 text-muted-foreground"
+              )}
             >
               {copied ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
             </button>
@@ -167,8 +216,8 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
                 "w-full sm:w-auto px-8 py-3 rounded-md text-sm font-medium transition-all border",
                 isPreviewActive
                   ? brightness === "dark"
-                    ? "border-white/20 text-white hover:bg-white/10"
-                    : "border-gray-300 text-gray-900 hover:bg-gray-100"
+                    ? "border-white/30 text-white hover:bg-white/10"
+                    : "border-gray-400 text-gray-900 hover:bg-gray-100"
                   : "border-border text-foreground hover:bg-accent"
               )}
             >
@@ -179,7 +228,12 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
       </div>
 
       {/* Patterns Section */}
-      <div className="py-12 border-t border-border">
+      <div className={cn(
+        "py-12 border-t",
+        isPreviewActive
+          ? brightness === "dark" ? "border-white/10" : "border-black/10"
+          : "border-border"
+      )}>
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -254,7 +308,12 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
       </div>
 
       {/* Buttons Section */}
-      <div className="py-12 border-t border-border">
+      <div className={cn(
+        "py-12 border-t",
+        isPreviewActive
+          ? brightness === "dark" ? "border-white/10" : "border-black/10"
+          : "border-border"
+      )}>
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -305,6 +364,8 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
                       button={button}
                       isFavorite={buttonFavorites.includes(button.id)}
                       onToggleFavorite={toggleButtonFavorite}
+                      isPreviewActive={isPreviewActive}
+                      brightness={brightness}
                     />
                   </div>
                 ))}
@@ -317,6 +378,8 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
                       button={button}
                       isFavorite={buttonFavorites.includes(button.id)}
                       onToggleFavorite={toggleButtonFavorite}
+                      isPreviewActive={isPreviewActive}
+                      brightness={brightness}
                     />
                   </div>
                 ))}
