@@ -1,8 +1,32 @@
 {
   "name": "shorilabs",
-  "private": true,
   "version": "1.0.0",
+  "description": "Beautiful CSS and Tailwind background patterns for modern web projects",
+  "private": true,
   "type": "module",
+  "author": {
+    "name": "Pratik",
+    "url": "https://thepratik.xyz",
+    "twitter": "@sage_pratik"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pratik20gb/shorilabs.git"
+  },
+  "homepage": "https://shorilabs.xyz",
+  "bugs": {
+    "url": "https://github.com/pratik20gb/shorilabs/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "css",
+    "patterns",
+    "backgrounds",
+    "tailwind",
+    "gradients",
+    "geometric",
+    "web-design"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

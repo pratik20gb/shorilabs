@@ -125,7 +125,7 @@ export const Header = ({ onSearch }: HeaderProps) => {
 
             {/* GitHub */}
             <a
-              href="https://github.com/shorilabs/shorilabs"
+              href="https://github.com/pratik20gb/shorilabs"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground hover:text-foreground transition-colors"

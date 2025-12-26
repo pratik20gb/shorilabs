@@ -12,7 +12,7 @@ export const Footer = () => {
           {/* Links */}
           <div className="flex items-center gap-1">
             <a
-              href="https://github.com/shorilabs/shorilabs"
+              href="https://github.com/pratik20gb/shorilabs"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground hover:text-foreground transition-colors"
@@ -21,7 +21,7 @@ export const Footer = () => {
               <Github className="w-4 h-4" />
             </a>
             <a
-              href="https://twitter.com/shorilabs"
+              href="https://twitter.com/sage_pratik"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground hover:text-foreground transition-colors"

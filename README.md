@@ -2,7 +2,9 @@
 
 > Beautiful CSS and Tailwind background patterns for modern web projects
 
-![shorilabs Banner](./public/placeholder.svg)
+[![Website](https://img.shields.io/badge/website-shorilabs.xyz-blue)](https://shorilabs.xyz)
+[![npm](https://img.shields.io/npm/v/@shorilabs/patterns-cli)](https://www.npmjs.com/package/@shorilabs/patterns-cli)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ## ✨ Features
 
@@ -14,6 +16,7 @@
 - 📱 **Fully Responsive** - Beautiful on all screen sizes
 - 🚀 **Fast & Lightweight** - Built with Vite and optimized for performance
 - 💾 **Export All** - Download all patterns as JSON
+- 💻 **CLI Tool** - Install patterns directly from the command line
 
 ## 🚀 Quick Start
 
@@ -25,7 +28,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/shorilabs/shorilabs.git
+git clone https://github.com/pratik20gb/shorilabs.git
 
 # Navigate to project directory
 cd shorilabs
@@ -132,16 +135,6 @@ Noise textures, spotlights, corner glows, wave patterns, starbursts, radial glow
 ### Effects (23 patterns)
 Blur orbs, glass morphism, frosted glass, mesh gradients, animated gradients, vignettes, scanlines, neon grids, holographic effects, and plasma patterns.
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingPattern`)
-3. Commit your changes (`git commit -m 'Add some AmazingPattern'`)
-4. Push to the branch (`git push origin feature/AmazingPattern`)
-5. Open a Pull Request
-
 ## 💻 CLI Usage
 
 After installing the CLI, you can use it from anywhere:
@@ -190,23 +183,35 @@ After adding patterns, export them for the CLI:
 npm run export-patterns
 ```
 
+## 📦 Packages
+
+This repository contains the following npm packages:
+
+- **[@shorilabs/patterns-cli](https://www.npmjs.com/package/@shorilabs/patterns-cli)** - CLI tool to browse and install patterns
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingPattern`)
+3. Commit your changes (`git commit -m 'Add some AmazingPattern'`)
+4. Push to the branch (`git push origin feature/AmazingPattern`)
+5. Open a Pull Request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🙏 Acknowledgments
-
-- Design inspiration from [Thiings](https://thiings.co)
-- Built with [shadcn/ui](https://ui.shadcn.com)
-- Icons by [Lucide](https://lucide.dev)
-- Fonts by [Google Fonts](https://fonts.google.com)
-
 ## 🔗 Links
 
-- **Website:** [shorilabs.com](https://shorilabs.com)
-- **GitHub:** [github.com/shorilabs/shorilabs](https://github.com/shorilabs/shorilabs)
-- **Twitter:** [@shorilabs](https://twitter.com/shorilabs)
+- **Website:** [shorilabs.xyz](https://shorilabs.xyz)
+- **npm Package:** [@shorilabs/patterns-cli](https://www.npmjs.com/package/@shorilabs/patterns-cli)
+- **GitHub:** [github.com/pratik20gb/shorilabs](https://github.com/pratik20gb/shorilabs)
+- **Twitter:** [@sage_pratik](https://twitter.com/sage_pratik)
 
 ---
 
-Made with ❤️ by [shorilabs](https://github.com/shorilabs)
+© 2025 shorilabs. All rights reserved.

@@ -20,19 +20,20 @@
     "cli"
   ],
   "author": {
-    "name": "shorilabs",
-    "url": "https://github.com/shorilabs"
+    "name": "Pratik",
+    "url": "https://thepratik.xyz",
+    "twitter": "@sage_pratik"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shorilabs/shorilabs.git",
+    "url": "https://github.com/pratik20gb/shorilabs.git",
     "directory": "cli"
   },
   "bugs": {
-    "url": "https://github.com/shorilabs/shorilabs/issues"
+    "url": "https://github.com/pratik20gb/shorilabs/issues"
   },
-  "homepage": "https://github.com/shorilabs/shorilabs#readme",
+  "homepage": "https://shorilabs.xyz",
   "engines": {
     "node": ">=18.0.0"
   },
