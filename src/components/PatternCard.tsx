@@ -3,6 +3,7 @@ import { Copy, Check, Heart } from "lucide-react";
 import { Pattern } from "@/data/patterns";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
 
 interface PatternCardProps {
   pattern: Pattern;
@@ -18,6 +19,13 @@ export const PatternCard = ({
   onToggleFavorite,
 }: PatternCardProps) => {
   const [copied, setCopied] = useState(false);
+  const { setPattern: setBackgroundPattern, pattern: currentBackgroundPattern } = useBackgroundPattern();
+
+  const handlePreview = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setBackgroundPattern(pattern);
+    toast.success(`Previewing "${pattern.name}" on website`);
+  };
 
   const copyToClipboard = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -48,10 +56,24 @@ export const PatternCard = ({
     return style;
   };
 
+  const handleDragStart = (e: React.DragEvent) => {
+    e.dataTransfer.setData("pattern", JSON.stringify(pattern));
+    e.dataTransfer.effectAllowed = "copy";
+    // Add visual feedback
+    (e.target as HTMLElement).style.opacity = "0.5";
+  };
+
+  const handleDragEnd = (e: React.DragEvent) => {
+    (e.target as HTMLElement).style.opacity = "1";
+  };
+
   return (
     <div
       className="group relative cursor-pointer"
       onClick={() => onPreview(pattern)}
+      draggable
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
     >
       {/* Pattern Preview */}
       <div
@@ -79,6 +101,16 @@ export const PatternCard = ({
           
           {/* Action Buttons */}
           <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 justify-end">
+            <button
+              onClick={handlePreview}
+              className={cn(
+                "px-3 py-1.5 rounded-md bg-secondary/80 hover:bg-secondary transition-colors backdrop-blur-sm text-xs font-medium",
+                currentBackgroundPattern?.id === pattern.id ? "text-primary ring-2 ring-primary" : "text-foreground"
+              )}
+              title="Preview on website"
+            >
+              Preview
+            </button>
             <button
               onClick={(e) => {
                 e.stopPropagation();

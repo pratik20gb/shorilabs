@@ -1,4 +1,6 @@
 import { useState, lazy, Suspense, useMemo } from "react";
+import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
+import { cn } from "@/lib/utils";
 
 // Lazy load all heavy components for better performance
 const Header = lazy(() => 
@@ -27,12 +29,16 @@ const Footer = lazy(() =>
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const { pattern, getPatternStyle } = useBackgroundPattern();
 
   // Memoize search handler to prevent re-renders
   const handleSearch = useMemo(() => setSearchQuery, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div 
+      className={cn("min-h-screen", !pattern && "bg-background")}
+      style={pattern ? getPatternStyle() : undefined}
+    >
       <Suspense fallback={<div className="h-16 fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border" />}>
         <Header onSearch={handleSearch} />
       </Suspense>

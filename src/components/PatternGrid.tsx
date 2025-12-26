@@ -89,7 +89,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
   ];
 
   return (
-    <section id="patterns" className="py-12 md:py-16 pattern-grid-section">
+    <section id="patterns" className="py-12 md:py-16 pattern-grid-section relative z-10">
       <div className="container mx-auto px-4 md:px-6">
         {/* Title */}
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 tracking-tight">

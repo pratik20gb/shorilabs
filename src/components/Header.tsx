@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, Github, Moon, Sun, Terminal, Download, Heart, Sparkles, Package, User } from "lucide-react";
+import { Search, Github, Moon, Sun, Terminal, Download, Heart, Sparkles, Package, User, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { Logo } from "./Logo";
+import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
+import { toast } from "sonner";
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
@@ -15,6 +17,7 @@ export const Header = ({ onSearch }: HeaderProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { pattern: backgroundPattern, setPattern: setBackgroundPattern } = useBackgroundPattern();
 
   useEffect(() => {
     setMounted(true);
@@ -161,6 +164,21 @@ export const Header = ({ onSearch }: HeaderProps) => {
             >
               <Github className="w-4 h-4" />
             </a>
+
+            {/* Clear Background Pattern */}
+            {backgroundPattern && (
+              <button
+                onClick={() => {
+                  setBackgroundPattern(null);
+                  toast.success("Background pattern cleared");
+                }}
+                className="p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Clear background pattern"
+                title="Clear background pattern"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
       </div>
