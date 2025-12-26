@@ -29,6 +29,9 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: Export patterns for CLI
+      run: npm run export-patterns
+
     - name: Build CLI
       run: npm run cli:build
 
