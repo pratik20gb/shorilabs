@@ -1,0 +1,59 @@
+{
+  "name": "@shorilabs/patterns-cli",
+  "version": "1.0.0",
+  "description": "CLI tool to browse and install shorilabs background patterns",
+  "main": "dist/index.js",
+  "bin": {
+    "shorilabs": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "prepublishOnly": "npm run build",
+    "postbuild": "node -e \"const fs=require('fs');const path=require('path');const file=path.join(__dirname,'dist/index.js');if(fs.existsSync(file)){fs.chmodSync(file,0o755)}\""
+  },
+  "keywords": [
+    "css",
+    "patterns",
+    "backgrounds",
+    "tailwind",
+    "cli"
+  ],
+  "author": {
+    "name": "shorilabs",
+    "url": "https://github.com/shorilabs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shorilabs/shorilabs.git",
+    "directory": "cli"
+  },
+  "bugs": {
+    "url": "https://github.com/shorilabs/shorilabs/issues"
+  },
+  "homepage": "https://github.com/shorilabs/shorilabs#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "chalk": "^5.3.0",
+    "inquirer": "^9.2.12",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "dist",
+    "patterns.json",
+    "LICENSE",
+    "README.md"
+  ]
+}
+

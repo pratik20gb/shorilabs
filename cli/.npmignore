@@ -1,0 +1,12 @@
+src/
+tsconfig.json
+*.ts
+!dist/**/*.ts
+node_modules/
+.gitignore
+SETUP.md
+*.log
+.DS_Store
+.env
+.env.*
+
