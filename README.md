@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./public/shorilabsV2.jpg" alt="shorilabs" width="800" />
+  <img src="./public/shorilabsV2.jpg" alt="shorilabs" width="100%" />
 </div>
 
 <div align="center">
@@ -27,11 +27,11 @@
 ## 📸 More Screenshots
 
 <div align="center">
-  <img src="./public/shorilabsV2page02.jpg" alt="shorilabs - Patterns" width="800" />
+  <img src="./public/shorilabsV2page02.jpg" alt="shorilabs - Patterns" width="100%" />
   <br /><br />
-  <img src="./public/shorilabsV2page03.jpg" alt="shorilabs - Buttons" width="800" />
+  <img src="./public/shorilabsV2page03.jpg" alt="shorilabs - Buttons" width="100%" />
   <br /><br />
-  <img src="./public/shorilabsV2page04.jpg" alt="shorilabs - CLI" width="800" />
+  <img src="./public/shorilabsV2page04.jpg" alt="shorilabs - CLI" width="100%" />
 </div>
 
 ---
