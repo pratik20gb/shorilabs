@@ -48,6 +48,17 @@ export const CLISection = () => {
           <p className="text-muted-foreground max-w-md mx-auto text-lg">
             Install patterns directly from your terminal
           </p>
+          <p className="text-xs text-muted-foreground/60 mt-2">
+            Crafted by{" "}
+            <a
+              href="https://thepratik.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Pratik
+            </a>
+          </p>
         </motion.div>
 
         {/* Terminal */}

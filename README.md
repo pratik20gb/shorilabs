@@ -230,4 +230,8 @@ This project is open source and available under the [MIT License](LICENSE).
   <img src="./public/logo-green-dark.svg" alt="shorilabs" height="60">
   <br />
   <p>© 2025 shorilabs. All rights reserved.</p>
+  <br />
+  <p>
+    Made with ❤️ by <a href="https://thepratik.xyz"><strong>Pratik</strong></a>
+  </p>
 </div>

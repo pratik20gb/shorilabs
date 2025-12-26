@@ -42,8 +42,21 @@ export const Footer = () => {
           </div>
 
           {/* Credits */}
-          <div className="text-sm text-muted-foreground">
-            © 2025 shorilabs
+          <div className="flex flex-col items-center md:items-end gap-1">
+            <div className="text-sm text-muted-foreground">
+              © 2025 shorilabs
+            </div>
+            <div className="text-xs text-muted-foreground/70">
+              Made with <span className="text-destructive">❤️</span> by{" "}
+              <a
+                href="https://thepratik.xyz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium hover:text-foreground transition-colors underline decoration-dotted underline-offset-2"
+              >
+                Pratik
+              </a>
+            </div>
           </div>
         </div>
       </div>
