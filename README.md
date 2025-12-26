@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./public/shorilabsV2.jpg" alt="shorilabs" width="100%" />
+  <img src="./public/shorilabsV2.jpg?v=2" alt="shorilabs" width="100%" />
 </div>
 
 <div align="center">
