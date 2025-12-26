@@ -32,6 +32,9 @@ jobs:
     - name: Export patterns for CLI
       run: npm run export-patterns
 
+    - name: Install CLI dependencies
+      run: cd cli && npm ci
+
     - name: Build CLI
       run: npm run cli:build
 

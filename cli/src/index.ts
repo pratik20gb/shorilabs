@@ -46,5 +46,5 @@ program
   .option('-j, --json', 'Output as JSON')
   .action(searchPatterns);
 
-program.parse();
+program.parse(process.argv);
 
