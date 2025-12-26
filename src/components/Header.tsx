@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, Github, Moon, Sun, Terminal, Download, Heart, Sparkles, Package } from "lucide-react";
+import { Search, Github, Moon, Sun, Terminal, Download, Heart, Sparkles, Package, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
@@ -84,6 +84,14 @@ export const Header = ({ onSearch }: HeaderProps) => {
               <Terminal className="w-3.5 h-3.5 inline mr-1.5" />
               CLI
             </button>
+            <a
+              href="https://thepratik.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
+            >
+              Portfolio
+            </a>
           </nav>
 
           {/* Right Actions */}
@@ -133,6 +141,18 @@ export const Header = ({ onSearch }: HeaderProps) => {
               title="View on npm"
             >
               <Package className="w-4 h-4" />
+            </a>
+
+            {/* Portfolio */}
+            <a
+              href="https://thepratik.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Portfolio"
+              title="Visit Pratik's Portfolio"
+            >
+              <User className="w-4 h-4" />
             </a>
 
             {/* GitHub */}
