@@ -4,6 +4,13 @@ import { cn } from "@/lib/utils";
 
 export type ViewType = "all" | "patterns" | "buttons";
 
+// Grid Fade background style
+const gridFadeStyle = {
+  backgroundColor: '#fafafa',
+  backgroundImage: 'linear-gradient(#00000015 1px, transparent 1px), linear-gradient(90deg, #00000015 1px, transparent 1px)',
+  backgroundSize: '50px 50px'
+};
+
 // Lazy load components
 const Header = lazy(() => 
   import("@/components/Header").then(module => ({ 
@@ -77,10 +84,13 @@ const Index = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
+  // Use preview pattern if active, otherwise use grid-fade as default
+  const backgroundStyle = pattern ? getPatternStyle() : gridFadeStyle;
+
   return (
     <div 
-      className={cn("min-h-screen", !pattern && "bg-background")}
-      style={pattern ? getPatternStyle() : undefined}
+      className="min-h-screen"
+      style={backgroundStyle}
     >
       <Suspense fallback={
         <div className="h-14 fixed top-0 left-0 right-0 z-50 bg-background border-b border-border" />

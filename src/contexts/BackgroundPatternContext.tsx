@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useMemo, ReactNode } from "react";
-import { Pattern, patterns } from "@/data/patterns";
+import { Pattern } from "@/data/patterns";
 import { 
   parsePatternCSS, 
   getPatternBrightness, 
@@ -9,9 +9,6 @@ import {
   getAdaptiveBgClass,
   getAdaptiveCardClass
 } from "@/lib/patternUtils";
-
-// Default pattern - grid-fade
-const DEFAULT_PATTERN = patterns.find(p => p.id === "grid-fade") || null;
 
 interface BackgroundPatternContextType {
   pattern: Pattern | null;
@@ -29,7 +26,7 @@ interface BackgroundPatternContextType {
 const BackgroundPatternContext = createContext<BackgroundPatternContextType | undefined>(undefined);
 
 export const BackgroundPatternProvider = ({ children }: { children: ReactNode }) => {
-  const [pattern, setPattern] = useState<Pattern | null>(DEFAULT_PATTERN);
+  const [pattern, setPattern] = useState<Pattern | null>(null);
 
   const getPatternStyle = (): React.CSSProperties => {
     if (!pattern) return {};
