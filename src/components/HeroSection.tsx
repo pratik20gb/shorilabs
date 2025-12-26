@@ -146,11 +146,33 @@ const HeroButtonCard = ({
   );
 };
 
+// Get a mixed selection of patterns from all categories
+const getMixedPatterns = () => {
+  const categories = ["gradients", "geometric", "decorative", "effects"];
+  const mixed: Pattern[] = [];
+  
+  // Get patterns from each category in rotation
+  let maxPerCategory = Math.ceil(16 / categories.length);
+  categories.forEach(cat => {
+    const categoryPatterns = patterns.filter(p => p.category === cat);
+    mixed.push(...categoryPatterns.slice(0, maxPerCategory));
+  });
+  
+  // Shuffle the mixed array
+  for (let i = mixed.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [mixed[i], mixed[j]] = [mixed[j], mixed[i]];
+  }
+  
+  return mixed.slice(0, 16);
+};
+
 export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPattern, setSelectedPattern] = useState<Pattern | null>(null);
   const [patternFavorites, setPatternFavorites] = useState<string[]>([]);
   const [buttonFavorites, setButtonFavorites] = useState<string[]>([]);
+  const [mixedPatterns, setMixedPatterns] = useState<Pattern[]>([]);
   const { isPreviewActive, textClass, mutedClass, brightness } = useBackgroundPattern();
 
   useEffect(() => {
@@ -158,6 +180,7 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
     const savedButtons = localStorage.getItem("shorilabs-button-favorites");
     if (savedPatterns) setPatternFavorites(JSON.parse(savedPatterns));
     if (savedButtons) setButtonFavorites(JSON.parse(savedButtons));
+    setMixedPatterns(getMixedPatterns());
     setTimeout(() => setIsLoading(false), 200);
   }, []);
 
@@ -278,7 +301,7 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
           ) : (
             <div className="relative overflow-hidden -mx-4 md:-mx-6">
               <div className="flex gap-4 animate-infinite-scroll hover:pause-animation px-4 md:px-6">
-                {patterns.slice(0, 12).map((pattern) => (
+                {mixedPatterns.map((pattern) => (
                   <div
                     key={`pattern-1-${pattern.id}`}
                     className="flex-shrink-0 w-48 md:w-56"
@@ -291,7 +314,7 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
                     />
                   </div>
                 ))}
-                {patterns.slice(0, 12).map((pattern) => (
+                {mixedPatterns.map((pattern) => (
                   <div
                     key={`pattern-2-${pattern.id}`}
                     className="flex-shrink-0 w-48 md:w-56"
