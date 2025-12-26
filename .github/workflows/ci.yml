@@ -24,6 +24,7 @@ jobs:
 
     - name: Lint
       run: npm run lint
+      continue-on-error: false
 
     - name: Build
       run: npm run build

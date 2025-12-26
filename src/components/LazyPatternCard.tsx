@@ -20,6 +20,9 @@ export const LazyPatternCard = ({
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const currentRef = cardRef.current;
+    if (!currentRef) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -37,14 +40,10 @@ export const LazyPatternCard = ({
       }
     );
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
+    observer.observe(currentRef);
 
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
+      observer.disconnect();
     };
   }, []);
 
