@@ -6,6 +6,8 @@
 [![npm](https://img.shields.io/npm/v/@shorilabs/patterns-cli)](https://www.npmjs.com/package/@shorilabs/patterns-cli)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+**🌐 Live Website:** [shorilabs.xyz](https://shorilabs.xyz)
+
 ## 📸 Screenshots
 
 <div align="center">
@@ -50,7 +52,7 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:8080` to see the app running!
+Visit `http://localhost:8080` to see the app running locally, or check out the [live website](https://shorilabs.xyz)!
 
 ### CLI Installation
 
