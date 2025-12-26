@@ -1,46 +1,58 @@
-import { useState, useEffect, lazy, Suspense } from "react";
-import { Header } from "@/components/Header";
-import { CLISection } from "@/components/CLISection";
-import { Footer } from "@/components/Footer";
-import { LoadingScreen } from "@/components/LoadingScreen";
+import { useState, lazy, Suspense, useMemo } from "react";
 
-// Lazy load PatternGrid for better performance
+// Lazy load all heavy components for better performance
+const Header = lazy(() => 
+  import("@/components/Header").then(module => ({ 
+    default: module.Header 
+  }))
+);
+
 const PatternGrid = lazy(() => 
   import("@/components/PatternGrid").then(module => ({ 
     default: module.PatternGrid 
   }))
 );
 
+const CLISection = lazy(() => 
+  import("@/components/CLISection").then(module => ({ 
+    default: module.CLISection 
+  }))
+);
+
+const Footer = lazy(() => 
+  import("@/components/Footer").then(module => ({ 
+    default: module.Footer 
+  }))
+);
+
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    // Simulate initial page load
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800); // Show loading screen for 800ms
-
-    return () => clearTimeout(timer);
-  }, []);
+  // Memoize search handler to prevent re-renders
+  const handleSearch = useMemo(() => setSearchQuery, []);
 
   return (
     <div className="min-h-screen bg-background">
-      <LoadingScreen isLoading={isLoading} />
-      <Header onSearch={setSearchQuery} />
+      <Suspense fallback={<div className="h-16 fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border" />}>
+        <Header onSearch={handleSearch} />
+      </Suspense>
       <main className="pt-16">
         <Suspense 
           fallback={
-            <div className="min-h-screen flex items-center justify-center">
-              <div className="text-muted-foreground">Loading patterns...</div>
+            <div className="min-h-[60vh] flex items-center justify-center py-20">
+              <div className="text-muted-foreground text-sm animate-pulse">Loading patterns...</div>
             </div>
           }
         >
           <PatternGrid searchQuery={searchQuery} />
         </Suspense>
-        <CLISection />
+        <Suspense fallback={null}>
+          <CLISection />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

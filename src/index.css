@@ -1,9 +1,10 @@
-@import "@fontsource/plus-jakarta-sans/400.css";
-@import "@fontsource/plus-jakarta-sans/500.css";
-@import "@fontsource/plus-jakarta-sans/600.css";
-@import "@fontsource/plus-jakarta-sans/700.css";
-@import "@fontsource/space-mono/400.css";
-@import "@fontsource/space-mono/700.css";
+/* Load fonts asynchronously to prevent blocking */
+@import "@fontsource/plus-jakarta-sans/400.css" layer(fonts);
+@import "@fontsource/plus-jakarta-sans/500.css" layer(fonts);
+@import "@fontsource/plus-jakarta-sans/600.css" layer(fonts);
+@import "@fontsource/plus-jakarta-sans/700.css" layer(fonts);
+@import "@fontsource/space-mono/400.css" layer(fonts);
+@import "@fontsource/space-mono/700.css" layer(fonts);
 
 @tailwind base;
 @tailwind components;
