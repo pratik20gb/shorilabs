@@ -1,4 +1,4 @@
-import { Github, Twitter, Heart } from "lucide-react";
+import { Github, Twitter, Heart, Package } from "lucide-react";
 import { Logo } from "./Logo";
 
 export const Footer = () => {
@@ -11,6 +11,16 @@ export const Footer = () => {
 
           {/* Links */}
           <div className="flex items-center gap-1">
+            <a
+              href="https://www.npmjs.com/package/@shorilabs/patterns-cli"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="NPM Package"
+              title="View on npm"
+            >
+              <Package className="w-4 h-4" />
+            </a>
             <a
               href="https://github.com/pratik20gb/shorilabs"
               target="_blank"

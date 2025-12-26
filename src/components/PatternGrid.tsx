@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import { PatternCard } from "./PatternCard";
+import { LazyPatternCard } from "./LazyPatternCard";
 import { PatternPreviewModal } from "./PatternPreviewModal";
 import { PatternSkeleton } from "./PatternSkeleton";
 import { patterns, categories, Pattern, PatternCategory } from "@/data/patterns";
@@ -169,7 +170,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                 </AnimatePresence>
             {/* Row 1 - Scroll Left to Right */}
             <div className="relative overflow-hidden -mx-4 md:-mx-6">
-              <div className="flex gap-4 md:gap-6 animate-infinite-scroll hover:pause-animation pl-4 md:pl-6" style={{ willChange: 'transform' }}>
+              <div className="flex gap-4 md:gap-6 animate-infinite-scroll hover:pause-animation pl-4 md:pl-6 gpu-accelerated">
                 {/* First set */}
                 {patterns.slice(0, Math.ceil(patterns.length / 3)).map((pattern) => (
                   <div
@@ -205,7 +206,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
 
             {/* Row 2 - Scroll Right to Left (Reverse) */}
             <div className="relative overflow-hidden -mx-4 md:-mx-6">
-              <div className="flex gap-4 md:gap-6 animate-infinite-scroll-reverse hover:pause-animation pl-4 md:pl-6" style={{ willChange: 'transform' }}>
+              <div className="flex gap-4 md:gap-6 animate-infinite-scroll-reverse hover:pause-animation pl-4 md:pl-6 gpu-accelerated">
                 {/* First set */}
                 {patterns.slice(Math.ceil(patterns.length / 3), Math.ceil(patterns.length * 2 / 3)).map((pattern) => (
                   <div
@@ -241,7 +242,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
 
             {/* Row 3 - Scroll Left to Right (Slower) */}
             <div className="relative overflow-hidden -mx-4 md:-mx-6">
-              <div className="flex gap-4 md:gap-6 animate-infinite-scroll-slow hover:pause-animation pl-4 md:pl-6" style={{ willChange: 'transform' }}>
+              <div className="flex gap-4 md:gap-6 animate-infinite-scroll-slow hover:pause-animation pl-4 md:pl-6 gpu-accelerated">
                 {/* First set */}
                 {patterns.slice(Math.ceil(patterns.length * 2 / 3)).map((pattern) => (
                   <div
@@ -295,7 +296,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ delay: index * 0.02 }}
                   >
-                    <PatternCard
+                    <LazyPatternCard
                       pattern={pattern}
                       onPreview={setSelectedPattern}
                       isFavorite={favorites.includes(pattern.id)}

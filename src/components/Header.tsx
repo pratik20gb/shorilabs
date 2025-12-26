@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, Github, Moon, Sun, Terminal, Download, Heart, Sparkles } from "lucide-react";
+import { Search, Github, Moon, Sun, Terminal, Download, Heart, Sparkles, Package } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
@@ -122,6 +122,18 @@ export const Header = ({ onSearch }: HeaderProps) => {
                 )}
               </button>
             )}
+
+            {/* NPM */}
+            <a
+              href="https://www.npmjs.com/package/@shorilabs/patterns-cli"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="NPM Package"
+              title="View on npm"
+            >
+              <Package className="w-4 h-4" />
+            </a>
 
             {/* GitHub */}
             <a

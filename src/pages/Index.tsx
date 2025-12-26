@@ -1,9 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Header } from "@/components/Header";
-import { PatternGrid } from "@/components/PatternGrid";
 import { CLISection } from "@/components/CLISection";
 import { Footer } from "@/components/Footer";
 import { LoadingScreen } from "@/components/LoadingScreen";
+
+// Lazy load PatternGrid for better performance
+const PatternGrid = lazy(() => 
+  import("@/components/PatternGrid").then(module => ({ 
+    default: module.PatternGrid 
+  }))
+);
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -23,7 +29,15 @@ const Index = () => {
       <LoadingScreen isLoading={isLoading} />
       <Header onSearch={setSearchQuery} />
       <main className="pt-16">
-        <PatternGrid searchQuery={searchQuery} />
+        <Suspense 
+          fallback={
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="text-muted-foreground">Loading patterns...</div>
+            </div>
+          }
+        >
+          <PatternGrid searchQuery={searchQuery} />
+        </Suspense>
         <CLISection />
       </main>
       <Footer />

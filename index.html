@@ -2,14 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- DNS Prefetch for performance -->
+    <link rel="dns-prefetch" href="https://www.npmjs.com" />
+    <link rel="dns-prefetch" href="https://github.com" />
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/logo-green-dark.svg" as="image" />
+    <link rel="preload" href="/favicon.svg" as="image" />
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     
+    <!-- Primary Meta Tags -->
     <title>shorilabs - Beautiful CSS & Tailwind Background Patterns</title>
     <meta name="description" content="Copy-paste CSS and Tailwind background patterns for your next project. 100+ beautiful patterns including gradients, geometric shapes, and effects. Dark mode ready, free, and open-source." />
     <meta name="author" content="shorilabs" />
     <meta name="keywords" content="CSS patterns, background patterns, gradients, Tailwind CSS, web design, frontend development, CSS backgrounds, geometric patterns, dark mode patterns" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#00ff41" />
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -31,6 +49,35 @@
     <meta name="twitter:creator" content="@sage_pratik" />
     
     <link rel="canonical" href="https://shorilabs.xyz/" />
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "shorilabs",
+      "description": "Beautiful CSS and Tailwind background patterns for modern web projects",
+      "url": "https://shorilabs.xyz",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Pratik",
+        "url": "https://thepratik.xyz",
+        "sameAs": [
+          "https://twitter.com/sage_pratik",
+          "https://github.com/pratik20gb"
+        ]
+      },
+      "softwareVersion": "1.0.0",
+      "license": "https://github.com/pratik20gb/shorilabs/blob/main/LICENSE"
+    }
+    </script>
   </head>
 
   <body>
