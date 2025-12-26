@@ -93,6 +93,8 @@ npm run dev list
 - **Website:** [shorilabs.xyz](https://shorilabs.xyz)
 - **GitHub:** [github.com/pratik20gb/shorilabs](https://github.com/pratik20gb/shorilabs)
 - **npm:** [npmjs.com/package/@shorilabs/patterns-cli](https://www.npmjs.com/package/@shorilabs/patterns-cli)
+- **Twitter:** [@sage_pratik](https://twitter.com/sage_pratik)
+- **Author:** [thepratik.xyz](https://thepratik.xyz)
 
 ## License
 

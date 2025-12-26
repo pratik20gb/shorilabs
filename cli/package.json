@@ -1,6 +1,6 @@
 {
   "name": "@shorilabs/patterns-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI tool to browse and install shorilabs background patterns",
   "main": "dist/index.js",
   "bin": {
@@ -21,8 +21,8 @@
   ],
   "author": {
     "name": "Pratik",
-    "url": "https://thepratik.xyz",
-    "twitter": "@sage_pratik"
+    "email": "pratik@thepratik.xyz",
+    "url": "https://thepratik.xyz"
   },
   "license": "MIT",
   "repository": {
@@ -34,6 +34,10 @@
     "url": "https://github.com/pratik20gb/shorilabs/issues"
   },
   "homepage": "https://shorilabs.xyz",
+  "funding": {
+    "type": "individual",
+    "url": "https://thepratik.xyz"
+  },
   "engines": {
     "node": ">=18.0.0"
   },
@@ -57,4 +61,3 @@
     "README.md"
   ]
 }
-
