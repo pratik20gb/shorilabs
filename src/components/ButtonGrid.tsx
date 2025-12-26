@@ -1,27 +1,26 @@
 import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
-import { PatternCard } from "./PatternCard";
-import { LazyPatternCard } from "./LazyPatternCard";
-import { PatternPreviewModal } from "./PatternPreviewModal";
+import { ButtonCard } from "./ButtonCard";
+import { ButtonPreviewModal } from "./ButtonPreviewModal";
 import { PatternSkeleton } from "./PatternSkeleton";
-import { patterns, categories, Pattern, PatternCategory } from "@/data/patterns";
+import { buttons, buttonCategories, Button, ButtonCategory } from "@/data/buttons";
 import { cn } from "@/lib/utils";
 import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
 
-interface PatternGridProps {
+interface ButtonGridProps {
   searchQuery?: string;
 }
 
-export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
-  const [activeCategory, setActiveCategory] = useState<PatternCategory | "favorites">("all");
-  const [selectedPattern, setSelectedPattern] = useState<Pattern | null>(null);
+export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
+  const [activeCategory, setActiveCategory] = useState<ButtonCategory | "favorites">("all");
+  const [selectedButton, setSelectedButton] = useState<Button | null>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { isPreviewActive, textClass, mutedClass, brightness } = useBackgroundPattern();
 
   useEffect(() => {
-    const saved = localStorage.getItem("shorilabs-favorites");
+    const saved = localStorage.getItem("shorilabs-button-favorites");
     if (saved) {
       setFavorites(JSON.parse(saved));
     }
@@ -29,7 +28,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("shorilabs-favorites", JSON.stringify(favorites));
+    localStorage.setItem("shorilabs-button-favorites", JSON.stringify(favorites));
   }, [favorites]);
 
   const toggleFavorite = (id: string) => {
@@ -38,21 +37,21 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
     );
   };
 
-  const filteredPatterns = useMemo(() => {
-    let result = patterns;
+  const filteredButtons = useMemo(() => {
+    let result = buttons;
 
     if (activeCategory === "favorites") {
-      result = result.filter((p) => favorites.includes(p.id));
+      result = result.filter((b) => favorites.includes(b.id));
     } else if (activeCategory !== "all") {
-      result = result.filter((p) => p.category === activeCategory);
+      result = result.filter((b) => b.category === activeCategory);
     }
 
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       result = result.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query) ||
-          p.category.toLowerCase().includes(query)
+        (b) =>
+          b.name.toLowerCase().includes(query) ||
+          b.category.toLowerCase().includes(query)
       );
     }
 
@@ -60,12 +59,17 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
   }, [activeCategory, searchQuery, favorites]);
 
   const allCategories = [
-    ...categories,
+    ...buttonCategories,
     { id: "favorites" as const, label: "Favorites", emoji: "❤️" },
   ];
 
+  // Split buttons into 3 rows for infinite scroll
+  const row1 = buttons.slice(0, Math.ceil(buttons.length / 3));
+  const row2 = buttons.slice(Math.ceil(buttons.length / 3), Math.ceil(buttons.length * 2 / 3));
+  const row3 = buttons.slice(Math.ceil(buttons.length * 2 / 3));
+
   return (
-    <section id="patterns" className="relative z-10">
+    <section id="buttons" className="relative z-10">
       {/* Page Header */}
       <div className="border-b border-border">
         <div className="container mx-auto px-4 md:px-6 py-8">
@@ -73,17 +77,17 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
             "text-3xl font-bold tracking-tight transition-colors",
             isPreviewActive ? textClass : "text-foreground"
           )}>
-            Patterns
+            Buttons
           </h1>
           <p className={cn(
             "text-base mt-2 transition-colors max-w-2xl",
             isPreviewActive ? mutedClass : "text-muted-foreground"
           )}>
-            Beautiful background patterns for your projects. Click to preview, copy CSS or Tailwind classes.
+            Ready-to-use button components with various styles and effects. Copy the CSS or Tailwind classes.
           </p>
         </div>
       </div>
-      
+
       <div className="container mx-auto px-4 md:px-6 py-6">
         {/* Category Filters */}
         <div className="flex items-center gap-2 mb-8 flex-wrap">
@@ -91,7 +95,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
             <button
               key={cat.id}
               data-category={cat.id}
-              onClick={() => setActiveCategory(cat.id as PatternCategory | "favorites")}
+              onClick={() => setActiveCategory(cat.id as ButtonCategory | "favorites")}
               className={cn(
                 "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
                 activeCategory === cat.id
@@ -119,15 +123,15 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                     : "opacity-50"
                 )}>
                   {cat.id === "all" 
-                    ? patterns.length 
-                    : patterns.filter(p => p.category === cat.id).length}
+                    ? buttons.length 
+                    : buttons.filter(b => b.category === cat.id).length}
                 </span>
               )}
             </button>
           ))}
         </div>
 
-        {/* Pattern Grid */}
+        {/* Button Grid */}
         {activeCategory === "all" && !searchQuery ? (
           // Infinite Scroll for "All" category
           <div className="space-y-4">
@@ -142,28 +146,28 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                 {/* Row 1 */}
                 <div className="relative overflow-hidden -mx-4 md:-mx-6">
                   <div className="flex gap-4 animate-infinite-scroll hover:pause-animation px-4 md:px-6">
-                    {patterns.slice(0, Math.ceil(patterns.length / 3)).map((pattern) => (
+                    {row1.map((button) => (
                       <div
-                        key={`row1-1-${pattern.id}`}
+                        key={`row1-1-${button.id}`}
                         className="flex-shrink-0 w-44 md:w-52"
                       >
-                        <PatternCard
-                          pattern={pattern}
-                          onPreview={setSelectedPattern}
-                          isFavorite={favorites.includes(pattern.id)}
+                        <ButtonCard
+                          button={button}
+                          onPreview={setSelectedButton}
+                          isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
                       </div>
                     ))}
-                    {patterns.slice(0, Math.ceil(patterns.length / 3)).map((pattern) => (
+                    {row1.map((button) => (
                       <div
-                        key={`row1-2-${pattern.id}`}
+                        key={`row1-2-${button.id}`}
                         className="flex-shrink-0 w-44 md:w-52"
                       >
-                        <PatternCard
-                          pattern={pattern}
-                          onPreview={setSelectedPattern}
-                          isFavorite={favorites.includes(pattern.id)}
+                        <ButtonCard
+                          button={button}
+                          onPreview={setSelectedButton}
+                          isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
                       </div>
@@ -174,28 +178,28 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                 {/* Row 2 - Reverse */}
                 <div className="relative overflow-hidden -mx-4 md:-mx-6">
                   <div className="flex gap-4 animate-infinite-scroll-reverse hover:pause-animation px-4 md:px-6">
-                    {patterns.slice(Math.ceil(patterns.length / 3), Math.ceil(patterns.length * 2 / 3)).map((pattern) => (
+                    {row2.map((button) => (
                       <div
-                        key={`row2-1-${pattern.id}`}
+                        key={`row2-1-${button.id}`}
                         className="flex-shrink-0 w-44 md:w-52"
                       >
-                        <PatternCard
-                          pattern={pattern}
-                          onPreview={setSelectedPattern}
-                          isFavorite={favorites.includes(pattern.id)}
+                        <ButtonCard
+                          button={button}
+                          onPreview={setSelectedButton}
+                          isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
                       </div>
                     ))}
-                    {patterns.slice(Math.ceil(patterns.length / 3), Math.ceil(patterns.length * 2 / 3)).map((pattern) => (
+                    {row2.map((button) => (
                       <div
-                        key={`row2-2-${pattern.id}`}
+                        key={`row2-2-${button.id}`}
                         className="flex-shrink-0 w-44 md:w-52"
                       >
-                        <PatternCard
-                          pattern={pattern}
-                          onPreview={setSelectedPattern}
-                          isFavorite={favorites.includes(pattern.id)}
+                        <ButtonCard
+                          button={button}
+                          onPreview={setSelectedButton}
+                          isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
                       </div>
@@ -206,28 +210,28 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                 {/* Row 3 - Slow */}
                 <div className="relative overflow-hidden -mx-4 md:-mx-6">
                   <div className="flex gap-4 animate-infinite-scroll-slow hover:pause-animation px-4 md:px-6">
-                    {patterns.slice(Math.ceil(patterns.length * 2 / 3)).map((pattern) => (
+                    {row3.map((button) => (
                       <div
-                        key={`row3-1-${pattern.id}`}
+                        key={`row3-1-${button.id}`}
                         className="flex-shrink-0 w-44 md:w-52"
                       >
-                        <PatternCard
-                          pattern={pattern}
-                          onPreview={setSelectedPattern}
-                          isFavorite={favorites.includes(pattern.id)}
+                        <ButtonCard
+                          button={button}
+                          onPreview={setSelectedButton}
+                          isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
                       </div>
                     ))}
-                    {patterns.slice(Math.ceil(patterns.length * 2 / 3)).map((pattern) => (
+                    {row3.map((button) => (
                       <div
-                        key={`row3-2-${pattern.id}`}
+                        key={`row3-2-${button.id}`}
                         className="flex-shrink-0 w-44 md:w-52"
                       >
-                        <PatternCard
-                          pattern={pattern}
-                          onPreview={setSelectedPattern}
-                          isFavorite={favorites.includes(pattern.id)}
+                        <ButtonCard
+                          button={button}
+                          onPreview={setSelectedButton}
+                          isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
                       </div>
@@ -246,18 +250,18 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
               ))
             ) : (
               <AnimatePresence mode="popLayout">
-                {filteredPatterns.map((pattern, index) => (
+                {filteredButtons.map((button, index) => (
                   <motion.div
-                    key={pattern.id}
+                    key={button.id}
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ delay: index * 0.02 }}
                   >
-                    <LazyPatternCard
-                      pattern={pattern}
-                      onPreview={setSelectedPattern}
-                      isFavorite={favorites.includes(pattern.id)}
+                    <ButtonCard
+                      button={button}
+                      onPreview={setSelectedButton}
+                      isFavorite={favorites.includes(button.id)}
                       onToggleFavorite={toggleFavorite}
                     />
                   </motion.div>
@@ -268,7 +272,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
         )}
 
         {/* Empty State */}
-        {filteredPatterns.length === 0 && !isLoading && (
+        {filteredButtons.length === 0 && !isLoading && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -278,14 +282,14 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
               "text-lg font-medium mb-1",
               isPreviewActive ? textClass : "text-foreground"
             )}>
-              No patterns found
+              No buttons found
             </p>
             <p className={cn(
               "text-sm",
               isPreviewActive ? mutedClass : "text-muted-foreground"
             )}>
               {activeCategory === "favorites"
-                ? "Save some patterns to your favorites."
+                ? "Save some buttons to your favorites."
                 : "Try a different search term or category."}
             </p>
           </motion.div>
@@ -293,9 +297,9 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
       </div>
 
       {/* Preview Modal */}
-      <PatternPreviewModal
-        pattern={selectedPattern}
-        onClose={() => setSelectedPattern(null)}
+      <ButtonPreviewModal
+        button={selectedButton}
+        onClose={() => setSelectedButton(null)}
       />
     </section>
   );

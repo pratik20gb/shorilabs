@@ -1,27 +1,30 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, Github, Moon, Sun, Terminal, Heart, Sparkles, Package, User, X } from "lucide-react";
+import { Search, Github, Moon, Sun, Package, X, Menu } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { Logo } from "./Logo";
 import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
 import { toast } from "sonner";
+import { ViewType } from "@/pages/Index";
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
+  activeView?: ViewType;
+  onViewChange?: (view: ViewType) => void;
 }
 
-export const Header = ({ onSearch }: HeaderProps) => {
+export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { 
     pattern: backgroundPattern, 
     setPattern: setBackgroundPattern,
     isPreviewActive,
-    textClass,
     mutedClass,
     cardClass,
     brightness
@@ -44,17 +47,11 @@ export const Header = ({ onSearch }: HeaderProps) => {
     onSearch?.(value);
   };
 
-  const scrollToCLI = () => {
-    const cliSection = document.getElementById('cli');
-    cliSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  const scrollToFavorites = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    // Trigger favorites filter
-    const favButton = document.querySelector('[data-category="favorites"]') as HTMLButtonElement;
-    setTimeout(() => favButton?.click(), 500);
-  };
+  const navItems = [
+    { id: "all" as ViewType, label: "Components" },
+    { id: "patterns" as ViewType, label: "Patterns" },
+    { id: "buttons" as ViewType, label: "Buttons" },
+  ];
 
   return (
     <motion.header
@@ -65,114 +62,97 @@ export const Header = ({ onSearch }: HeaderProps) => {
         isPreviewActive
           ? cn(cardClass, "shadow-lg")
           : isScrolled 
-            ? "bg-background/95 backdrop-blur-lg border-border/50 shadow-sm" 
-            : "bg-background/80 backdrop-blur-md border-transparent"
+            ? "bg-background/95 backdrop-blur-lg border-border shadow-sm" 
+            : "bg-background border-border"
       )}
     >
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between h-16 gap-4">
-          {/* Logo - h-8 (32px) for header */}
-          <Logo size="sm" variant="wordmark" />
-
-          {/* Center Navigation - Hidden on mobile */}
-          <nav className="hidden lg:flex items-center gap-2">
-            <a
-              href="#patterns"
-              className={cn(
-                "px-4 py-1.5 text-sm font-medium transition-colors rounded-lg",
-                isPreviewActive 
-                  ? cn(mutedClass, "hover:opacity-100") 
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-              )}
-            >
-              <Sparkles className="w-3.5 h-3.5 inline mr-1.5" />
-              Patterns
-            </a>
-            <button
-              onClick={scrollToFavorites}
-              className={cn(
-                "px-4 py-1.5 text-sm font-medium transition-colors rounded-lg",
-                isPreviewActive 
-                  ? cn(mutedClass, "hover:opacity-100") 
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-              )}
-            >
-              <Heart className="w-3.5 h-3.5 inline mr-1.5" />
-              Favorites
-            </button>
-            <button
-              onClick={scrollToCLI}
-              className={cn(
-                "px-4 py-1.5 text-sm font-medium transition-colors rounded-lg",
-                isPreviewActive 
-                  ? cn(mutedClass, "hover:opacity-100") 
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-              )}
-            >
-              <Terminal className="w-3.5 h-3.5 inline mr-1.5" />
-              CLI
-            </button>
-            <a
-              href="https://thepratik.xyz"
-              className={cn(
-                "px-4 py-1.5 text-sm font-medium transition-colors rounded-lg",
-                isPreviewActive 
-                  ? cn(mutedClass, "hover:opacity-100") 
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-              )}
-            >
-              Portfolio
-            </a>
-          </nav>
-
-          {/* Right Actions */}
-          <div className="flex items-center gap-1.5">
-            {/* Search */}
-            <div className="hidden md:flex relative">
-              <Search className={cn(
-                "absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5",
-                isPreviewActive ? mutedClass : "text-muted-foreground"
-              )} />
-              <Input
-                placeholder="Search patterns..."
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                className={cn(
-                  "pl-9 pr-3 h-9 w-52 rounded-lg text-sm focus-visible:ring-1",
-                  isPreviewActive 
-                    ? brightness === "dark"
-                      ? cn("bg-white/10 border-white/20 text-white placeholder:text-white/50")
-                      : cn("bg-black/5 border-black/10 text-gray-900 placeholder:text-gray-500")
-                    : "bg-secondary/50 border border-border/50 focus-visible:ring-border/50 focus-visible:border-border placeholder:text-muted-foreground/50"
-                )}
-              />
-            </div>
-
-            {/* CLI Button - Mobile */}
-            <button
-              onClick={scrollToCLI}
-              className={cn(
-                "lg:hidden px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5",
-                isPreviewActive
-                  ? brightness === "dark"
-                    ? "bg-white/20 text-white hover:bg-white/30"
-                    : "bg-black/10 text-gray-900 hover:bg-black/15"
-                  : "bg-foreground text-background hover:bg-foreground/90"
-              )}
-            >
-              <Terminal className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">CLI</span>
-            </button>
+        <div className="flex items-center justify-between h-14">
+          {/* Left: Logo */}
+          <div className="flex items-center gap-6">
+            <Logo size="sm" variant="wordmark" />
             
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => onViewChange?.(item.id)}
+                  className={cn(
+                    "px-3 py-1.5 text-sm font-medium transition-colors rounded-md",
+                    activeView === item.id
+                      ? isPreviewActive
+                        ? brightness === "dark"
+                          ? "text-white"
+                          : "text-gray-900"
+                        : "text-foreground"
+                      : isPreviewActive
+                        ? brightness === "dark"
+                          ? "text-white/60 hover:text-white/80"
+                          : "text-gray-500 hover:text-gray-700"
+                        : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          {/* Right: Actions */}
+          <div className="flex items-center gap-2">
+            {/* Search - Desktop */}
+            {activeView !== "all" && (
+              <div className="hidden lg:flex relative">
+                <Search className={cn(
+                  "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4",
+                  isPreviewActive ? mutedClass : "text-muted-foreground"
+                )} />
+                <Input
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  className={cn(
+                    "pl-9 pr-3 h-8 w-40 rounded-md text-sm border",
+                    isPreviewActive 
+                      ? brightness === "dark"
+                        ? "bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                        : "bg-black/5 border-black/10 text-gray-900 placeholder:text-gray-500"
+                      : "bg-transparent border-border placeholder:text-muted-foreground"
+                  )}
+                />
+              </div>
+            )}
+
+            {/* GitHub */}
+            <a
+              href="https://github.com/pratik20gb/shorilabs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "p-2 rounded-md transition-colors",
+                isPreviewActive 
+                  ? brightness === "dark"
+                    ? "text-white/60 hover:text-white"
+                    : "text-gray-500 hover:text-gray-900"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+              )}
+              aria-label="GitHub"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+
             {/* Theme Toggle */}
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className={cn(
-                  "p-2 rounded-lg transition-colors",
+                  "p-2 rounded-md transition-colors",
                   isPreviewActive 
-                    ? cn(mutedClass, "hover:opacity-100") 
-                    : "hover:bg-secondary/50 text-muted-foreground hover:text-foreground"
+                    ? brightness === "dark"
+                      ? "text-white/60 hover:text-white"
+                      : "text-gray-500 hover:text-gray-900"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
                 )}
                 aria-label="Toggle theme"
               >
@@ -184,77 +164,81 @@ export const Header = ({ onSearch }: HeaderProps) => {
               </button>
             )}
 
-            {/* NPM */}
-            <a
-              href="https://www.npmjs.com/package/@shorilabs/patterns-cli"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "p-2 rounded-lg transition-colors",
-                isPreviewActive 
-                  ? cn(mutedClass, "hover:opacity-100") 
-                  : "hover:bg-secondary/50 text-muted-foreground hover:text-foreground"
-              )}
-              aria-label="NPM Package"
-              title="View on npm"
-            >
-              <Package className="w-4 h-4" />
-            </a>
-
-            {/* Portfolio */}
-            <a
-              href="https://thepratik.xyz"
-              className={cn(
-                "p-2 rounded-lg transition-colors",
-                isPreviewActive 
-                  ? cn(mutedClass, "hover:opacity-100") 
-                  : "hover:bg-secondary/50 text-muted-foreground hover:text-foreground"
-              )}
-              aria-label="Portfolio"
-              title="Visit Pratik's Portfolio"
-            >
-              <User className="w-4 h-4" />
-            </a>
-
-            {/* GitHub */}
-            <a
-              href="https://github.com/pratik20gb/shorilabs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "p-2 rounded-lg transition-colors",
-                isPreviewActive 
-                  ? cn(mutedClass, "hover:opacity-100") 
-                  : "hover:bg-secondary/50 text-muted-foreground hover:text-foreground"
-              )}
-              aria-label="GitHub"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-
             {/* Clear Background Pattern */}
             {backgroundPattern && (
               <button
                 onClick={() => {
                   setBackgroundPattern(null);
-                  toast.success("Background pattern cleared");
+                  toast.success("Background cleared");
                 }}
                 className={cn(
-                  "p-2 rounded-lg transition-colors",
-                  isPreviewActive
-                    ? brightness === "dark"
-                      ? "bg-red-500/20 text-red-300 hover:bg-red-500/30"
-                      : "bg-red-500/10 text-red-600 hover:bg-red-500/20"
-                    : "hover:bg-secondary/50 text-muted-foreground hover:text-foreground"
+                  "p-2 rounded-md transition-colors",
+                  brightness === "dark"
+                    ? "text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                    : "text-red-500 hover:text-red-600 hover:bg-red-500/10"
                 )}
-                aria-label="Clear background pattern"
-                title="Clear background pattern"
+                aria-label="Clear background"
+                title="Clear preview"
               >
                 <X className="w-4 h-4" />
               </button>
             )}
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={cn(
+                "md:hidden p-2 rounded-md transition-colors",
+                isPreviewActive 
+                  ? brightness === "dark"
+                    ? "text-white/60 hover:text-white"
+                    : "text-gray-500 hover:text-gray-900"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+              )}
+              aria-label="Menu"
+            >
+              <Menu className="w-4 h-4" />
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <motion.nav
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden py-3 border-t border-border"
+          >
+            <div className="flex flex-col gap-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    onViewChange?.(item.id);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={cn(
+                    "px-3 py-2 text-sm font-medium transition-colors rounded-md text-left",
+                    activeView === item.id
+                      ? isPreviewActive
+                        ? brightness === "dark"
+                          ? "text-white bg-white/10"
+                          : "text-gray-900 bg-black/5"
+                        : "text-foreground bg-accent"
+                      : isPreviewActive
+                        ? brightness === "dark"
+                          ? "text-white/60"
+                          : "text-gray-500"
+                        : "text-muted-foreground"
+                  )}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </motion.nav>
+        )}
       </div>
     </motion.header>
   );
