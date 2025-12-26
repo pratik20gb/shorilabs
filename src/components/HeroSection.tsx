@@ -219,7 +219,7 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
             "mt-6 text-lg md:text-xl",
             isPreviewActive ? mutedClass : "text-muted-foreground"
           )}>
-            Patterns, buttons, and more — via web or CLI.
+            Beautify your website within minutes.
           </p>
           
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
