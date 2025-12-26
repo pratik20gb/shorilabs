@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import { PatternCard } from "./PatternCard";
 import { PatternPreviewModal } from "./PatternPreviewModal";
+import { PatternSkeleton } from "./PatternSkeleton";
 import { patterns, categories, Pattern, PatternCategory } from "@/data/patterns";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -123,22 +124,49 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
         {activeCategory === "all" && !searchQuery ? (
           // Infinite Horizontal Scroll for "All" category
           <div key="infinite-scroll-layout" className="space-y-6 relative">
-            {/* Hover hint */}
-            <AnimatePresence>
-              {showHint && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute top-8 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
-                >
-                  <p className="text-xs md:text-sm text-muted-foreground bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full border border-border/50 shadow-lg">
-                    Hover to pause • Click to view
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {isLoading ? (
+              // Loading skeletons for infinite scroll
+              <>
+                <div className="flex gap-4 md:gap-6 overflow-hidden pl-4 md:pl-6">
+                  {Array.from({ length: 8 }).map((_, index) => (
+                    <div key={`skeleton-row1-${index}`} className="flex-shrink-0 w-40 sm:w-48 md:w-56 lg:w-64">
+                      <PatternSkeleton index={index} />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex gap-4 md:gap-6 overflow-hidden pl-4 md:pl-6">
+                  {Array.from({ length: 8 }).map((_, index) => (
+                    <div key={`skeleton-row2-${index}`} className="flex-shrink-0 w-40 sm:w-48 md:w-56 lg:w-64">
+                      <PatternSkeleton index={index + 8} />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex gap-4 md:gap-6 overflow-hidden pl-4 md:pl-6">
+                  {Array.from({ length: 8 }).map((_, index) => (
+                    <div key={`skeleton-row3-${index}`} className="flex-shrink-0 w-40 sm:w-48 md:w-56 lg:w-64">
+                      <PatternSkeleton index={index + 16} />
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Hover hint */}
+                <AnimatePresence>
+                  {showHint && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute top-8 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
+                    >
+                      <p className="text-xs md:text-sm text-muted-foreground bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full border border-border/50 shadow-lg">
+                        Hover to pause • Click to view
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
             {/* Row 1 - Scroll Left to Right */}
             <div className="relative overflow-hidden -mx-4 md:-mx-6">
               <div className="flex gap-4 md:gap-6 animate-infinite-scroll hover:pause-animation pl-4 md:pl-6" style={{ willChange: 'transform' }}>
@@ -246,6 +274,8 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                 ))}
               </div>
             </div>
+              </>
+            )}
           </div>
         ) : (
           // Regular Grid for filtered categories
@@ -253,10 +283,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
             {isLoading ? (
               // Loading skeletons
               Array.from({ length: 12 }).map((_, index) => (
-                <div
-                  key={`skeleton-${index}`}
-                  className="aspect-square rounded-2xl bg-secondary/50 animate-pulse"
-                />
+                <PatternSkeleton key={`skeleton-${index}`} index={index} />
               ))
             ) : (
               <AnimatePresence mode="popLayout">
