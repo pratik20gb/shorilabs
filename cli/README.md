@@ -1,5 +1,8 @@
 # @shorilabs/patterns-cli
 
+[![npm](https://img.shields.io/npm/v/@shorilabs/patterns-cli)](https://www.npmjs.com/package/@shorilabs/patterns-cli)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 CLI tool to browse and install shorilabs background patterns.
 
 ## Installation
@@ -84,4 +87,14 @@ npm run dev list
 - `shorilabs get <id>` - Get a specific pattern
 - `shorilabs add <id>` - Add pattern to your project
 - `shorilabs search <query>` - Search patterns
+
+## Links
+
+- **Website:** [shorilabs.xyz](https://shorilabs.xyz)
+- **GitHub:** [github.com/pratik20gb/shorilabs](https://github.com/pratik20gb/shorilabs)
+- **npm:** [npmjs.com/package/@shorilabs/patterns-cli](https://www.npmjs.com/package/@shorilabs/patterns-cli)
+
+## License
+
+MIT © 2025 shorilabs
 
