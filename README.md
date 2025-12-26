@@ -1,15 +1,14 @@
-<div align="center">
+<div>
   <img src="./public/logo-green-dark.svg" alt="shorilabs" height="100">
 </div>
-> Beautiful CSS and Tailwind background patterns for modern web projects
 
 [![Website](https://img.shields.io/badge/website-shorilabs.xyz-blue)](https://shorilabs.xyz)
 [![npm](https://img.shields.io/npm/v/@shorilabs/patterns-cli)](https://www.npmjs.com/package/@shorilabs/patterns-cli)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-**🌐 Live Website:** [shorilabs.xyz](https://shorilabs.xyz)
+<!-- **🌐 Live Website:** [shorilabs.xyz](https://shorilabs.xyz) -->
 
-## 📸 Screenshots
+<!-- ## 📸 Screenshots -->
 
 <div align="center">
   <img src="./public/shorilabsPage01.jpg" alt="shorilabs - Pattern Library" width="800" />
