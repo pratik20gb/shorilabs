@@ -6,6 +6,16 @@
 [![npm](https://img.shields.io/npm/v/@shorilabs/patterns-cli)](https://www.npmjs.com/package/@shorilabs/patterns-cli)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+## 📸 Screenshots
+
+<div align="center">
+  <img src="./public/shorilabsPage01.jpg" alt="shorilabs - Pattern Library" width="800" />
+  <br /><br />
+  <img src="./public/shorilabsPage02.jpg" alt="shorilabs - Pattern Categories" width="800" />
+  <br /><br />
+  <img src="./public/shorilabsPage03.jpg" alt="shorilabs - CLI Section" width="800" />
+</div>
+
 ## ✨ Features
 
 - 🎨 **100+ Patterns** - Gradients, geometric shapes, decorative effects, and more
