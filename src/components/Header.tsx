@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, Github, Moon, Sun, Package, X, Menu } from "lucide-react";
+import { Search, Github, X, Menu } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
 import { Logo } from "./Logo";
 import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
 import { toast } from "sonner";
@@ -18,8 +17,6 @@ interface HeaderProps {
 export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { 
     pattern: backgroundPattern, 
@@ -29,10 +26,6 @@ export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderPro
     cardClass,
     brightness
   } = useBackgroundPattern();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -141,28 +134,6 @@ export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderPro
             >
               <Github className="w-4 h-4" />
             </a>
-
-            {/* Theme Toggle */}
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className={cn(
-                  "p-2 rounded-md transition-colors",
-                  isPreviewActive 
-                    ? brightness === "dark"
-                      ? "text-white/60 hover:text-white"
-                      : "text-gray-500 hover:text-gray-900"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                )}
-                aria-label="Toggle theme"
-              >
-                {theme === "dark" ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                )}
-              </button>
-            )}
 
             {/* Clear Background Pattern */}
             {backgroundPattern && (
