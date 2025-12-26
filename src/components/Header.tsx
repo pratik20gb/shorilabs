@@ -126,7 +126,7 @@ export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderPro
 
             {/* CLI */}
             <a
-              href="https://www.npmjs.com/package/shorilabs"
+              href="https://www.npmjs.com/package/@shorilabs/cli"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
