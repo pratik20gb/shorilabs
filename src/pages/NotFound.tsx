@@ -21,8 +21,6 @@ const NotFound = () => {
             Built by{" "}
             <a
               href="https://thepratik.xyz"
-              target="_blank"
-              rel="noopener noreferrer"
               className="font-medium text-foreground hover:underline"
             >
               Pratik

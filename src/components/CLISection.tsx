@@ -52,8 +52,6 @@ export const CLISection = () => {
             Crafted by{" "}
             <a
               href="https://thepratik.xyz"
-              target="_blank"
-              rel="noopener noreferrer"
               className="font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               Pratik

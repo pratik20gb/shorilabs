@@ -50,8 +50,6 @@ export const Footer = () => {
               Made with <span className="text-destructive">❤️</span> by{" "}
               <a
                 href="https://thepratik.xyz"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="font-medium hover:text-foreground transition-colors underline decoration-dotted underline-offset-2"
               >
                 Pratik
