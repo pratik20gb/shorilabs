@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 const cliCommands = [
   {
-    command: "npm install -g @shorilabs/patterns",
+    command: "npm install -g @shorilabs/patterns-cli",
     description: "Install globally",
   },
   {
