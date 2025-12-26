@@ -4,6 +4,7 @@ import { Pattern } from "@/data/patterns";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
+import { parsePatternCSS } from "@/lib/patternUtils";
 
 interface PatternCardProps {
   pattern: Pattern;
@@ -36,24 +37,7 @@ export const PatternCard = ({
   };
 
   const getPatternStyle = (): React.CSSProperties => {
-    const cssLines = pattern.css.split("\n");
-    const style: React.CSSProperties = {};
-
-    cssLines.forEach((line) => {
-      const match = line.match(/^([^:@]+):\s*(.+);?\s*$/);
-      if (match && !line.includes("@keyframes")) {
-        const [, prop, value] = match;
-        const camelProp = prop
-          .trim()
-          .replace(/-([a-z])/g, (_, l) => l.toUpperCase());
-        (style as Record<string, string>)[camelProp] = value.trim().replace(
-          /;$/,
-          ""
-        );
-      }
-    });
-
-    return style;
+    return parsePatternCSS(pattern.css);
   };
 
   const handleDragStart = (e: React.DragEvent) => {

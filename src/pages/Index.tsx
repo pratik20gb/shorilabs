@@ -42,7 +42,7 @@ const Index = () => {
       <Suspense fallback={<div className="h-16 fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border" />}>
         <Header onSearch={handleSearch} />
       </Suspense>
-      <main className="pt-16">
+      <main className="pt-16 relative z-10">
         <Suspense 
           fallback={
             <div className="min-h-[60vh] flex items-center justify-center py-20">

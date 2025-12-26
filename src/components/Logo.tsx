@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
 
 interface LogoProps {
   size?: "xs" | "sm" | "md" | "lg" | "xl";
@@ -12,6 +13,7 @@ interface LogoProps {
 export const Logo = ({ size = "md", showText = false, className, variant = "wordmark" }: LogoProps) => {
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { isPreviewActive, brightness } = useBackgroundPattern();
 
   useEffect(() => {
     setMounted(true);
@@ -35,15 +37,24 @@ export const Logo = ({ size = "md", showText = false, className, variant = "word
     xl: "w-16 h-16", // 64px
   };
 
-  // Determine which logo to use based on theme
-  // Use resolvedTheme to handle system theme preference
+  // Determine which logo to use based on theme and pattern preview
   const currentTheme = mounted ? (resolvedTheme || theme) : "light";
   
-  const logoSrc = variant === "icon"
-    ? "/icon-green.svg"
-    : currentTheme === "dark" 
-      ? "/logo-green-dark.svg" 
-      : "/logo-green.svg";
+  // When previewing a pattern, use the appropriate logo based on brightness
+  // Dark patterns need dark logo (white text), light patterns need regular logo (dark text)
+  const getLogoSrc = () => {
+    if (variant === "icon") return "/icon-green.svg";
+    
+    if (isPreviewActive) {
+      // For pattern preview, use brightness to determine logo
+      return brightness === "light" ? "/logo-green.svg" : "/logo-green-dark.svg";
+    }
+    
+    // Normal theme-based selection
+    return currentTheme === "dark" ? "/logo-green-dark.svg" : "/logo-green.svg";
+  };
+  
+  const logoSrc = getLogoSrc();
 
   const sizeClass = variant === "icon" 
     ? iconSizes[size] 

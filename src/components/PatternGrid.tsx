@@ -8,6 +8,7 @@ import { PatternSkeleton } from "./PatternSkeleton";
 import { patterns, categories, Pattern, PatternCategory } from "@/data/patterns";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
 
 interface PatternGridProps {
   searchQuery?: string;
@@ -19,6 +20,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showHint, setShowHint] = useState(true);
+  const { isPreviewActive, textClass, mutedClass, brightness } = useBackgroundPattern();
 
   useEffect(() => {
     const saved = localStorage.getItem("shorilabs-favorites");
@@ -92,7 +94,10 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
     <section id="patterns" className="py-12 md:py-16 pattern-grid-section relative z-10">
       <div className="container mx-auto px-4 md:px-6">
         {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 tracking-tight">
+        <h1 className={cn(
+          "text-4xl md:text-5xl font-bold text-center mb-8 tracking-tight transition-colors",
+          isPreviewActive ? textClass : "text-foreground"
+        )}>
           Patterns
         </h1>
         
@@ -104,8 +109,18 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
               data-category={cat.id}
               onClick={() => setActiveCategory(cat.id as PatternCategory | "favorites")}
               className={cn(
-                "pill-button flex items-center gap-2",
-                activeCategory === cat.id ? "pill-button-active" : "pill-button-inactive"
+                "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all",
+                isPreviewActive
+                  ? activeCategory === cat.id
+                    ? brightness === "dark" 
+                      ? "bg-white/20 text-white shadow-lg"
+                      : "bg-black/10 text-gray-900 shadow-lg"
+                    : brightness === "dark"
+                      ? "bg-white/10 text-white/70 hover:bg-white/15"
+                      : "bg-black/5 text-gray-700 hover:bg-black/10"
+                  : activeCategory === cat.id 
+                    ? "pill-button-active" 
+                    : "pill-button-inactive"
               )}
             >
               {cat.id === "favorites" ? (
@@ -162,7 +177,14 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                       transition={{ duration: 0.3 }}
                       className="absolute top-8 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
                     >
-                      <p className="text-xs md:text-sm text-muted-foreground bg-background/90 backdrop-blur-sm px-4 py-2 rounded-full border border-border/50 shadow-lg">
+                      <p className={cn(
+                        "text-xs md:text-sm px-4 py-2 rounded-full shadow-lg backdrop-blur-sm",
+                        isPreviewActive 
+                          ? brightness === "dark"
+                            ? "bg-black/40 text-white/80 border border-white/20"
+                            : "bg-white/80 text-gray-700 border border-black/10"
+                          : "text-muted-foreground bg-background/90 border border-border/50"
+                      )}>
                         Hover to pause • Click to view
                       </p>
                     </motion.div>
@@ -319,10 +341,16 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
             <div className="text-5xl mb-3">
               {activeCategory === "favorites" ? "❤️" : "✨"}
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-1">
+            <h3 className={cn(
+              "text-lg font-semibold mb-1",
+              isPreviewActive ? textClass : "text-foreground"
+            )}>
               No patterns found
             </h3>
-            <p className="text-sm text-muted-foreground">
+            <p className={cn(
+              "text-sm",
+              isPreviewActive ? mutedClass : "text-muted-foreground"
+            )}>
               {activeCategory === "favorites"
                 ? "You haven't saved any favourites yet."
                 : "Try adjusting your search or filter."}
