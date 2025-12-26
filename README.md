@@ -1,34 +1,50 @@
-<div>
+<div align="center">
   <img src="./public/logo-green-dark.svg" alt="shorilabs" height="100">
 </div>
 
-[![Website](https://img.shields.io/badge/website-shorilabs.xyz-blue)](https://shorilabs.xyz)
-[![npm](https://img.shields.io/npm/v/@shorilabs/patterns-cli)](https://www.npmjs.com/package/@shorilabs/patterns-cli)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+<p align="center">
+  <strong>Beautiful CSS & Tailwind patterns and buttons for modern web projects</strong>
+</p>
 
-<!-- **🌐 Live Website:** [shorilabs.xyz](https://shorilabs.xyz) -->
+<p align="center">
+  <a href="https://shorilabs.xyz">
+    <img src="https://img.shields.io/badge/website-shorilabs.xyz-blue" alt="Website" />
+  </a>
+  <a href="https://www.npmjs.com/package/@shorilabs/cli">
+    <img src="https://img.shields.io/npm/v/@shorilabs/cli" alt="npm" />
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-green" alt="License" />
+  </a>
+</p>
 
-<!-- ## 📸 Screenshots -->
+---
+
+## 📸 Screenshots
 
 <div align="center">
-  <img src="./public/shorilabsPage01.jpg" alt="shorilabs - Pattern Library" width="800" />
+  <img src="./public/shorilabsV2.jpg" alt="shorilabs - Home" width="800" />
   <br /><br />
-  <img src="./public/shorilabsPage02.jpg" alt="shorilabs - Pattern Categories" width="800" />
+  <img src="./public/shorilabsV2page02.jpg" alt="shorilabs - Patterns" width="800" />
   <br /><br />
-  <img src="./public/shorilabsPage03.jpg" alt="shorilabs - CLI Section" width="800" />
+  <img src="./public/shorilabsV2page03.jpg" alt="shorilabs - Buttons" width="800" />
+  <br /><br />
+  <img src="./public/shorilabsV2page04.jpg" alt="shorilabs - CLI" width="800" />
 </div>
+
+---
 
 ## ✨ Features
 
 - 🎨 **100+ Patterns** - Gradients, geometric shapes, decorative effects, and more
-- 📋 **One-Click Copy** - CSS and Tailwind CSS versions for every pattern
-- 🌓 **Dark Mode Ready** - All patterns work beautifully in both light and dark themes
-- ❤️ **Favorites System** - Save your favorite patterns locally
-- 🔍 **Search & Filter** - Find patterns quickly by name or category
+- 🔘 **29+ Buttons** - Primary, secondary, outline, ghost, animated, 3D, and neon styles
+- 📋 **One-Click Copy** - CSS and Tailwind CSS versions for every component
+- 👁️ **Live Preview** - Preview patterns directly on the website background
+- ❤️ **Favorites System** - Save your favorite patterns and buttons locally
+- 🔍 **Search & Filter** - Find components quickly by name or category
 - 📱 **Fully Responsive** - Beautiful on all screen sizes
 - 🚀 **Fast & Lightweight** - Built with Vite and optimized for performance
-- 💾 **Export All** - Download all patterns as JSON
-- 💻 **CLI Tool** - Install patterns directly from the command line
+- 💻 **CLI Tool** - Install patterns and buttons directly from the command line
 
 ## 🚀 Quick Start
 
@@ -59,24 +75,26 @@ Visit `http://localhost:8080` to see the app running locally, or check out the [
 Install the CLI tool globally from npm:
 
 ```bash
-npm install -g @shorilabs/patterns-cli
+npm install -g @shorilabs/cli
 ```
 
 Then use it:
 
 ```bash
-shorilabs list
+# List all patterns
+shorilabs patterns
+
+# List all buttons  
+shorilabs buttons
+
+# Get a specific pattern
 shorilabs get aurora-glow
+
+# Get a specific button
+shorilabs get neon-blue --type button
+
+# Search across all components
 shorilabs search gradient
-```
-
-**For development:**
-
-```bash
-cd cli
-npm install
-npm run build
-npm link  # Makes 'shorilabs' command available globally
 ```
 
 ## 📦 Build
@@ -91,13 +109,12 @@ npm run preview
 
 ## 🎯 Usage
 
-1. **Browse Patterns** - Scroll through 100+ beautiful patterns
-2. **Filter by Category** - Click category pills to filter (Gradients, Geometric, Decorative, Effects)
-3. **Search** - Use the search bar to find specific patterns
-4. **Preview** - Click any pattern to see it in full-screen with code
-5. **Copy Code** - Toggle between CSS and Tailwind, then copy to clipboard
-6. **Save Favorites** - Click the heart icon to save patterns you love
-7. **Download All** - Export all patterns as JSON for offline use
+1. **Browse Components** - Scroll through patterns and buttons on the home page
+2. **Filter by Category** - Click category pills to filter components
+3. **Search** - Use the search bar to find specific components
+4. **Preview Patterns** - Click "Preview" to see patterns on the website background
+5. **Copy Code** - View CSS and Tailwind code, then copy to clipboard
+6. **Save Favorites** - Click the heart icon to save components you love
 
 ## 🛠️ Tech Stack
 
@@ -107,7 +124,6 @@ npm run preview
 - **Styling:** Tailwind CSS
 - **UI Components:** shadcn/ui
 - **Animations:** Framer Motion
-- **Theme:** next-themes
 - **Icons:** Lucide React
 
 ## 📂 Project Structure
@@ -116,80 +132,105 @@ npm run preview
 src/
 ├── components/
 │   ├── ui/              # shadcn/ui components
-│   ├── Header.tsx       # Main header with search and theme toggle
-│   ├── Logo.tsx         # Logo component
+│   ├── Header.tsx       # Main header with navigation
+│   ├── HeroSection.tsx  # Landing page hero
 │   ├── PatternCard.tsx  # Individual pattern card
 │   ├── PatternGrid.tsx  # Pattern grid with filtering
-│   ├── PatternPreviewModal.tsx  # Full-screen pattern preview
+│   ├── ButtonCard.tsx   # Individual button card
+│   ├── ButtonGrid.tsx   # Button grid with filtering
 │   ├── CLISection.tsx   # CLI documentation section
 │   └── Footer.tsx       # Footer with links
 ├── data/
-│   └── patterns.ts      # All 100+ pattern data
+│   ├── patterns.ts      # All 100+ pattern data
+│   └── buttons.ts       # All 29+ button data
+├── contexts/
+│   └── BackgroundPatternContext.tsx  # Global pattern preview state
 ├── pages/
 │   ├── Index.tsx        # Home page
 │   └── NotFound.tsx     # 404 page
 ├── lib/
-│   └── utils.ts         # Utility functions
+│   ├── utils.ts         # Utility functions
+│   └── patternUtils.ts  # Pattern parsing utilities
 └── App.tsx              # App root with providers
 ```
 
 ## 🎨 Pattern Categories
 
-### Gradients (20 patterns)
-Beautiful gradient backgrounds including Aurora Glow, Cyber Sunset, Neon Horizon, Arctic Blue, Forest Depth, and more.
+- **Gradients** - Aurora, sunset, neon, arctic, forest, and more
+- **Geometric** - Grids, dots, hexagons, triangles, isometric cubes
+- **Decorative** - Noise, spotlights, waves, starbursts, blobs
+- **Effects** - Blur orbs, glass morphism, mesh gradients, holographic
 
-### Geometric (50 patterns)
-Comprehensive collection including grids, dots, hexagons, diagonal lines, crosses, triangles, isometric cubes, checkerboard, weave patterns, houndstooth, circuit boards, blueprints, and much more.
+## 🔘 Button Categories
 
-### Decorative (16 patterns)
-Noise textures, spotlights, corner glows, wave patterns, starbursts, radial glows, and organic blobs.
-
-### Effects (23 patterns)
-Blur orbs, glass morphism, frosted glass, mesh gradients, animated gradients, vignettes, scanlines, neon grids, holographic effects, and plasma patterns.
+- **Primary** - Solid, prominent call-to-action buttons
+- **Secondary** - Subtle, secondary action buttons
+- **Outline** - Border-only buttons with hover fill
+- **Ghost** - Minimal buttons for tertiary actions
+- **Animated** - Buttons with hover animations
+- **3D** - Buttons with depth and shadow effects
+- **Neon** - Glowing, cyberpunk-style buttons
 
 ## 💻 CLI Usage
 
-After installing the CLI, you can use it from anywhere:
-
 ```bash
-# List all patterns
-shorilabs list
+# List patterns
+shorilabs patterns
+shorilabs patterns --category gradients
 
-# List patterns by category
-shorilabs list --category gradients
+# List buttons
+shorilabs buttons
+shorilabs buttons --category neon
 
-# Get a specific pattern
+# Get component CSS
 shorilabs get aurora-glow
+shorilabs get neon-blue --type button
 
-# Get only CSS
-shorilabs get aurora-glow --format css
+# Add to project
+shorilabs add aurora-glow --file styles.css
+shorilabs add neon-blue --type button --file buttons.css
 
-# Add pattern to your project
-shorilabs add aurora-glow --file styles/patterns.css
+# Search all components
+shorilabs search glow
 
-# Add as Tailwind classes
-shorilabs add grid-fade --tailwind --file styles/patterns.css
-
-# Search patterns
-shorilabs search aurora
+# Show CLI info
+shorilabs info
 ```
 
-## 📝 Adding New Patterns
+## 📝 Adding New Components
 
-To add a new pattern, edit `src/data/patterns.ts`:
+### Adding Patterns
+
+Edit `src/data/patterns.ts`:
 
 ```typescript
 {
   id: "your-pattern-id",
   name: "Your Pattern Name",
   category: "gradients" | "geometric" | "decorative" | "effects",
-  isNew: true, // Optional: shows "New" badge
+  isNew: true,
   css: `background: your-css-here;`,
   tailwind: `bg-[your-tailwind-classes]`,
 }
 ```
 
-After adding patterns, export them for the CLI:
+### Adding Buttons
+
+Edit `src/data/buttons.ts`:
+
+```typescript
+{
+  id: "your-button-id",
+  name: "Your Button Name",
+  category: "primary" | "secondary" | "outline" | "ghost" | "animated" | "3d" | "neon",
+  label: "Click Me",
+  isNew: true,
+  css: `your-button-css-here`,
+  tailwind: `your-tailwind-classes`,
+}
+```
+
+After adding components, export them for the CLI:
 
 ```bash
 npm run export-patterns
@@ -197,21 +238,17 @@ npm run export-patterns
 
 ## 📦 Packages
 
-This repository contains the following npm packages:
-
-- **[@shorilabs/patterns-cli](https://www.npmjs.com/package/@shorilabs/patterns-cli)** - CLI tool to browse and install patterns
+- **[@shorilabs/cli](https://www.npmjs.com/package/@shorilabs/cli)** - CLI tool to browse and install patterns & buttons
 
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingPattern`)
-3. Commit your changes (`git commit -m 'Add some AmazingPattern'`)
-4. Push to the branch (`git push origin feature/AmazingPattern`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
 ## 📄 License
 
@@ -220,18 +257,14 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 🔗 Links
 
 - **Website:** [shorilabs.xyz](https://shorilabs.xyz)
-- **npm Package:** [@shorilabs/patterns-cli](https://www.npmjs.com/package/@shorilabs/patterns-cli)
+- **npm Package:** [@shorilabs/cli](https://www.npmjs.com/package/@shorilabs/cli)
 - **GitHub:** [github.com/pratik20gb/shorilabs](https://github.com/pratik20gb/shorilabs)
-- **Twitter:** [@sage_pratik](https://twitter.com/sage_pratik)
+- **X:** [@sage_pratik](https://twitter.com/sage_pratik)
 
 ---
 
 <div align="center">
   <img src="./public/logo-green-dark.svg" alt="shorilabs" height="60">
-  <br />
-  <p>© 2025 shorilabs. All rights reserved.</p>
-  <br />
-  <p>
-    Made with ❤️ by <a href="https://thepratik.xyz"><strong>Pratik</strong></a>
-  </p>
+  <br /><br />
+  <p>Made with ❤️ by <a href="https://thepratik.xyz"><strong>Pratik</strong></a></p>
 </div>
