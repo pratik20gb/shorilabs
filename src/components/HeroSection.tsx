@@ -131,30 +131,37 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
   return (
     <section className="relative z-10">
       {/* Hero */}
-      <div className="container mx-auto px-4 md:px-6 pt-16 pb-12">
+      <div className="container mx-auto px-4 md:px-6 pt-20 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="max-w-3xl mx-auto text-center"
         >
           <h1 className={cn(
-            "text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight",
+            "text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight",
             isPreviewActive ? textClass : "text-foreground"
           )}>
-            Build your component library
+            Reusable UI.{" "}
+            <span className={cn(
+              "bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent"
+            )}>
+              Instantly usable.
+            </span>
           </h1>
           <p className={cn(
-            "mt-4 text-lg md:text-xl max-w-2xl mx-auto",
+            "mt-6 text-lg md:text-xl max-w-xl mx-auto leading-relaxed",
             isPreviewActive ? mutedClass : "text-muted-foreground"
           )}>
-            Beautifully designed patterns and buttons that you can copy and paste into your apps. Open source. Customizable.
+            Buttons, components, and patterns —
+            <br className="hidden sm:block" />
+            available via web and CLI.
           </p>
           
-          <div className="mt-8 flex items-center justify-center gap-4">
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
               onClick={() => onNavigate("patterns")}
               className={cn(
-                "px-6 py-2.5 rounded-md text-sm font-medium transition-colors",
+                "w-full sm:w-auto px-8 py-3 rounded-md text-sm font-medium transition-all",
                 isPreviewActive
                   ? brightness === "dark"
                     ? "bg-white text-black hover:bg-white/90"
@@ -167,7 +174,7 @@ export const HeroSection = ({ onNavigate }: HeroSectionProps) => {
             <button
               onClick={() => onNavigate("buttons")}
               className={cn(
-                "px-6 py-2.5 rounded-md text-sm font-medium transition-colors border",
+                "w-full sm:w-auto px-8 py-3 rounded-md text-sm font-medium transition-all border",
                 isPreviewActive
                   ? brightness === "dark"
                     ? "border-white/20 text-white hover:bg-white/10"
