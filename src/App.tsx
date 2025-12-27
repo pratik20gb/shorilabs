@@ -1,4 +1,5 @@
 import { lazy, Suspense, useState, useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -47,6 +48,7 @@ const App = () => {
                 } />
               </Routes>
             </BrowserRouter>
+            <Analytics />
           </TooltipProvider>
         </ModalProvider>
       </BackgroundPatternProvider>
