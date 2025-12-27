@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./public/shorilabsV2.jpg?v=2" alt="shorilabs" width="100%" />
+  <img src="https://raw.githubusercontent.com/pratik20gb/shorilabs/main/public/og-cover.png" alt="shorilabs" width="100%" />
 </div>
 
 <div align="center">
@@ -21,18 +21,6 @@
     <img src="https://img.shields.io/badge/license-MIT-green" alt="License" />
   </a>
 </p>
-
----
-
-## 📸 More Screenshots
-
-<div align="center">
-  <img src="./public/shorilabsV2page02.jpg" alt="shorilabs - Patterns" width="100%" />
-  <br /><br />
-  <img src="./public/shorilabsV2page03.jpg" alt="shorilabs - Buttons" width="100%" />
-  <br /><br />
-  <img src="./public/shorilabsV2page04.jpg" alt="shorilabs - CLI" width="100%" />
-</div>
 
 ---
 
