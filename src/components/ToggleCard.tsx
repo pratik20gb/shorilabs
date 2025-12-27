@@ -1,51 +1,35 @@
 import { useState } from "react";
 import { Copy, Check, Heart } from "lucide-react";
-import { Button } from "@/data/buttons";
+import { Toggle } from "@/data/toggles";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
-interface ButtonCardProps {
-  button: Button;
-  onPreview: (button: Button) => void;
+interface ToggleCardProps {
+  toggle: Toggle;
+  onPreview: (toggle: Toggle) => void;
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
 }
 
-export const ButtonCard = ({
-  button,
+export const ToggleCard = ({
+  toggle,
   onPreview,
   isFavorite,
   onToggleFavorite,
-}: ButtonCardProps) => {
+}: ToggleCardProps) => {
   const [copied, setCopied] = useState(false);
+  const [isOn, setIsOn] = useState(false);
 
   const copyToClipboard = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    await navigator.clipboard.writeText(button.css);
+    await navigator.clipboard.writeText(toggle.css);
     setCopied(true);
     toast.success("Copied!");
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Parse CSS for button preview
-  const getButtonStyle = (): React.CSSProperties => {
-    const style: React.CSSProperties = {};
-    const lines = button.css.split('\n');
-    lines.forEach(line => {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}')) return;
-      const colonIndex = trimmed.indexOf(':');
-      if (colonIndex === -1) return;
-      const prop = trimmed.substring(0, colonIndex).trim();
-      const value = trimmed.substring(colonIndex + 1).trim().replace(/;$/, '');
-      const camelProp = prop.replace(/-([a-z])/g, (_, l) => l.toUpperCase());
-      (style as Record<string, string>)[camelProp] = value;
-    });
-    return style;
-  };
-
   const handleDragStart = (e: React.DragEvent) => {
-    e.dataTransfer.setData("button", JSON.stringify(button));
+    e.dataTransfer.setData("toggle", JSON.stringify(toggle));
     e.dataTransfer.effectAllowed = "copy";
     (e.target as HTMLElement).style.opacity = "0.5";
   };
@@ -54,26 +38,62 @@ export const ButtonCard = ({
     (e.target as HTMLElement).style.opacity = "1";
   };
 
+  // Render toggle preview
+  const renderTogglePreview = () => {
+    const category = toggle.category;
+    
+    const baseTrack = "w-11 h-6 rounded-full relative transition-colors cursor-pointer";
+    const baseThumb = "absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform";
+    
+    if (category === "ios") {
+      return (
+        <div 
+          className={cn(baseTrack, isOn ? "bg-[#34c759]" : "bg-gray-200")}
+          onClick={(e) => { e.stopPropagation(); setIsOn(!isOn); }}
+        >
+          <div className={cn(baseThumb, isOn ? "left-[22px]" : "left-0.5")} />
+        </div>
+      );
+    }
+    if (category === "material") {
+      return (
+        <div 
+          className={cn("w-9 h-3.5 rounded-full relative transition-colors cursor-pointer", isOn ? "bg-blue-200" : "bg-gray-400")}
+          onClick={(e) => { e.stopPropagation(); setIsOn(!isOn); }}
+        >
+          <div className={cn(
+            "absolute -top-[3px] w-5 h-5 rounded-full shadow-md transition-all",
+            isOn ? "left-4 bg-blue-500" : "left-0 bg-gray-50"
+          )} />
+        </div>
+      );
+    }
+    
+    return (
+      <div 
+        className={cn(baseTrack, isOn ? "bg-blue-500" : "bg-gray-200")}
+        onClick={(e) => { e.stopPropagation(); setIsOn(!isOn); }}
+      >
+        <div className={cn(baseThumb, isOn ? "left-[22px]" : "left-0.5")} />
+      </div>
+    );
+  };
+
   return (
     <div
       className="group relative cursor-pointer"
-      onClick={() => onPreview(button)}
+      onClick={() => onPreview(toggle)}
       draggable
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      {/* Button Preview Container */}
-      <div className="aspect-square rounded-lg overflow-hidden border border-border/40 bg-gradient-to-br from-gray-900/80 to-gray-800/80 hover:border-border flex items-center justify-center transition-all duration-300 hover:shadow-lg p-4">
-        {/* Live Button Preview */}
-        <button 
-          style={getButtonStyle()} 
-          className="pointer-events-none transform scale-90 whitespace-nowrap"
-        >
-          {button.label || "Button"}
-        </button>
+      {/* Toggle Preview Container */}
+      <div className="aspect-square rounded-lg overflow-hidden border border-border/40 bg-gradient-to-br from-gray-50/80 to-white/80 hover:border-border flex items-center justify-center transition-all duration-300 hover:shadow-lg p-4">
+        {/* Live Toggle Preview */}
+        {renderTogglePreview()}
 
         {/* New Badge */}
-        {button.isNew && (
+        {toggle.isNew && (
           <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded text-[9px] font-medium uppercase bg-foreground/90 text-background">
             New
           </div>
@@ -81,13 +101,13 @@ export const ButtonCard = ({
 
         {/* Hover Overlay */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-between p-3 bg-background/[0.97]">
-          {/* Button Info */}
+          {/* Toggle Info */}
           <div>
             <p className="text-sm font-semibold text-foreground">
-              {button.name}
+              {toggle.name}
             </p>
             <p className="text-xs capitalize mt-0.5 text-muted-foreground">
-              {button.category}
+              {toggle.category}
             </p>
           </div>
 
@@ -96,7 +116,7 @@ export const ButtonCard = ({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                onToggleFavorite(button.id);
+                onToggleFavorite(toggle.id);
               }}
               className={cn(
                 "p-2 rounded-md transition-colors bg-secondary/80 hover:bg-secondary",
@@ -121,3 +141,4 @@ export const ButtonCard = ({
     </div>
   );
 };
+

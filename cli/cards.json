@@ -1,0 +1,195 @@
+[
+  {
+    "id": "minimal-clean",
+    "name": "Minimal Clean",
+    "category": "minimal",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 8px;",
+    "tailwind": "bg-white p-6 rounded-lg"
+  },
+  {
+    "id": "minimal-subtle",
+    "name": "Minimal Subtle",
+    "category": "minimal",
+    "css": "background: #fafafa;\r\npadding: 24px;\r\nborder-radius: 12px;",
+    "tailwind": "bg-gray-50 p-6 rounded-xl"
+  },
+  {
+    "id": "minimal-dark",
+    "name": "Minimal Dark",
+    "category": "minimal",
+    "css": "background: #18181b;\r\ncolor: #fafafa;\r\npadding: 24px;\r\nborder-radius: 12px;",
+    "tailwind": "bg-zinc-900 text-zinc-50 p-6 rounded-xl",
+    "isNew": true
+  },
+  {
+    "id": "elevated-soft",
+    "name": "Elevated Soft",
+    "category": "elevated",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 12px;\r\nbox-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);",
+    "tailwind": "bg-white p-6 rounded-xl shadow-md"
+  },
+  {
+    "id": "elevated-medium",
+    "name": "Elevated Medium",
+    "category": "elevated",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 16px;\r\nbox-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);",
+    "tailwind": "bg-white p-6 rounded-2xl shadow-lg"
+  },
+  {
+    "id": "elevated-heavy",
+    "name": "Elevated Heavy",
+    "category": "elevated",
+    "css": "background: #ffffff;\r\npadding: 28px;\r\nborder-radius: 20px;\r\nbox-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);",
+    "tailwind": "bg-white p-7 rounded-[20px] shadow-2xl",
+    "isNew": true
+  },
+  {
+    "id": "elevated-colored",
+    "name": "Elevated Colored",
+    "category": "elevated",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 12px;\r\nbox-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.3);",
+    "tailwind": "bg-white p-6 rounded-xl shadow-[0_10px_40px_-10px_rgba(59,130,246,0.3)]"
+  },
+  {
+    "id": "glass-light",
+    "name": "Glass Light",
+    "category": "glass",
+    "css": "background: rgba(255, 255, 255, 0.7);\r\nbackdrop-filter: blur(12px);\r\npadding: 24px;\r\nborder-radius: 16px;\r\nborder: 1px solid rgba(255, 255, 255, 0.3);",
+    "tailwind": "bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-white/30",
+    "isNew": true
+  },
+  {
+    "id": "glass-dark",
+    "name": "Glass Dark",
+    "category": "glass",
+    "css": "background: rgba(0, 0, 0, 0.5);\r\nbackdrop-filter: blur(16px);\r\ncolor: #ffffff;\r\npadding: 24px;\r\nborder-radius: 16px;\r\nborder: 1px solid rgba(255, 255, 255, 0.1);",
+    "tailwind": "bg-black/50 backdrop-blur-2xl text-white p-6 rounded-2xl border border-white/10",
+    "isNew": true
+  },
+  {
+    "id": "glass-frosted",
+    "name": "Glass Frosted",
+    "category": "glass",
+    "css": "background: rgba(255, 255, 255, 0.15);\r\nbackdrop-filter: blur(20px) saturate(180%);\r\npadding: 24px;\r\nborder-radius: 20px;\r\nborder: 1px solid rgba(255, 255, 255, 0.2);\r\nbox-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);",
+    "tailwind": "bg-white/15 backdrop-blur-[20px] backdrop-saturate-[180%] p-6 rounded-[20px] border border-white/20 shadow-lg"
+  },
+  {
+    "id": "glass-aurora",
+    "name": "Glass Aurora",
+    "category": "glass",
+    "css": "background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);\r\nbackdrop-filter: blur(20px);\r\ncolor: #ffffff;\r\npadding: 28px;\r\nborder-radius: 24px;\r\nborder: 1px solid rgba(255, 255, 255, 0.15);",
+    "tailwind": "bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-[20px] text-white p-7 rounded-3xl border border-white/15",
+    "isNew": true
+  },
+  {
+    "id": "gradient-sunset",
+    "name": "Gradient Sunset",
+    "category": "gradient",
+    "css": "background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\r\ncolor: #ffffff;\r\npadding: 24px;\r\nborder-radius: 16px;",
+    "tailwind": "bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-6 rounded-2xl"
+  },
+  {
+    "id": "gradient-ocean",
+    "name": "Gradient Ocean",
+    "category": "gradient",
+    "css": "background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);\r\ncolor: #ffffff;\r\npadding: 24px;\r\nborder-radius: 16px;",
+    "tailwind": "bg-gradient-to-br from-sky-500 to-indigo-500 text-white p-6 rounded-2xl",
+    "isNew": true
+  },
+  {
+    "id": "gradient-fire",
+    "name": "Gradient Fire",
+    "category": "gradient",
+    "css": "background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);\r\ncolor: #ffffff;\r\npadding: 24px;\r\nborder-radius: 16px;",
+    "tailwind": "bg-gradient-to-br from-orange-500 to-red-500 text-white p-6 rounded-2xl"
+  },
+  {
+    "id": "gradient-mint",
+    "name": "Gradient Mint",
+    "category": "gradient",
+    "css": "background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);\r\ncolor: #ffffff;\r\npadding: 24px;\r\nborder-radius: 16px;",
+    "tailwind": "bg-gradient-to-br from-emerald-500 to-cyan-500 text-white p-6 rounded-2xl"
+  },
+  {
+    "id": "gradient-dark",
+    "name": "Gradient Dark",
+    "category": "gradient",
+    "css": "background: linear-gradient(135deg, #1f2937 0%, #111827 100%);\r\ncolor: #ffffff;\r\npadding: 24px;\r\nborder-radius: 16px;\r\nborder: 1px solid rgba(255, 255, 255, 0.1);",
+    "tailwind": "bg-gradient-to-br from-gray-800 to-gray-900 text-white p-6 rounded-2xl border border-white/10",
+    "isNew": true
+  },
+  {
+    "id": "bordered-simple",
+    "name": "Bordered Simple",
+    "category": "bordered",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 12px;\r\nborder: 1px solid #e5e7eb;",
+    "tailwind": "bg-white p-6 rounded-xl border border-gray-200"
+  },
+  {
+    "id": "bordered-thick",
+    "name": "Bordered Thick",
+    "category": "bordered",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 12px;\r\nborder: 2px solid #d1d5db;",
+    "tailwind": "bg-white p-6 rounded-xl border-2 border-gray-300"
+  },
+  {
+    "id": "bordered-accent",
+    "name": "Bordered Accent",
+    "category": "bordered",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 12px;\r\nborder: 2px solid #3b82f6;",
+    "tailwind": "bg-white p-6 rounded-xl border-2 border-blue-500",
+    "isNew": true
+  },
+  {
+    "id": "bordered-gradient",
+    "name": "Bordered Gradient",
+    "category": "bordered",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 16px;\r\nborder: 2px solid transparent;\r\nbackground-image: linear-gradient(#ffffff, #ffffff), linear-gradient(135deg, #667eea, #764ba2);\r\nbackground-origin: border-box;\r\nbackground-clip: padding-box, border-box;",
+    "tailwind": "bg-white p-6 rounded-2xl border-2 border-transparent bg-clip-padding [background-image:linear-gradient(white,white),linear-gradient(135deg,#667eea,#764ba2)] [background-origin:border-box]",
+    "isNew": true
+  },
+  {
+    "id": "bordered-dashed",
+    "name": "Bordered Dashed",
+    "category": "bordered",
+    "css": "background: #fafafa;\r\npadding: 24px;\r\nborder-radius: 12px;\r\nborder: 2px dashed #d1d5db;",
+    "tailwind": "bg-gray-50 p-6 rounded-xl border-2 border-dashed border-gray-300"
+  },
+  {
+    "id": "interactive-hover",
+    "name": "Interactive Hover",
+    "category": "interactive",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 12px;\r\nborder: 1px solid #e5e7eb;\r\ntransition: all 0.2s ease;\r\ncursor: pointer;",
+    "tailwind": "bg-white p-6 rounded-xl border border-gray-200 transition-all hover:shadow-lg hover:border-gray-300 cursor-pointer"
+  },
+  {
+    "id": "interactive-lift",
+    "name": "Interactive Lift",
+    "category": "interactive",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 16px;\r\nbox-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);\r\ntransition: all 0.3s ease;\r\ncursor: pointer;",
+    "tailwind": "bg-white p-6 rounded-2xl shadow-md transition-all hover:shadow-xl hover:-translate-y-1 cursor-pointer",
+    "isNew": true
+  },
+  {
+    "id": "interactive-glow",
+    "name": "Interactive Glow",
+    "category": "interactive",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 16px;\r\nborder: 1px solid #e5e7eb;\r\ntransition: all 0.3s ease;\r\ncursor: pointer;",
+    "tailwind": "bg-white p-6 rounded-2xl border border-gray-200 transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-300 cursor-pointer",
+    "isNew": true
+  },
+  {
+    "id": "interactive-scale",
+    "name": "Interactive Scale",
+    "category": "interactive",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 12px;\r\nbox-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);\r\ntransition: transform 0.2s ease;\r\ncursor: pointer;",
+    "tailwind": "bg-white p-6 rounded-xl shadow-md transition-transform hover:scale-105 cursor-pointer"
+  },
+  {
+    "id": "interactive-press",
+    "name": "Interactive Press",
+    "category": "interactive",
+    "css": "background: #ffffff;\r\npadding: 24px;\r\nborder-radius: 12px;\r\nbox-shadow: 0 4px 0 #e5e7eb;\r\ntransition: all 0.1s ease;\r\ncursor: pointer;",
+    "tailwind": "bg-white p-6 rounded-xl shadow-[0_4px_0_#e5e7eb] transition-all hover:translate-y-0.5 hover:shadow-[0_2px_0_#e5e7eb] active:translate-y-1 active:shadow-none cursor-pointer"
+  }
+]

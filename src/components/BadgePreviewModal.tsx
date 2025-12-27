@@ -1,46 +1,46 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Button as ButtonType } from "@/data/buttons";
+import { Badge as BadgeType } from "@/data/badges";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useModal } from "@/contexts/ModalContext";
 
-interface ButtonPreviewModalProps {
-  button: ButtonType | null;
+interface BadgePreviewModalProps {
+  badge: BadgeType | null;
   onClose: () => void;
 }
 
-export const ButtonPreviewModal = ({
-  button,
+export const BadgePreviewModal = ({
+  badge,
   onClose,
-}: ButtonPreviewModalProps) => {
+}: BadgePreviewModalProps) => {
   const [activeTab, setActiveTab] = useState<"css" | "tailwind">("css");
   const [copied, setCopied] = useState(false);
   const { openModal, closeModal } = useModal();
 
   useEffect(() => {
-    if (button) {
+    if (badge) {
       openModal(onClose);
     } else {
       closeModal();
     }
-  }, [button, openModal, closeModal, onClose]);
+  }, [badge, openModal, closeModal, onClose]);
 
   const handleClose = () => {
     closeModal();
     onClose();
   };
 
-  if (!button) return null;
+  if (!badge) return null;
 
-  // Parse CSS for button preview
-  const getButtonStyle = (): React.CSSProperties => {
+  // Parse CSS for badge preview
+  const getBadgeStyle = (): React.CSSProperties => {
     const style: React.CSSProperties = {};
-    const lines = button.css.split('\n');
+    const lines = badge.css.split('\n');
     lines.forEach(line => {
       const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}')) return;
+      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}') || trimmed.startsWith('&') || trimmed.startsWith('.')) return;
       const colonIndex = trimmed.indexOf(':');
       if (colonIndex === -1) return;
       const prop = trimmed.substring(0, colonIndex).trim();
@@ -52,12 +52,14 @@ export const ButtonPreviewModal = ({
   };
 
   const copyToClipboard = async () => {
-    const text = activeTab === "css" ? button.css : button.tailwind;
+    const text = activeTab === "css" ? badge.css : badge.tailwind;
     await navigator.clipboard.writeText(text);
     setCopied(true);
     toast.success(`${activeTab.toUpperCase()} copied!`);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const isDotBadge = badge.category === "dot" || badge.category === "status";
 
   return (
     <AnimatePresence>
@@ -87,58 +89,56 @@ export const ButtonPreviewModal = ({
           {/* Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 h-full sm:h-auto">
             {/* Preview */}
-            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
-              {/* Button Preview - Multiple sizes */}
-              <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 items-center overflow-y-auto">
-                {/* Large */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Large</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(1.2)' }} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Normal */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Normal</span>
-                  <button 
-                    style={getButtonStyle()} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Small */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Small</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(0.85)', fontSize: '0.875rem', padding: '8px 16px' }} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
+            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
+              {/* Badge Preview - Multiple variations */}
+              <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 overflow-y-auto items-center">
+                {/* Single Badge */}
+                <div className="flex flex-col items-center gap-2 sm:gap-3">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Single</span>
+                  <span style={getBadgeStyle()}>
+                    {isDotBadge && (
+                      <span className="w-2 h-2 rounded-full bg-current opacity-70 mr-1.5 inline-block"></span>
+                    )}
+                    {badge.label || "Badge"}
+                  </span>
                 </div>
 
-                {/* Button Group Example */}
-                <div className="flex flex-col items-center gap-2 mt-4">
+                {/* Badge Group */}
+                <div className="flex flex-col items-center gap-2 sm:gap-3">
                   <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Group</span>
-                  <div className="flex gap-2">
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none"
-                    >
-                      Save
-                    </button>
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none opacity-70"
-                    >
-                      Cancel
-                    </button>
+                  <div className="flex gap-2 flex-wrap justify-center">
+                    <span style={getBadgeStyle()}>
+                      {isDotBadge && (
+                        <span className="w-2 h-2 rounded-full bg-current opacity-70 mr-1.5 inline-block"></span>
+                      )}
+                      Label 1
+                    </span>
+                    <span style={getBadgeStyle()}>
+                      {isDotBadge && (
+                        <span className="w-2 h-2 rounded-full bg-current opacity-70 mr-1.5 inline-block"></span>
+                      )}
+                      Label 2
+                    </span>
+                    <span style={getBadgeStyle()}>
+                      {isDotBadge && (
+                        <span className="w-2 h-2 rounded-full bg-current opacity-70 mr-1.5 inline-block"></span>
+                      )}
+                      Label 3
+                    </span>
+                  </div>
+                </div>
+
+                {/* In Context */}
+                <div className="flex flex-col items-center gap-2 sm:gap-3">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">In Context</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">Status:</span>
+                    <span style={getBadgeStyle()}>
+                      {isDotBadge && (
+                        <span className="w-2 h-2 rounded-full bg-current opacity-70 mr-1.5 inline-block"></span>
+                      )}
+                      {badge.label || "Badge"}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -147,24 +147,24 @@ export const ButtonPreviewModal = ({
             {/* Code Panel */}
             <div className="flex flex-col p-3 sm:p-4 lg:p-6 xl:p-8 max-h-[calc(100vh-200px)] sm:max-h-[70vh] lg:max-h-none overflow-y-auto">
               {/* Header */}
-              <div className="mb-4 sm:mb-4 sm:mb-6 lg:mb-8">
+              <div className="mb-4 sm:mb-6 lg:mb-8">
                 <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
                   <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground">
-                    {button.name}
+                    {badge.name}
                   </h2>
-                  {button.isNew && (
+                  {badge.isNew && (
                     <span className="px-2 py-0.5 rounded-md bg-foreground/90 text-background text-[10px] font-medium tracking-wide uppercase">
                       New
                     </span>
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground capitalize">
-                  {button.category}
+                  {badge.category}
                 </p>
               </div>
 
               {/* Tabs */}
-              <div className="flex gap-1.5 sm:gap-2 mb-4 sm:mb-4 sm:mb-6">
+              <div className="flex gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                 <button
                   className={cn(
                     "pill-button text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-1.5",
@@ -188,7 +188,7 @@ export const ButtonPreviewModal = ({
               {/* Code */}
               <div className="flex-1 overflow-auto mb-4 sm:mb-6">
                 <pre className="p-2 sm:p-3 lg:p-4 rounded-lg bg-secondary/50 text-xs sm:text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">
-                  {activeTab === "css" ? button.css : button.tailwind}
+                  {activeTab === "css" ? badge.css : badge.tailwind}
                 </pre>
               </div>
 
@@ -197,8 +197,8 @@ export const ButtonPreviewModal = ({
                 <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1 sm:mb-2">Usage</p>
                 <pre className="text-xs sm:text-sm font-mono text-foreground">
 {activeTab === "css" 
-  ? `<button class="my-button">${button.label || "Button"}</button>`
-  : `<button className="${button.tailwind}">${button.label || "Button"}</button>`
+  ? `<span class="badge">${badge.label || "Badge"}</span>`
+  : `<span className="${badge.tailwind}">${badge.label || "Badge"}</span>`
 }
                 </pre>
               </div>

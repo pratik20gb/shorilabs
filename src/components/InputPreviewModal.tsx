@@ -1,46 +1,46 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Button as ButtonType } from "@/data/buttons";
+import { InputStyle } from "@/data/inputs";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useModal } from "@/contexts/ModalContext";
 
-interface ButtonPreviewModalProps {
-  button: ButtonType | null;
+interface InputPreviewModalProps {
+  input: InputStyle | null;
   onClose: () => void;
 }
 
-export const ButtonPreviewModal = ({
-  button,
+export const InputPreviewModal = ({
+  input,
   onClose,
-}: ButtonPreviewModalProps) => {
+}: InputPreviewModalProps) => {
   const [activeTab, setActiveTab] = useState<"css" | "tailwind">("css");
   const [copied, setCopied] = useState(false);
   const { openModal, closeModal } = useModal();
 
   useEffect(() => {
-    if (button) {
+    if (input) {
       openModal(onClose);
     } else {
       closeModal();
     }
-  }, [button, openModal, closeModal, onClose]);
+  }, [input, openModal, closeModal, onClose]);
 
   const handleClose = () => {
     closeModal();
     onClose();
   };
 
-  if (!button) return null;
+  if (!input) return null;
 
-  // Parse CSS for button preview
-  const getButtonStyle = (): React.CSSProperties => {
+  // Parse CSS for input preview
+  const getInputStyle = (): React.CSSProperties => {
     const style: React.CSSProperties = {};
-    const lines = button.css.split('\n');
+    const lines = input.css.split('\n');
     lines.forEach(line => {
       const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}')) return;
+      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}') || trimmed.startsWith('&')) return;
       const colonIndex = trimmed.indexOf(':');
       if (colonIndex === -1) return;
       const prop = trimmed.substring(0, colonIndex).trim();
@@ -52,7 +52,7 @@ export const ButtonPreviewModal = ({
   };
 
   const copyToClipboard = async () => {
-    const text = activeTab === "css" ? button.css : button.tailwind;
+    const text = activeTab === "css" ? input.css : input.tailwind;
     await navigator.clipboard.writeText(text);
     setCopied(true);
     toast.success(`${activeTab.toUpperCase()} copied!`);
@@ -87,58 +87,53 @@ export const ButtonPreviewModal = ({
           {/* Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 h-full sm:h-auto">
             {/* Preview */}
-            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
-              {/* Button Preview - Multiple sizes */}
-              <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 items-center overflow-y-auto">
-                {/* Large */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Large</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(1.2)' }} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
+            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
+              {/* Input Preview - Multiple variations */}
+              <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 items-center w-full max-w-xs overflow-y-auto">
                 {/* Normal */}
-                <div className="flex flex-col items-center gap-2">
+                <div className="flex flex-col items-center gap-2 w-full">
                   <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Normal</span>
-                  <button 
-                    style={getButtonStyle()} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Small */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Small</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(0.85)', fontSize: '0.875rem', padding: '8px 16px' }} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
+                  <input 
+                    type="text"
+                    placeholder={input.placeholder || "Type here..."}
+                    style={getInputStyle()} 
+                    className="w-full"
+                  />
                 </div>
 
-                {/* Button Group Example */}
-                <div className="flex flex-col items-center gap-2 mt-4">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Group</span>
-                  <div className="flex gap-2">
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none"
-                    >
-                      Save
-                    </button>
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none opacity-70"
-                    >
-                      Cancel
-                    </button>
+                {/* Focused State */}
+                <div className="flex flex-col items-center gap-2 w-full">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">With Value</span>
+                  <input 
+                    type="text"
+                    defaultValue="Example value"
+                    style={getInputStyle()} 
+                    className="w-full"
+                  />
+                </div>
+
+                {/* In Form Context */}
+                <div className="flex flex-col items-center gap-2 w-full">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">In Form</span>
+                  <div className="w-full space-y-3">
+                    <div>
+                      <label className="text-[10px] sm:text-xs text-gray-500 mb-1 block">Email</label>
+                      <input 
+                        type="email"
+                        placeholder="you@example.com"
+                        style={getInputStyle()} 
+                        className="w-full"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] sm:text-xs text-gray-500 mb-1 block">Password</label>
+                      <input 
+                        type="password"
+                        placeholder="••••••••"
+                        style={getInputStyle()} 
+                        className="w-full"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -150,16 +145,16 @@ export const ButtonPreviewModal = ({
               <div className="mb-4 sm:mb-4 sm:mb-6 lg:mb-8">
                 <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
                   <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground">
-                    {button.name}
+                    {input.name}
                   </h2>
-                  {button.isNew && (
+                  {input.isNew && (
                     <span className="px-2 py-0.5 rounded-md bg-foreground/90 text-background text-[10px] font-medium tracking-wide uppercase">
                       New
                     </span>
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground capitalize">
-                  {button.category}
+                  {input.category}
                 </p>
               </div>
 
@@ -188,7 +183,7 @@ export const ButtonPreviewModal = ({
               {/* Code */}
               <div className="flex-1 overflow-auto mb-4 sm:mb-6">
                 <pre className="p-2 sm:p-3 lg:p-4 rounded-lg bg-secondary/50 text-xs sm:text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">
-                  {activeTab === "css" ? button.css : button.tailwind}
+                  {activeTab === "css" ? input.css : input.tailwind}
                 </pre>
               </div>
 
@@ -197,8 +192,8 @@ export const ButtonPreviewModal = ({
                 <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1 sm:mb-2">Usage</p>
                 <pre className="text-xs sm:text-sm font-mono text-foreground">
 {activeTab === "css" 
-  ? `<button class="my-button">${button.label || "Button"}</button>`
-  : `<button className="${button.tailwind}">${button.label || "Button"}</button>`
+  ? `<input type="text" class="my-input" placeholder="${input.placeholder || 'Type here...'}" />`
+  : `<input type="text" className="${input.tailwind}" placeholder="${input.placeholder || 'Type here...'}" />`
 }
                 </pre>
               </div>

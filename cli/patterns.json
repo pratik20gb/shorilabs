@@ -183,6 +183,13 @@
     "tailwind": "bg-[radial-gradient(at_40%_20%,#00d4ff20_0px,transparent_50%),radial-gradient(at_80%_0%,#a855f720_0px,transparent_50%),radial-gradient(at_0%_50%,#10b98120_0px,transparent_50%),radial-gradient(at_80%_50%,#f59e0b15_0px,transparent_50%),radial-gradient(at_0%_100%,#ec489920_0px,transparent_50%),radial-gradient(at_80%_100%,#00d4ff15_0px,transparent_50%),#0a0a0f]"
   },
   {
+    "id": "animated-gradient",
+    "name": "Animated Gradient",
+    "category": "effects",
+    "css": "background: linear-gradient(-45deg, #0a0a0f, #1a1a2e, #16213e, #0f3460);\nbackground-size: 400% 400%;\nanimation: gradientShift 15s ease infinite;\n\n@keyframes gradientShift {\n  0% { background-position: 0% 50%; }\n  50% { background-position: 100% 50%; }\n  100% { background-position: 0% 50%; }\n}",
+    "tailwind": "bg-gradient-to-br from-[#0a0a0f] via-[#1a1a2e] via-[#16213e] to-[#0f3460] bg-[length:400%_400%] animate-[gradientShift_15s_ease_infinite]"
+  },
+  {
     "id": "vignette",
     "name": "Vignette",
     "category": "effects",

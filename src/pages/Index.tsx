@@ -1,8 +1,8 @@
 import { useState, lazy, Suspense, useMemo, useCallback } from "react";
-import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
-import { cn } from "@/lib/utils";
+import { useModal } from "@/contexts/ModalContext";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
-export type ViewType = "all" | "patterns" | "buttons";
+export type ViewType = "all" | "patterns" | "buttons" | "cards" | "inputs" | "badges" | "loaders" | "avatars" | "toggles" | "dividers";
 
 // Grid Fade background style
 const gridFadeStyle = {
@@ -33,6 +33,48 @@ const PatternGrid = lazy(() =>
 const ButtonGrid = lazy(() => 
   import("@/components/ButtonGrid").then(module => ({ 
     default: module.ButtonGrid 
+  }))
+);
+
+const CardGrid = lazy(() => 
+  import("@/components/CardGrid").then(module => ({ 
+    default: module.CardGrid 
+  }))
+);
+
+const InputGrid = lazy(() => 
+  import("@/components/InputGrid").then(module => ({ 
+    default: module.InputGrid 
+  }))
+);
+
+const BadgeGrid = lazy(() => 
+  import("@/components/BadgeGrid").then(module => ({ 
+    default: module.BadgeGrid 
+  }))
+);
+
+const LoaderGrid = lazy(() => 
+  import("@/components/LoaderGrid").then(module => ({ 
+    default: module.LoaderGrid 
+  }))
+);
+
+const AvatarGrid = lazy(() => 
+  import("@/components/AvatarGrid").then(module => ({ 
+    default: module.AvatarGrid 
+  }))
+);
+
+const ToggleGrid = lazy(() => 
+  import("@/components/ToggleGrid").then(module => ({ 
+    default: module.ToggleGrid 
+  }))
+);
+
+const DividerGrid = lazy(() => 
+  import("@/components/DividerGrid").then(module => ({ 
+    default: module.DividerGrid 
   }))
 );
 
@@ -75,22 +117,26 @@ const PageSkeleton = () => (
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeView, setActiveView] = useState<ViewType>("all");
-  const { pattern, getPatternStyle } = useBackgroundPattern();
+  const { closeModal } = useModal();
 
   const handleSearch = useMemo(() => setSearchQuery, []);
 
-  const handleNavigate = useCallback((view: "patterns" | "buttons") => {
+  const handleNavigate = useCallback((view: ViewType) => {
+    closeModal();
     setActiveView(view);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+  }, [closeModal]);
 
-  // Use preview pattern if active, otherwise use grid-fade as default
-  const backgroundStyle = pattern ? getPatternStyle() : gridFadeStyle;
+  const handleViewChange = useCallback((view: ViewType) => {
+    closeModal();
+    setActiveView(view);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [closeModal]);
 
   return (
     <div 
       className="min-h-screen"
-      style={backgroundStyle}
+      style={gridFadeStyle}
     >
       <Suspense fallback={
         <div className="h-14 fixed top-0 left-0 right-0 z-50 bg-background border-b border-border" />
@@ -98,32 +144,76 @@ const Index = () => {
         <Header 
           onSearch={handleSearch} 
           activeView={activeView}
-          onViewChange={setActiveView}
+          onViewChange={handleViewChange}
         />
       </Suspense>
 
       <main className="pt-14 relative z-10">
-        {activeView === "all" && (
-          <Suspense fallback={<PageSkeleton />}>
-            <HeroSection onNavigate={handleNavigate} />
-          </Suspense>
-        )}
+        <ErrorBoundary>
+          {activeView === "all" && (
+            <Suspense key="all" fallback={<PageSkeleton />}>
+              <HeroSection onNavigate={handleNavigate} />
+            </Suspense>
+          )}
 
-        {activeView === "patterns" && (
-          <Suspense fallback={<PageSkeleton />}>
-            <PatternGrid searchQuery={searchQuery} />
-          </Suspense>
-        )}
+          {activeView === "patterns" && (
+            <Suspense key="patterns" fallback={<PageSkeleton />}>
+              <PatternGrid searchQuery={searchQuery} />
+            </Suspense>
+          )}
 
-        {activeView === "buttons" && (
-          <Suspense fallback={<PageSkeleton />}>
-            <ButtonGrid searchQuery={searchQuery} />
-          </Suspense>
-        )}
+          {activeView === "buttons" && (
+            <Suspense key="buttons" fallback={<PageSkeleton />}>
+              <ButtonGrid searchQuery={searchQuery} />
+            </Suspense>
+          )}
 
-        <Suspense fallback={null}>
-          <CLISection />
-        </Suspense>
+          {activeView === "cards" && (
+            <Suspense key="cards" fallback={<PageSkeleton />}>
+              <CardGrid searchQuery={searchQuery} />
+            </Suspense>
+          )}
+
+          {activeView === "inputs" && (
+            <Suspense key="inputs" fallback={<PageSkeleton />}>
+              <InputGrid searchQuery={searchQuery} />
+            </Suspense>
+          )}
+
+          {activeView === "badges" && (
+            <Suspense key="badges" fallback={<PageSkeleton />}>
+              <BadgeGrid searchQuery={searchQuery} />
+            </Suspense>
+          )}
+
+          {activeView === "loaders" && (
+            <Suspense key="loaders" fallback={<PageSkeleton />}>
+              <LoaderGrid searchQuery={searchQuery} />
+            </Suspense>
+          )}
+
+          {activeView === "avatars" && (
+            <Suspense key="avatars" fallback={<PageSkeleton />}>
+              <AvatarGrid searchQuery={searchQuery} />
+            </Suspense>
+          )}
+
+          {activeView === "toggles" && (
+            <Suspense key="toggles" fallback={<PageSkeleton />}>
+              <ToggleGrid searchQuery={searchQuery} />
+            </Suspense>
+          )}
+
+          {activeView === "dividers" && (
+            <Suspense key="dividers" fallback={<PageSkeleton />}>
+              <DividerGrid searchQuery={searchQuery} />
+            </Suspense>
+          )}
+
+          <Suspense fallback={null}>
+            <CLISection />
+          </Suspense>
+        </ErrorBoundary>
       </main>
 
       <Suspense fallback={null}>

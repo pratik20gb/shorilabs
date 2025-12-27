@@ -6,7 +6,6 @@ import { ButtonPreviewModal } from "./ButtonPreviewModal";
 import { PatternSkeleton } from "./PatternSkeleton";
 import { buttons, buttonCategories, Button, ButtonCategory } from "@/data/buttons";
 import { cn } from "@/lib/utils";
-import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
 
 interface ButtonGridProps {
   searchQuery?: string;
@@ -17,7 +16,14 @@ export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
   const [selectedButton, setSelectedButton] = useState<Button | null>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { isPreviewActive, textClass, mutedClass, brightness } = useBackgroundPattern();
+
+  const handlePreview = (button: Button) => {
+    if (selectedButton?.id === button.id) {
+      setSelectedButton(null);
+    } else {
+      setSelectedButton(button);
+    }
+  };
 
   useEffect(() => {
     const saved = localStorage.getItem("shorilabs-button-favorites");
@@ -73,16 +79,10 @@ export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
       {/* Page Header */}
       <div className="border-b border-border">
         <div className="container mx-auto px-4 md:px-6 py-8">
-          <h1 className={cn(
-            "text-3xl font-bold tracking-tight transition-colors",
-            isPreviewActive ? textClass : "text-foreground"
-          )}>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">
             Buttons
           </h1>
-          <p className={cn(
-            "text-base mt-2 transition-colors max-w-2xl",
-            isPreviewActive ? mutedClass : "text-muted-foreground"
-          )}>
+          <p className="text-base mt-2 text-muted-foreground max-w-2xl">
             Ready-to-use button components with various styles and effects. Copy the CSS or Tailwind classes.
           </p>
         </div>
@@ -99,16 +99,8 @@ export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
               className={cn(
                 "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
                 activeCategory === cat.id
-                  ? isPreviewActive
-                    ? brightness === "dark" 
-                      ? "bg-white/20 text-white"
-                      : "bg-black/10 text-gray-900"
-                    : "bg-foreground text-background"
-                  : isPreviewActive
-                    ? brightness === "dark"
-                      ? "text-white/60 hover:text-white hover:bg-white/10"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-black/5"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
               )}
             >
               {cat.id === "favorites" ? (
@@ -153,7 +145,7 @@ export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
                       >
                         <ButtonCard
                           button={button}
-                          onPreview={setSelectedButton}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -166,7 +158,7 @@ export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
                       >
                         <ButtonCard
                           button={button}
-                          onPreview={setSelectedButton}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -185,7 +177,7 @@ export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
                       >
                         <ButtonCard
                           button={button}
-                          onPreview={setSelectedButton}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -198,7 +190,7 @@ export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
                       >
                         <ButtonCard
                           button={button}
-                          onPreview={setSelectedButton}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -217,7 +209,7 @@ export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
                       >
                         <ButtonCard
                           button={button}
-                          onPreview={setSelectedButton}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -230,7 +222,7 @@ export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
                       >
                         <ButtonCard
                           button={button}
-                          onPreview={setSelectedButton}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(button.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -278,16 +270,10 @@ export const ButtonGrid = ({ searchQuery = "" }: ButtonGridProps) => {
             animate={{ opacity: 1 }}
             className="text-center py-16"
           >
-            <p className={cn(
-              "text-lg font-medium mb-1",
-              isPreviewActive ? textClass : "text-foreground"
-            )}>
+            <p className="text-lg font-medium mb-1 text-foreground">
               No buttons found
             </p>
-            <p className={cn(
-              "text-sm",
-              isPreviewActive ? mutedClass : "text-muted-foreground"
-            )}>
+            <p className="text-sm text-muted-foreground">
               {activeCategory === "favorites"
                 ? "Save some buttons to your favorites."
                 : "Try a different search term or category."}

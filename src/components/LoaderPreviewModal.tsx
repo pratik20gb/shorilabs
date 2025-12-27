@@ -1,62 +1,127 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Button as ButtonType } from "@/data/buttons";
+import { Loader as LoaderType } from "@/data/loaders";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useModal } from "@/contexts/ModalContext";
 
-interface ButtonPreviewModalProps {
-  button: ButtonType | null;
+interface LoaderPreviewModalProps {
+  loader: LoaderType | null;
   onClose: () => void;
 }
 
-export const ButtonPreviewModal = ({
-  button,
+export const LoaderPreviewModal = ({
+  loader,
   onClose,
-}: ButtonPreviewModalProps) => {
+}: LoaderPreviewModalProps) => {
   const [activeTab, setActiveTab] = useState<"css" | "tailwind">("css");
   const [copied, setCopied] = useState(false);
   const { openModal, closeModal } = useModal();
 
   useEffect(() => {
-    if (button) {
+    if (loader) {
       openModal(onClose);
     } else {
       closeModal();
     }
-  }, [button, openModal, closeModal, onClose]);
+  }, [loader, openModal, closeModal, onClose]);
 
   const handleClose = () => {
     closeModal();
     onClose();
   };
 
-  if (!button) return null;
-
-  // Parse CSS for button preview
-  const getButtonStyle = (): React.CSSProperties => {
-    const style: React.CSSProperties = {};
-    const lines = button.css.split('\n');
-    lines.forEach(line => {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}')) return;
-      const colonIndex = trimmed.indexOf(':');
-      if (colonIndex === -1) return;
-      const prop = trimmed.substring(0, colonIndex).trim();
-      const value = trimmed.substring(colonIndex + 1).trim().replace(/;$/, '');
-      const camelProp = prop.replace(/-([a-z])/g, (_, l) => l.toUpperCase());
-      (style as Record<string, string>)[camelProp] = value;
-    });
-    return style;
-  };
+  if (!loader) return null;
 
   const copyToClipboard = async () => {
-    const text = activeTab === "css" ? button.css : button.tailwind;
+    const text = activeTab === "css" ? loader.css : loader.tailwind;
     await navigator.clipboard.writeText(text);
     setCopied(true);
     toast.success(`${activeTab.toUpperCase()} copied!`);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Render loader preview based on category
+  const renderLoaderPreview = (scale: number = 1) => {
+    const category = loader.category;
+    const sizeMultiplier = scale;
+    
+    if (category === "spinner") {
+      return (
+        <div 
+          className="border-2 border-gray-200 border-t-blue-500 rounded-full animate-spin" 
+          style={{ width: 32 * sizeMultiplier, height: 32 * sizeMultiplier }}
+        />
+      );
+    }
+    if (category === "dots") {
+      return (
+        <div className="flex gap-1">
+          {[0, 1, 2].map(i => (
+            <div 
+              key={i}
+              className="bg-blue-500 rounded-full animate-bounce" 
+              style={{ 
+                width: 8 * sizeMultiplier, 
+                height: 8 * sizeMultiplier,
+                animationDelay: `${i * 150}ms` 
+              }}
+            />
+          ))}
+        </div>
+      );
+    }
+    if (category === "bars") {
+      return (
+        <div className="flex gap-0.5 items-end">
+          {[4, 6, 5, 7].map((h, i) => (
+            <div 
+              key={i}
+              className="bg-blue-500 rounded-sm animate-pulse" 
+              style={{ 
+                width: 4 * sizeMultiplier, 
+                height: h * sizeMultiplier * 2,
+                animationDelay: `${i * 150}ms` 
+              }}
+            />
+          ))}
+        </div>
+      );
+    }
+    if (category === "pulse") {
+      return (
+        <div 
+          className="bg-blue-500 rounded-full animate-ping" 
+          style={{ width: 20 * sizeMultiplier, height: 20 * sizeMultiplier }}
+        />
+      );
+    }
+    if (category === "skeleton") {
+      return (
+        <div 
+          className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded animate-pulse" 
+          style={{ width: 100 * sizeMultiplier, height: 16 * sizeMultiplier }}
+        />
+      );
+    }
+    if (category === "progress") {
+      return (
+        <div 
+          className="bg-gray-200 rounded-full overflow-hidden h-full sm:h-auto"
+          style={{ width: 120 * sizeMultiplier, height: 6 * sizeMultiplier }}
+        >
+          <div className="h-full w-3/5 bg-blue-500 rounded-full animate-pulse" />
+        </div>
+      );
+    }
+    
+    return (
+      <div 
+        className="border-2 border-gray-200 border-t-blue-500 rounded-full animate-spin" 
+        style={{ width: 24 * sizeMultiplier, height: 24 * sizeMultiplier }}
+      />
+    );
   };
 
   return (
@@ -87,59 +152,25 @@ export const ButtonPreviewModal = ({
           {/* Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 h-full sm:h-auto">
             {/* Preview */}
-            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
-              {/* Button Preview - Multiple sizes */}
-              <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 items-center overflow-y-auto">
+            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
+              {/* Loader Preview - Multiple sizes */}
+              <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 overflow-y-auto sm:gap-8 lg:gap-12 items-center">
                 {/* Large */}
-                <div className="flex flex-col items-center gap-2">
+                <div className="flex flex-col items-center gap-2 sm:gap-3 lg:gap-4">
                   <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Large</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(1.2)' }} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Normal */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Normal</span>
-                  <button 
-                    style={getButtonStyle()} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Small */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Small</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(0.85)', fontSize: '0.875rem', padding: '8px 16px' }} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
+                  {renderLoaderPreview(1.5)}
                 </div>
 
-                {/* Button Group Example */}
-                <div className="flex flex-col items-center gap-2 mt-4">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Group</span>
-                  <div className="flex gap-2">
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none"
-                    >
-                      Save
-                    </button>
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none opacity-70"
-                    >
-                      Cancel
-                    </button>
-                  </div>
+                {/* Normal */}
+                <div className="flex flex-col items-center gap-2 sm:gap-3 lg:gap-4">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Normal</span>
+                  {renderLoaderPreview(1)}
+                </div>
+
+                {/* Small */}
+                <div className="flex flex-col items-center gap-2 sm:gap-3 lg:gap-4">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Small</span>
+                  {renderLoaderPreview(0.75)}
                 </div>
               </div>
             </div>
@@ -147,24 +178,24 @@ export const ButtonPreviewModal = ({
             {/* Code Panel */}
             <div className="flex flex-col p-3 sm:p-4 lg:p-6 xl:p-8 max-h-[calc(100vh-200px)] sm:max-h-[70vh] lg:max-h-none overflow-y-auto">
               {/* Header */}
-              <div className="mb-4 sm:mb-4 sm:mb-6 lg:mb-8">
+              <div className="mb-4 sm:mb-6 lg:mb-8">
                 <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
                   <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground">
-                    {button.name}
+                    {loader.name}
                   </h2>
-                  {button.isNew && (
+                  {loader.isNew && (
                     <span className="px-2 py-0.5 rounded-md bg-foreground/90 text-background text-[10px] font-medium tracking-wide uppercase">
                       New
                     </span>
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground capitalize">
-                  {button.category}
+                  {loader.category}
                 </p>
               </div>
 
               {/* Tabs */}
-              <div className="flex gap-1.5 sm:gap-2 mb-4 sm:mb-4 sm:mb-6">
+              <div className="flex gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                 <button
                   className={cn(
                     "pill-button text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-1.5",
@@ -188,7 +219,7 @@ export const ButtonPreviewModal = ({
               {/* Code */}
               <div className="flex-1 overflow-auto mb-4 sm:mb-6">
                 <pre className="p-2 sm:p-3 lg:p-4 rounded-lg bg-secondary/50 text-xs sm:text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">
-                  {activeTab === "css" ? button.css : button.tailwind}
+                  {activeTab === "css" ? loader.css : loader.tailwind}
                 </pre>
               </div>
 
@@ -197,8 +228,8 @@ export const ButtonPreviewModal = ({
                 <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1 sm:mb-2">Usage</p>
                 <pre className="text-xs sm:text-sm font-mono text-foreground">
 {activeTab === "css" 
-  ? `<button class="my-button">${button.label || "Button"}</button>`
-  : `<button className="${button.tailwind}">${button.label || "Button"}</button>`
+  ? `<div class="loader"></div>`
+  : `<div className="${loader.tailwind}"></div>`
 }
                 </pre>
               </div>

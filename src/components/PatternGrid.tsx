@@ -7,7 +7,6 @@ import { PatternPreviewModal } from "./PatternPreviewModal";
 import { PatternSkeleton } from "./PatternSkeleton";
 import { patterns, categories, Pattern, PatternCategory } from "@/data/patterns";
 import { cn } from "@/lib/utils";
-import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
 
 interface PatternGridProps {
   searchQuery?: string;
@@ -18,7 +17,14 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
   const [selectedPattern, setSelectedPattern] = useState<Pattern | null>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { isPreviewActive, textClass, mutedClass, brightness } = useBackgroundPattern();
+
+  const handlePreview = (pattern: Pattern) => {
+    if (selectedPattern?.id === pattern.id) {
+      setSelectedPattern(null);
+    } else {
+      setSelectedPattern(pattern);
+    }
+  };
 
   useEffect(() => {
     const saved = localStorage.getItem("shorilabs-favorites");
@@ -69,16 +75,10 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
       {/* Page Header */}
       <div className="border-b border-border">
         <div className="container mx-auto px-4 md:px-6 py-8">
-          <h1 className={cn(
-            "text-3xl font-bold tracking-tight transition-colors",
-            isPreviewActive ? textClass : "text-foreground"
-          )}>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">
             Patterns
           </h1>
-          <p className={cn(
-            "text-base mt-2 transition-colors max-w-2xl",
-            isPreviewActive ? mutedClass : "text-muted-foreground"
-          )}>
+          <p className="text-base mt-2 text-muted-foreground max-w-2xl">
             Beautiful background patterns for your projects. Click to preview, copy CSS or Tailwind classes.
           </p>
         </div>
@@ -95,16 +95,8 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
               className={cn(
                 "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
                 activeCategory === cat.id
-                  ? isPreviewActive
-                    ? brightness === "dark" 
-                      ? "bg-white/20 text-white"
-                      : "bg-black/10 text-gray-900"
-                    : "bg-foreground text-background"
-                  : isPreviewActive
-                    ? brightness === "dark"
-                      ? "text-white/60 hover:text-white hover:bg-white/10"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-black/5"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
               )}
             >
               {cat.id === "favorites" ? (
@@ -149,7 +141,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                       >
                         <PatternCard
                           pattern={pattern}
-                          onPreview={setSelectedPattern}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(pattern.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -162,7 +154,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                       >
                         <PatternCard
                           pattern={pattern}
-                          onPreview={setSelectedPattern}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(pattern.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -181,7 +173,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                       >
                         <PatternCard
                           pattern={pattern}
-                          onPreview={setSelectedPattern}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(pattern.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -194,7 +186,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                       >
                         <PatternCard
                           pattern={pattern}
-                          onPreview={setSelectedPattern}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(pattern.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -213,7 +205,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                       >
                         <PatternCard
                           pattern={pattern}
-                          onPreview={setSelectedPattern}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(pattern.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -226,7 +218,7 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
                       >
                         <PatternCard
                           pattern={pattern}
-                          onPreview={setSelectedPattern}
+                          onPreview={handlePreview}
                           isFavorite={favorites.includes(pattern.id)}
                           onToggleFavorite={toggleFavorite}
                         />
@@ -274,16 +266,10 @@ export const PatternGrid = ({ searchQuery = "" }: PatternGridProps) => {
             animate={{ opacity: 1 }}
             className="text-center py-16"
           >
-            <p className={cn(
-              "text-lg font-medium mb-1",
-              isPreviewActive ? textClass : "text-foreground"
-            )}>
+            <p className="text-lg font-medium mb-1 text-foreground">
               No patterns found
             </p>
-            <p className={cn(
-              "text-sm",
-              isPreviewActive ? mutedClass : "text-muted-foreground"
-            )}>
+            <p className="text-sm text-muted-foreground">
               {activeCategory === "favorites"
                 ? "Save some patterns to your favorites."
                 : "Try a different search term or category."}

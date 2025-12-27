@@ -1,39 +1,39 @@
 import { useState } from "react";
 import { Copy, Check, Heart } from "lucide-react";
-import { Button } from "@/data/buttons";
+import { Badge } from "@/data/badges";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
-interface ButtonCardProps {
-  button: Button;
-  onPreview: (button: Button) => void;
+interface BadgeCardProps {
+  badge: Badge;
+  onPreview: (badge: Badge) => void;
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
 }
 
-export const ButtonCard = ({
-  button,
+export const BadgeCard = ({
+  badge,
   onPreview,
   isFavorite,
   onToggleFavorite,
-}: ButtonCardProps) => {
+}: BadgeCardProps) => {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    await navigator.clipboard.writeText(button.css);
+    await navigator.clipboard.writeText(badge.css);
     setCopied(true);
     toast.success("Copied!");
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Parse CSS for button preview
-  const getButtonStyle = (): React.CSSProperties => {
+  // Parse CSS for badge preview
+  const getBadgeStyle = (): React.CSSProperties => {
     const style: React.CSSProperties = {};
-    const lines = button.css.split('\n');
+    const lines = badge.css.split('\n');
     lines.forEach(line => {
       const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}')) return;
+      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}') || trimmed.startsWith('&') || trimmed.startsWith('.')) return;
       const colonIndex = trimmed.indexOf(':');
       if (colonIndex === -1) return;
       const prop = trimmed.substring(0, colonIndex).trim();
@@ -45,7 +45,7 @@ export const ButtonCard = ({
   };
 
   const handleDragStart = (e: React.DragEvent) => {
-    e.dataTransfer.setData("button", JSON.stringify(button));
+    e.dataTransfer.setData("badge", JSON.stringify(badge));
     e.dataTransfer.effectAllowed = "copy";
     (e.target as HTMLElement).style.opacity = "0.5";
   };
@@ -54,26 +54,32 @@ export const ButtonCard = ({
     (e.target as HTMLElement).style.opacity = "1";
   };
 
+  // Check if this is a dot badge that needs a dot indicator
+  const isDotBadge = badge.category === "dot" || badge.category === "status";
+
   return (
     <div
       className="group relative cursor-pointer"
-      onClick={() => onPreview(button)}
+      onClick={() => onPreview(badge)}
       draggable
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      {/* Button Preview Container */}
-      <div className="aspect-square rounded-lg overflow-hidden border border-border/40 bg-gradient-to-br from-gray-900/80 to-gray-800/80 hover:border-border flex items-center justify-center transition-all duration-300 hover:shadow-lg p-4">
-        {/* Live Button Preview */}
-        <button 
-          style={getButtonStyle()} 
-          className="pointer-events-none transform scale-90 whitespace-nowrap"
+      {/* Badge Preview Container */}
+      <div className="aspect-square rounded-lg overflow-hidden border border-border/40 bg-gradient-to-br from-gray-50/80 to-white/80 hover:border-border flex items-center justify-center transition-all duration-300 hover:shadow-lg p-4">
+        {/* Live Badge Preview */}
+        <span 
+          style={getBadgeStyle()} 
+          className="pointer-events-none"
         >
-          {button.label || "Button"}
-        </button>
+          {isDotBadge && (
+            <span className="w-2 h-2 rounded-full bg-current opacity-70 mr-1.5 inline-block"></span>
+          )}
+          {badge.label || "Badge"}
+        </span>
 
         {/* New Badge */}
-        {button.isNew && (
+        {badge.isNew && (
           <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded text-[9px] font-medium uppercase bg-foreground/90 text-background">
             New
           </div>
@@ -81,13 +87,13 @@ export const ButtonCard = ({
 
         {/* Hover Overlay */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-between p-3 bg-background/[0.97]">
-          {/* Button Info */}
+          {/* Badge Info */}
           <div>
             <p className="text-sm font-semibold text-foreground">
-              {button.name}
+              {badge.name}
             </p>
             <p className="text-xs capitalize mt-0.5 text-muted-foreground">
-              {button.category}
+              {badge.category}
             </p>
           </div>
 
@@ -96,7 +102,7 @@ export const ButtonCard = ({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                onToggleFavorite(button.id);
+                onToggleFavorite(badge.id);
               }}
               className={cn(
                 "p-2 rounded-md transition-colors bg-secondary/80 hover:bg-secondary",
@@ -121,3 +127,4 @@ export const ButtonCard = ({
     </div>
   );
 };
+

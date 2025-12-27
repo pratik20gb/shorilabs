@@ -1,62 +1,78 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Button as ButtonType } from "@/data/buttons";
+import { Toggle as ToggleType } from "@/data/toggles";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useModal } from "@/contexts/ModalContext";
 
-interface ButtonPreviewModalProps {
-  button: ButtonType | null;
+interface TogglePreviewModalProps {
+  toggle: ToggleType | null;
   onClose: () => void;
 }
 
-export const ButtonPreviewModal = ({
-  button,
+export const TogglePreviewModal = ({
+  toggle,
   onClose,
-}: ButtonPreviewModalProps) => {
+}: TogglePreviewModalProps) => {
   const [activeTab, setActiveTab] = useState<"css" | "tailwind">("css");
   const [copied, setCopied] = useState(false);
+  const [isOn, setIsOn] = useState(false);
   const { openModal, closeModal } = useModal();
 
   useEffect(() => {
-    if (button) {
+    if (toggle) {
       openModal(onClose);
     } else {
       closeModal();
     }
-  }, [button, openModal, closeModal, onClose]);
+  }, [toggle, openModal, closeModal, onClose]);
 
   const handleClose = () => {
     closeModal();
     onClose();
   };
 
-  if (!button) return null;
-
-  // Parse CSS for button preview
-  const getButtonStyle = (): React.CSSProperties => {
-    const style: React.CSSProperties = {};
-    const lines = button.css.split('\n');
-    lines.forEach(line => {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}')) return;
-      const colonIndex = trimmed.indexOf(':');
-      if (colonIndex === -1) return;
-      const prop = trimmed.substring(0, colonIndex).trim();
-      const value = trimmed.substring(colonIndex + 1).trim().replace(/;$/, '');
-      const camelProp = prop.replace(/-([a-z])/g, (_, l) => l.toUpperCase());
-      (style as Record<string, string>)[camelProp] = value;
-    });
-    return style;
-  };
+  if (!toggle) return null;
 
   const copyToClipboard = async () => {
-    const text = activeTab === "css" ? button.css : button.tailwind;
+    const text = activeTab === "css" ? toggle.css : toggle.tailwind;
     await navigator.clipboard.writeText(text);
     setCopied(true);
     toast.success(`${activeTab.toUpperCase()} copied!`);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Render toggle preview
+  const renderTogglePreview = (active: boolean) => {
+    const category = toggle.category;
+    
+    const baseTrack = "w-11 h-6 rounded-full relative transition-colors cursor-pointer";
+    const baseThumb = "absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform";
+    
+    if (category === "ios") {
+      return (
+        <div className={cn(baseTrack, active ? "bg-[#34c759]" : "bg-gray-200")}>
+          <div className={cn(baseThumb, active ? "left-[22px]" : "left-0.5")} />
+        </div>
+      );
+    }
+    if (category === "material") {
+      return (
+        <div className={cn("w-9 h-3.5 rounded-full relative transition-colors", active ? "bg-blue-200" : "bg-gray-400")}>
+          <div className={cn(
+            "absolute -top-[3px] w-5 h-5 rounded-full shadow-md transition-all",
+            active ? "left-4 bg-blue-500" : "left-0 bg-gray-50"
+          )} />
+        </div>
+      );
+    }
+    
+    return (
+      <div className={cn(baseTrack, active ? "bg-blue-500" : "bg-gray-200")}>
+        <div className={cn(baseThumb, active ? "left-[22px]" : "left-0.5")} />
+      </div>
+    );
   };
 
   return (
@@ -87,58 +103,47 @@ export const ButtonPreviewModal = ({
           {/* Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 h-full sm:h-auto">
             {/* Preview */}
-            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
-              {/* Button Preview - Multiple sizes */}
-              <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 items-center overflow-y-auto">
-                {/* Large */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Large</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(1.2)' }} 
-                    className="pointer-events-none"
+            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
+              {/* Toggle Preview */}
+              <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 overflow-y-auto sm:gap-8 lg:gap-12 items-center">
+                {/* Interactive */}
+                <div className="flex flex-col items-center gap-2 sm:gap-3 lg:gap-4">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Interactive</span>
+                  <div 
+                    onClick={() => setIsOn(!isOn)}
+                    className="cursor-pointer"
                   >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Normal */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Normal</span>
-                  <button 
-                    style={getButtonStyle()} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Small */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Small</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(0.85)', fontSize: '0.875rem', padding: '8px 16px' }} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
+                    {renderTogglePreview(isOn)}
+                  </div>
+                  <span className="text-xs text-gray-400">{isOn ? "ON" : "OFF"}</span>
                 </div>
 
-                {/* Button Group Example */}
-                <div className="flex flex-col items-center gap-2 mt-4">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Group</span>
-                  <div className="flex gap-2">
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none"
-                    >
-                      Save
-                    </button>
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none opacity-70"
-                    >
-                      Cancel
-                    </button>
+                {/* States */}
+                <div className="flex flex-col items-center gap-2 sm:gap-3 lg:gap-4">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">States</span>
+                  <div className="flex gap-6">
+                    <div className="flex flex-col items-center gap-2">
+                      {renderTogglePreview(false)}
+                      <span className="text-xs text-gray-400">Off</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      {renderTogglePreview(true)}
+                      <span className="text-xs text-gray-400">On</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* In Context */}
+                <div className="flex flex-col items-center gap-2 sm:gap-3 lg:gap-4">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">In Context</span>
+                  <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-200 dark:border-gray-700 w-64">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900 dark:text-white">Dark Mode</p>
+                        <p className="text-[10px] sm:text-xs text-gray-500">Enable dark theme</p>
+                      </div>
+                      {renderTogglePreview(isOn)}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -147,24 +152,24 @@ export const ButtonPreviewModal = ({
             {/* Code Panel */}
             <div className="flex flex-col p-3 sm:p-4 lg:p-6 xl:p-8 max-h-[calc(100vh-200px)] sm:max-h-[70vh] lg:max-h-none overflow-y-auto">
               {/* Header */}
-              <div className="mb-4 sm:mb-4 sm:mb-6 lg:mb-8">
+              <div className="mb-4 sm:mb-6 lg:mb-8">
                 <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
                   <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground">
-                    {button.name}
+                    {toggle.name}
                   </h2>
-                  {button.isNew && (
+                  {toggle.isNew && (
                     <span className="px-2 py-0.5 rounded-md bg-foreground/90 text-background text-[10px] font-medium tracking-wide uppercase">
                       New
                     </span>
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground capitalize">
-                  {button.category}
+                  {toggle.category}
                 </p>
               </div>
 
               {/* Tabs */}
-              <div className="flex gap-1.5 sm:gap-2 mb-4 sm:mb-4 sm:mb-6">
+              <div className="flex gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                 <button
                   className={cn(
                     "pill-button text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-1.5",
@@ -188,7 +193,7 @@ export const ButtonPreviewModal = ({
               {/* Code */}
               <div className="flex-1 overflow-auto mb-4 sm:mb-6">
                 <pre className="p-2 sm:p-3 lg:p-4 rounded-lg bg-secondary/50 text-xs sm:text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">
-                  {activeTab === "css" ? button.css : button.tailwind}
+                  {activeTab === "css" ? toggle.css : toggle.tailwind}
                 </pre>
               </div>
 
@@ -197,8 +202,14 @@ export const ButtonPreviewModal = ({
                 <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1 sm:mb-2">Usage</p>
                 <pre className="text-xs sm:text-sm font-mono text-foreground">
 {activeTab === "css" 
-  ? `<button class="my-button">${button.label || "Button"}</button>`
-  : `<button className="${button.tailwind}">${button.label || "Button"}</button>`
+  ? `<label class="toggle">
+  <input type="checkbox" />
+  <span class="slider"></span>
+</label>`
+  : `<label className="relative inline-flex cursor-pointer">
+  <input type="checkbox" className="sr-only peer" />
+  <div className="${toggle.tailwind}"></div>
+</label>`
 }
                 </pre>
               </div>

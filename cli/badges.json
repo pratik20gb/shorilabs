@@ -1,0 +1,177 @@
+[
+  {
+    "id": "solid-primary",
+    "name": "Solid Primary",
+    "category": "solid",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #3b82f6;\r\ncolor: #ffffff;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md bg-blue-500 text-white text-xs font-medium",
+    "label": "Badge"
+  },
+  {
+    "id": "solid-success",
+    "name": "Solid Success",
+    "category": "solid",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #10b981;\r\ncolor: #ffffff;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-500 text-white text-xs font-medium",
+    "label": "Success"
+  },
+  {
+    "id": "solid-warning",
+    "name": "Solid Warning",
+    "category": "solid",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #f59e0b;\r\ncolor: #ffffff;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md bg-amber-500 text-white text-xs font-medium",
+    "label": "Warning"
+  },
+  {
+    "id": "solid-danger",
+    "name": "Solid Danger",
+    "category": "solid",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #ef4444;\r\ncolor: #ffffff;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md bg-red-500 text-white text-xs font-medium",
+    "label": "Error"
+  },
+  {
+    "id": "outline-primary",
+    "name": "Outline Primary",
+    "category": "outline",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nborder: 1px solid #3b82f6;\r\ncolor: #3b82f6;\r\nfont-size: 12px;\r\nfont-weight: 500;\r\nbackground: transparent;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md border border-blue-500 text-blue-500 bg-transparent text-xs font-medium",
+    "label": "Outline"
+  },
+  {
+    "id": "outline-dark",
+    "name": "Outline Dark",
+    "category": "outline",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nborder: 1px solid #1f2937;\r\ncolor: #1f2937;\r\nfont-size: 12px;\r\nfont-weight: 500;\r\nbackground: transparent;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md border border-gray-800 text-gray-800 bg-transparent text-xs font-medium",
+    "label": "Dark",
+    "isNew": true
+  },
+  {
+    "id": "outline-gradient",
+    "name": "Outline Gradient",
+    "category": "outline",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nborder: 1px solid transparent;\r\nbackground: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #667eea, #764ba2) border-box;\r\ncolor: #667eea;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md border border-transparent [background:linear-gradient(white,white)_padding-box,linear-gradient(135deg,#667eea,#764ba2)_border-box] text-indigo-500 text-xs font-medium",
+    "label": "Gradient",
+    "isNew": true
+  },
+  {
+    "id": "soft-blue",
+    "name": "Soft Blue",
+    "category": "soft",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #dbeafe;\r\ncolor: #1d4ed8;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md bg-blue-100 text-blue-700 text-xs font-medium",
+    "label": "Info"
+  },
+  {
+    "id": "soft-green",
+    "name": "Soft Green",
+    "category": "soft",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #d1fae5;\r\ncolor: #047857;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-700 text-xs font-medium",
+    "label": "Complete"
+  },
+  {
+    "id": "soft-purple",
+    "name": "Soft Purple",
+    "category": "soft",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #ede9fe;\r\ncolor: #6d28d9;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md bg-violet-100 text-violet-700 text-xs font-medium",
+    "label": "New",
+    "isNew": true
+  },
+  {
+    "id": "soft-gray",
+    "name": "Soft Gray",
+    "category": "soft",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #f3f4f6;\r\ncolor: #374151;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-medium",
+    "label": "Default"
+  },
+  {
+    "id": "pill-primary",
+    "name": "Pill Primary",
+    "category": "pill",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 12px;\r\nborder-radius: 9999px;\r\nbackground: #3b82f6;\r\ncolor: #ffffff;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-3 py-1 rounded-full bg-blue-500 text-white text-xs font-medium",
+    "label": "Tag"
+  },
+  {
+    "id": "pill-soft",
+    "name": "Pill Soft",
+    "category": "pill",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 12px;\r\nborder-radius: 9999px;\r\nbackground: #fef3c7;\r\ncolor: #b45309;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-medium",
+    "label": "Category"
+  },
+  {
+    "id": "pill-outline",
+    "name": "Pill Outline",
+    "category": "pill",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\npadding: 4px 12px;\r\nborder-radius: 9999px;\r\nborder: 1px solid #6366f1;\r\ncolor: #6366f1;\r\nfont-size: 12px;\r\nfont-weight: 500;\r\nbackground: transparent;",
+    "tailwind": "inline-flex items-center px-3 py-1 rounded-full border border-indigo-500 text-indigo-500 bg-transparent text-xs font-medium",
+    "label": "Label",
+    "isNew": true
+  },
+  {
+    "id": "dot-success",
+    "name": "Dot Success",
+    "category": "dot",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\ngap: 6px;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #f3f4f6;\r\ncolor: #374151;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-medium before:content-[''] before:w-2 before:h-2 before:rounded-full before:bg-emerald-500",
+    "label": "Active"
+  },
+  {
+    "id": "dot-warning",
+    "name": "Dot Warning",
+    "category": "dot",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\ngap: 6px;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #f3f4f6;\r\ncolor: #374151;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-medium before:content-[''] before:w-2 before:h-2 before:rounded-full before:bg-amber-500",
+    "label": "Pending",
+    "isNew": true
+  },
+  {
+    "id": "dot-danger",
+    "name": "Dot Danger",
+    "category": "dot",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\ngap: 6px;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #f3f4f6;\r\ncolor: #374151;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-medium before:content-[''] before:w-2 before:h-2 before:rounded-full before:bg-red-500",
+    "label": "Offline"
+  },
+  {
+    "id": "dot-pulse",
+    "name": "Dot Pulse",
+    "category": "dot",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\ngap: 6px;\r\npadding: 4px 10px;\r\nborder-radius: 6px;\r\nbackground: #f3f4f6;\r\ncolor: #374151;\r\nfont-size: 12px;\r\nfont-weight: 500;",
+    "tailwind": "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-medium before:content-[''] before:w-2 before:h-2 before:rounded-full before:bg-emerald-500 before:animate-pulse",
+    "label": "Live",
+    "isNew": true
+  },
+  {
+    "id": "status-online",
+    "name": "Status Online",
+    "category": "status",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\ngap: 6px;\r\npadding: 6px 12px;\r\nborder-radius: 9999px;\r\nbackground: #d1fae5;\r\ncolor: #047857;\r\nfont-size: 12px;\r\nfont-weight: 600;",
+    "tailwind": "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold before:content-[''] before:w-2 before:h-2 before:rounded-full before:bg-emerald-500",
+    "label": "Online"
+  },
+  {
+    "id": "status-away",
+    "name": "Status Away",
+    "category": "status",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\ngap: 6px;\r\npadding: 6px 12px;\r\nborder-radius: 9999px;\r\nbackground: #fef3c7;\r\ncolor: #b45309;\r\nfont-size: 12px;\r\nfont-weight: 600;",
+    "tailwind": "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-100 text-amber-700 text-xs font-semibold before:content-[''] before:w-2 before:h-2 before:rounded-full before:bg-amber-500",
+    "label": "Away"
+  },
+  {
+    "id": "status-busy",
+    "name": "Status Busy",
+    "category": "status",
+    "css": "display: inline-flex;\r\nalign-items: center;\r\ngap: 6px;\r\npadding: 6px 12px;\r\nborder-radius: 9999px;\r\nbackground: #fee2e2;\r\ncolor: #b91c1c;\r\nfont-size: 12px;\r\nfont-weight: 600;",
+    "tailwind": "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-100 text-red-700 text-xs font-semibold before:content-[''] before:w-2 before:h-2 before:rounded-full before:bg-red-500",
+    "label": "Busy",
+    "isNew": true
+  }
+]

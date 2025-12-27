@@ -1,62 +1,83 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Button as ButtonType } from "@/data/buttons";
+import { Divider as DividerType } from "@/data/dividers";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useModal } from "@/contexts/ModalContext";
 
-interface ButtonPreviewModalProps {
-  button: ButtonType | null;
+interface DividerPreviewModalProps {
+  divider: DividerType | null;
   onClose: () => void;
 }
 
-export const ButtonPreviewModal = ({
-  button,
+export const DividerPreviewModal = ({
+  divider,
   onClose,
-}: ButtonPreviewModalProps) => {
+}: DividerPreviewModalProps) => {
   const [activeTab, setActiveTab] = useState<"css" | "tailwind">("css");
   const [copied, setCopied] = useState(false);
   const { openModal, closeModal } = useModal();
 
   useEffect(() => {
-    if (button) {
+    if (divider) {
       openModal(onClose);
     } else {
       closeModal();
     }
-  }, [button, openModal, closeModal, onClose]);
+  }, [divider, openModal, closeModal, onClose]);
 
   const handleClose = () => {
     closeModal();
     onClose();
   };
 
-  if (!button) return null;
-
-  // Parse CSS for button preview
-  const getButtonStyle = (): React.CSSProperties => {
-    const style: React.CSSProperties = {};
-    const lines = button.css.split('\n');
-    lines.forEach(line => {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}')) return;
-      const colonIndex = trimmed.indexOf(':');
-      if (colonIndex === -1) return;
-      const prop = trimmed.substring(0, colonIndex).trim();
-      const value = trimmed.substring(colonIndex + 1).trim().replace(/;$/, '');
-      const camelProp = prop.replace(/-([a-z])/g, (_, l) => l.toUpperCase());
-      (style as Record<string, string>)[camelProp] = value;
-    });
-    return style;
-  };
+  if (!divider) return null;
 
   const copyToClipboard = async () => {
-    const text = activeTab === "css" ? button.css : button.tailwind;
+    const text = activeTab === "css" ? divider.css : divider.tailwind;
     await navigator.clipboard.writeText(text);
     setCopied(true);
     toast.success(`${activeTab.toUpperCase()} copied!`);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Render divider preview based on category
+  const renderDividerPreview = () => {
+    const category = divider.category;
+    
+    if (category === "solid") {
+      return <div className="w-full h-px bg-gray-300" />;
+    }
+    if (category === "dashed") {
+      return <div className="w-full border-t-2 border-dashed border-gray-300" />;
+    }
+    if (category === "gradient") {
+      return <div className="w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded" />;
+    }
+    if (category === "decorated") {
+      return (
+        <div className="w-full flex items-center gap-2 sm:gap-3">
+          <div className="flex-1 h-px bg-gray-300" />
+          <div className="w-2 h-2 bg-gray-400 rotate-45" />
+          <div className="flex-1 h-px bg-gray-300" />
+        </div>
+      );
+    }
+    if (category === "text") {
+      return (
+        <div className="w-full flex items-center gap-2 sm:gap-3 lg:gap-4">
+          <div className="flex-1 h-px bg-gray-200" />
+          <span className="text-[10px] sm:text-xs text-gray-500 font-medium uppercase">or</span>
+          <div className="flex-1 h-px bg-gray-200" />
+        </div>
+      );
+    }
+    if (category === "fade") {
+      return <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />;
+    }
+    
+    return <div className="w-full h-px bg-gray-300" />;
   };
 
   return (
@@ -87,58 +108,28 @@ export const ButtonPreviewModal = ({
           {/* Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 h-full sm:h-auto">
             {/* Preview */}
-            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
-              {/* Button Preview - Multiple sizes */}
-              <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 items-center overflow-y-auto">
-                {/* Large */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Large</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(1.2)' }} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Normal */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Normal</span>
-                  <button 
-                    style={getButtonStyle()} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Small */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Small</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(0.85)', fontSize: '0.875rem', padding: '8px 16px' }} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
+            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
+              {/* Divider Preview */}
+              <div className="flex flex-col gap-8 sm:gap-12 lg:gap-16 items-center w-full max-w-md">
+                {/* Single */}
+                <div className="flex flex-col items-center gap-2 sm:gap-3 lg:gap-4 w-full">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Single</span>
+                  {renderDividerPreview()}
                 </div>
 
-                {/* Button Group Example */}
-                <div className="flex flex-col items-center gap-2 mt-4">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Group</span>
-                  <div className="flex gap-2">
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none"
-                    >
-                      Save
-                    </button>
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none opacity-70"
-                    >
-                      Cancel
-                    </button>
+                {/* In Context */}
+                <div className="flex flex-col items-center gap-2 sm:gap-3 lg:gap-4 w-full">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">In Context</span>
+                  <div className="w-full space-y-4">
+                    <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                    <div className="h-3 bg-gray-200 rounded w-full"></div>
+                    <div className="h-3 bg-gray-200 rounded w-5/6"></div>
+                    <div className="py-4">
+                      {renderDividerPreview()}
+                    </div>
+                    <div className="h-3 bg-gray-200 rounded w-full"></div>
+                    <div className="h-3 bg-gray-200 rounded w-4/5"></div>
+                    <div className="h-3 bg-gray-200 rounded w-3/4"></div>
                   </div>
                 </div>
               </div>
@@ -147,24 +138,24 @@ export const ButtonPreviewModal = ({
             {/* Code Panel */}
             <div className="flex flex-col p-3 sm:p-4 lg:p-6 xl:p-8 max-h-[calc(100vh-200px)] sm:max-h-[70vh] lg:max-h-none overflow-y-auto">
               {/* Header */}
-              <div className="mb-4 sm:mb-4 sm:mb-6 lg:mb-8">
+              <div className="mb-4 sm:mb-6 lg:mb-8">
                 <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
                   <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground">
-                    {button.name}
+                    {divider.name}
                   </h2>
-                  {button.isNew && (
+                  {divider.isNew && (
                     <span className="px-2 py-0.5 rounded-md bg-foreground/90 text-background text-[10px] font-medium tracking-wide uppercase">
                       New
                     </span>
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground capitalize">
-                  {button.category}
+                  {divider.category}
                 </p>
               </div>
 
               {/* Tabs */}
-              <div className="flex gap-1.5 sm:gap-2 mb-4 sm:mb-4 sm:mb-6">
+              <div className="flex gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                 <button
                   className={cn(
                     "pill-button text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-1.5",
@@ -188,7 +179,7 @@ export const ButtonPreviewModal = ({
               {/* Code */}
               <div className="flex-1 overflow-auto mb-4 sm:mb-6">
                 <pre className="p-2 sm:p-3 lg:p-4 rounded-lg bg-secondary/50 text-xs sm:text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">
-                  {activeTab === "css" ? button.css : button.tailwind}
+                  {activeTab === "css" ? divider.css : divider.tailwind}
                 </pre>
               </div>
 
@@ -197,8 +188,8 @@ export const ButtonPreviewModal = ({
                 <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1 sm:mb-2">Usage</p>
                 <pre className="text-xs sm:text-sm font-mono text-foreground">
 {activeTab === "css" 
-  ? `<button class="my-button">${button.label || "Button"}</button>`
-  : `<button className="${button.tailwind}">${button.label || "Button"}</button>`
+  ? `<hr class="divider" />`
+  : `<hr className="${divider.tailwind}" />`
 }
                 </pre>
               </div>

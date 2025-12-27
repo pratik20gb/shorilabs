@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, Github, X, Menu, Terminal } from "lucide-react";
+import { Search, Github, Menu, Terminal, X } from "lucide-react";
 
 // X (formerly Twitter) logo component
 const XLogo = ({ className }: { className?: string }) => (
@@ -11,9 +11,8 @@ const XLogo = ({ className }: { className?: string }) => (
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
-import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
-import { toast } from "sonner";
 import { ViewType } from "@/pages/Index";
+import { useModal } from "@/contexts/ModalContext";
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
@@ -25,14 +24,7 @@ export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderPro
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { 
-    pattern: backgroundPattern, 
-    setPattern: setBackgroundPattern,
-    isPreviewActive,
-    mutedClass,
-    cardClass,
-    brightness
-  } = useBackgroundPattern();
+  const { isModalOpen, closeModal } = useModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,9 +40,16 @@ export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderPro
   };
 
   const navItems = [
-    { id: "all" as ViewType, label: "Components" },
+    { id: "all" as ViewType, label: "All" },
     { id: "patterns" as ViewType, label: "Patterns" },
     { id: "buttons" as ViewType, label: "Buttons" },
+    { id: "cards" as ViewType, label: "Cards" },
+    { id: "inputs" as ViewType, label: "Inputs" },
+    { id: "badges" as ViewType, label: "Badges" },
+    { id: "loaders" as ViewType, label: "Loaders" },
+    { id: "avatars" as ViewType, label: "Avatars" },
+    { id: "toggles" as ViewType, label: "Toggles" },
+    { id: "dividers" as ViewType, label: "Dividers" },
   ];
 
   return (
@@ -59,11 +58,9 @@ export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderPro
       animate={{ y: 0, opacity: 1 }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-        isPreviewActive
-          ? cn(cardClass, "shadow-lg")
-          : isScrolled 
-            ? "bg-background/95 backdrop-blur-lg border-border shadow-sm" 
-            : "bg-background border-border"
+        isScrolled 
+          ? "bg-background/95 backdrop-blur-lg border-border shadow-sm" 
+          : "bg-background border-border"
       )}
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -81,16 +78,8 @@ export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderPro
                   className={cn(
                     "px-3 py-1.5 text-sm font-medium transition-colors rounded-md",
                     activeView === item.id
-                      ? isPreviewActive
-                        ? brightness === "dark"
-                          ? "text-white"
-                          : "text-gray-900"
-                        : "text-foreground"
-                      : isPreviewActive
-                        ? brightness === "dark"
-                          ? "text-white/60 hover:text-white/80"
-                          : "text-gray-500 hover:text-gray-700"
-                        : "text-muted-foreground hover:text-foreground"
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {item.label}
@@ -101,119 +90,80 @@ export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderPro
 
           {/* Right: Actions */}
           <div className="flex items-center gap-2">
-            {/* Search - Desktop */}
-            {activeView !== "all" && (
-              <div className="hidden lg:flex relative">
-                <Search className={cn(
-                  "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4",
-                  isPreviewActive ? mutedClass : "text-muted-foreground"
-                )} />
-                <Input
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => handleSearch(e.target.value)}
-                  className={cn(
-                    "pl-9 pr-3 h-8 w-40 rounded-md text-sm border",
-                    isPreviewActive 
-                      ? brightness === "dark"
-                        ? "bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                        : "bg-black/5 border-black/10 text-gray-900 placeholder:text-gray-500"
-                      : "bg-transparent border-border placeholder:text-muted-foreground"
-                  )}
-                />
-              </div>
-            )}
-
-            {/* CLI */}
-            <a
-              href="https://www.npmjs.com/package/@shorilabs/cli"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "p-2 rounded-md transition-colors",
-                isPreviewActive 
-                  ? brightness === "dark"
-                    ? "text-white/60 hover:text-white"
-                    : "text-gray-500 hover:text-gray-900"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
-              )}
-              aria-label="CLI"
-              title="Install via CLI"
-            >
-              <Terminal className="w-4 h-4" />
-            </a>
-
-            {/* GitHub */}
-            <a
-              href="https://github.com/pratik20gb/shorilabs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "p-2 rounded-md transition-colors",
-                isPreviewActive 
-                  ? brightness === "dark"
-                    ? "text-white/60 hover:text-white"
-                    : "text-gray-500 hover:text-gray-900"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
-              )}
-              aria-label="GitHub"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-
-            {/* X */}
-            <a
-              href="https://twitter.com/sage_pratik"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "p-2 rounded-md transition-colors",
-                isPreviewActive 
-                  ? brightness === "dark"
-                    ? "text-white/60 hover:text-white"
-                    : "text-gray-500 hover:text-gray-900"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
-              )}
-              aria-label="X"
-            >
-              <XLogo className="w-4 h-4" />
-            </a>
-
-            {/* Clear Background Pattern */}
-            {backgroundPattern && (
+            {/* Mobile Close Modal Button - Only show when modal is open */}
+            {isModalOpen && (
               <button
-                onClick={() => {
-                  setBackgroundPattern(null);
-                  toast.success("Background cleared");
-                }}
-                className={cn(
-                  "p-2 rounded-md transition-colors",
-                  brightness === "dark"
-                    ? "text-red-400 hover:text-red-300 hover:bg-red-500/10"
-                    : "text-red-500 hover:text-red-600 hover:bg-red-500/10"
-                )}
-                aria-label="Clear background"
-                title="Clear preview"
+                onClick={closeModal}
+                className="md:hidden p-2 rounded-md transition-colors text-foreground hover:bg-accent bg-accent/50"
+                aria-label="Close Modal"
               >
                 <X className="w-4 h-4" />
               </button>
             )}
 
+            {/* Search - Desktop */}
+            {activeView !== "all" && !isModalOpen && (
+              <div className="hidden lg:flex relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  className="pl-9 pr-3 h-8 w-40 rounded-md text-sm border bg-transparent border-border placeholder:text-muted-foreground"
+                />
+              </div>
+            )}
+
+            {/* CLI */}
+            {!isModalOpen && (
+              <a
+                href="https://www.npmjs.com/package/@shorilabs/cli"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-md transition-colors text-muted-foreground hover:text-foreground hover:bg-accent"
+                aria-label="CLI"
+                title="Install via CLI"
+              >
+                <Terminal className="w-4 h-4" />
+              </a>
+            )}
+
+            {/* GitHub */}
+            {!isModalOpen && (
+              <a
+                href="https://github.com/pratik20gb/shorilabs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-md transition-colors text-muted-foreground hover:text-foreground hover:bg-accent"
+                aria-label="GitHub"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+            )}
+
+            {/* X */}
+            {!isModalOpen && (
+              <a
+                href="https://twitter.com/sage_pratik"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-md transition-colors text-muted-foreground hover:text-foreground hover:bg-accent"
+                aria-label="X"
+              >
+                <XLogo className="w-4 h-4" />
+              </a>
+            )}
+
             {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={cn(
-                "md:hidden p-2 rounded-md transition-colors",
-                isPreviewActive 
-                  ? brightness === "dark"
-                    ? "text-white/60 hover:text-white"
-                    : "text-gray-500 hover:text-gray-900"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
-              )}
-              aria-label="Menu"
-            >
-              <Menu className="w-4 h-4" />
-            </button>
+            {!isModalOpen && (
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 rounded-md transition-colors text-muted-foreground hover:text-foreground hover:bg-accent"
+                aria-label="Menu"
+              >
+                <Menu className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
 
@@ -236,16 +186,8 @@ export const Header = ({ onSearch, activeView = "all", onViewChange }: HeaderPro
                   className={cn(
                     "px-3 py-2 text-sm font-medium transition-colors rounded-md text-left",
                     activeView === item.id
-                      ? isPreviewActive
-                        ? brightness === "dark"
-                          ? "text-white bg-white/10"
-                          : "text-gray-900 bg-black/5"
-                        : "text-foreground bg-accent"
-                      : isPreviewActive
-                        ? brightness === "dark"
-                          ? "text-white/60"
-                          : "text-gray-500"
-                        : "text-muted-foreground"
+                      ? "text-foreground bg-accent"
+                      : "text-muted-foreground"
                   )}
                 >
                   {item.label}

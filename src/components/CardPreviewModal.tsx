@@ -1,46 +1,46 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Button as ButtonType } from "@/data/buttons";
+import { Card as CardType } from "@/data/cards";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useModal } from "@/contexts/ModalContext";
 
-interface ButtonPreviewModalProps {
-  button: ButtonType | null;
+interface CardPreviewModalProps {
+  card: CardType | null;
   onClose: () => void;
 }
 
-export const ButtonPreviewModal = ({
-  button,
+export const CardPreviewModal = ({
+  card,
   onClose,
-}: ButtonPreviewModalProps) => {
+}: CardPreviewModalProps) => {
   const [activeTab, setActiveTab] = useState<"css" | "tailwind">("css");
   const [copied, setCopied] = useState(false);
   const { openModal, closeModal } = useModal();
 
   useEffect(() => {
-    if (button) {
+    if (card) {
       openModal(onClose);
     } else {
       closeModal();
     }
-  }, [button, openModal, closeModal, onClose]);
+  }, [card, openModal, closeModal, onClose]);
 
   const handleClose = () => {
     closeModal();
     onClose();
   };
 
-  if (!button) return null;
+  if (!card) return null;
 
-  // Parse CSS for button preview
-  const getButtonStyle = (): React.CSSProperties => {
+  // Parse CSS for card preview
+  const getCardStyle = (): React.CSSProperties => {
     const style: React.CSSProperties = {};
-    const lines = button.css.split('\n');
+    const lines = card.css.split('\n');
     lines.forEach(line => {
       const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}')) return;
+      if (!trimmed || trimmed.startsWith('@') || trimmed.startsWith('}') || trimmed.startsWith('&')) return;
       const colonIndex = trimmed.indexOf(':');
       if (colonIndex === -1) return;
       const prop = trimmed.substring(0, colonIndex).trim();
@@ -52,7 +52,7 @@ export const ButtonPreviewModal = ({
   };
 
   const copyToClipboard = async () => {
-    const text = activeTab === "css" ? button.css : button.tailwind;
+    const text = activeTab === "css" ? card.css : card.tailwind;
     await navigator.clipboard.writeText(text);
     setCopied(true);
     toast.success(`${activeTab.toUpperCase()} copied!`);
@@ -87,58 +87,42 @@ export const ButtonPreviewModal = ({
           {/* Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 h-full sm:h-auto">
             {/* Preview */}
-            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
-              {/* Button Preview - Multiple sizes */}
-              <div className="flex flex-col gap-3 sm:gap-4 lg:gap-6 items-center overflow-y-auto">
-                {/* Large */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Large</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(1.2)' }} 
-                    className="pointer-events-none"
+            <div className="aspect-square lg:aspect-auto min-h-[200px] sm:min-h-[300px] lg:min-h-[500px] lg:border-r border-b lg:border-b-0 border-border bg-gradient-to-br from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-3 sm:p-4 lg:p-6 xl:p-8">
+              {/* Card Preview - Multiple variations */}
+              <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 items-center w-full max-w-sm overflow-y-auto">
+                {/* Large Card */}
+                <div className="flex flex-col items-center gap-2 w-full">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Card Preview</span>
+                  <div 
+                    style={getCardStyle()} 
+                    className="w-full"
                   >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Normal */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Normal</span>
-                  <button 
-                    style={getButtonStyle()} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
-                </div>
-                
-                {/* Small */}
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Small</span>
-                  <button 
-                    style={{ ...getButtonStyle(), transform: 'scale(0.85)', fontSize: '0.875rem', padding: '8px 16px' }} 
-                    className="pointer-events-none"
-                  >
-                    {button.label || "Button"}
-                  </button>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="w-10 h-10 rounded-full bg-current opacity-20"></div>
+                        <div className="flex-1 space-y-1">
+                          <div className="h-3 bg-current opacity-20 rounded w-24"></div>
+                          <div className="h-2 bg-current opacity-10 rounded w-16"></div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-2 bg-current opacity-10 rounded w-full"></div>
+                        <div className="h-2 bg-current opacity-10 rounded w-5/6"></div>
+                        <div className="h-2 bg-current opacity-10 rounded w-4/6"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Button Group Example */}
-                <div className="flex flex-col items-center gap-2 mt-4">
-                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">Group</span>
-                  <div className="flex gap-2">
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none"
-                    >
-                      Save
-                    </button>
-                    <button 
-                      style={getButtonStyle()} 
-                      className="pointer-events-none opacity-70"
-                    >
-                      Cancel
-                    </button>
+                {/* Card with Content */}
+                <div className="flex flex-col items-center gap-2 w-full">
+                  <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wide">With Content</span>
+                  <div 
+                    style={getCardStyle()} 
+                    className="w-full"
+                  >
+                    <h3 className="font-semibold text-sm mb-1" style={{ color: 'inherit' }}>Card Title</h3>
+                    <p className="text-xs opacity-70" style={{ color: 'inherit' }}>This is an example card with some content to show how it looks in use.</p>
                   </div>
                 </div>
               </div>
@@ -147,19 +131,19 @@ export const ButtonPreviewModal = ({
             {/* Code Panel */}
             <div className="flex flex-col p-3 sm:p-4 lg:p-6 xl:p-8 max-h-[calc(100vh-200px)] sm:max-h-[70vh] lg:max-h-none overflow-y-auto">
               {/* Header */}
-              <div className="mb-4 sm:mb-4 sm:mb-6 lg:mb-8">
+              <div className="mb-4 sm:mb-6 lg:mb-8">
                 <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
                   <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground">
-                    {button.name}
+                    {card.name}
                   </h2>
-                  {button.isNew && (
+                  {card.isNew && (
                     <span className="px-2 py-0.5 rounded-md bg-foreground/90 text-background text-[10px] font-medium tracking-wide uppercase">
                       New
                     </span>
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground capitalize">
-                  {button.category}
+                  {card.category}
                 </p>
               </div>
 
@@ -188,7 +172,7 @@ export const ButtonPreviewModal = ({
               {/* Code */}
               <div className="flex-1 overflow-auto mb-4 sm:mb-6">
                 <pre className="p-2 sm:p-3 lg:p-4 rounded-lg bg-secondary/50 text-xs sm:text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">
-                  {activeTab === "css" ? button.css : button.tailwind}
+                  {activeTab === "css" ? card.css : card.tailwind}
                 </pre>
               </div>
 
@@ -197,8 +181,8 @@ export const ButtonPreviewModal = ({
                 <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1 sm:mb-2">Usage</p>
                 <pre className="text-xs sm:text-sm font-mono text-foreground">
 {activeTab === "css" 
-  ? `<button class="my-button">${button.label || "Button"}</button>`
-  : `<button className="${button.tailwind}">${button.label || "Button"}</button>`
+  ? `<div class="card">Content</div>`
+  : `<div className="${card.tailwind}">Content</div>`
 }
                 </pre>
               </div>

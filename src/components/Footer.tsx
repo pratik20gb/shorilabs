@@ -1,5 +1,4 @@
 import { Github } from "lucide-react";
-import { useBackgroundPattern } from "@/contexts/BackgroundPatternContext";
 import { cn } from "@/lib/utils";
 
 // X (formerly Twitter) logo component
@@ -10,34 +9,17 @@ const XLogo = ({ className }: { className?: string }) => (
 );
 
 export const Footer = () => {
-  const { isPreviewActive, mutedClass, brightness } = useBackgroundPattern();
-
   return (
-    <footer className={cn(
-      "py-6 border-t relative z-10 transition-colors",
-      isPreviewActive 
-        ? brightness === "dark" ? "border-white/10" : "border-black/10"
-        : "border-border"
-    )}>
+    <footer className="py-6 border-t border-border relative z-10">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className={cn(
-            "text-sm transition-colors",
-            isPreviewActive ? mutedClass : "text-muted-foreground"
-          )}>
+          <p className="text-sm text-muted-foreground">
             Built by{" "}
             <a
               href="https://thepratik.xyz"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                "font-medium underline underline-offset-4 transition-colors",
-                isPreviewActive 
-                  ? brightness === "dark"
-                    ? "text-white/80 hover:text-white"
-                    : "text-gray-700 hover:text-gray-900"
-                  : "text-foreground hover:text-foreground/80"
-              )}
+              className="font-medium underline underline-offset-4 transition-colors text-foreground hover:text-foreground/80"
             >
               Pratik
             </a>
@@ -46,14 +28,7 @@ export const Footer = () => {
               href="https://github.com/pratik20gb/shorilabs"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                "font-medium underline underline-offset-4 transition-colors",
-                isPreviewActive 
-                  ? brightness === "dark"
-                    ? "text-white/80 hover:text-white"
-                    : "text-gray-700 hover:text-gray-900"
-                  : "text-foreground hover:text-foreground/80"
-              )}
+              className="font-medium underline underline-offset-4 transition-colors text-foreground hover:text-foreground/80"
             >
               GitHub
             </a>
@@ -65,14 +40,7 @@ export const Footer = () => {
               href="https://github.com/pratik20gb/shorilabs"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                "transition-colors",
-                isPreviewActive 
-                  ? brightness === "dark"
-                    ? "text-white/60 hover:text-white"
-                    : "text-gray-500 hover:text-gray-900"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
+              className="transition-colors text-muted-foreground hover:text-foreground"
               aria-label="GitHub"
             >
               <Github className="w-5 h-5" />
@@ -81,14 +49,7 @@ export const Footer = () => {
               href="https://twitter.com/sage_pratik"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                "transition-colors",
-                isPreviewActive 
-                  ? brightness === "dark"
-                    ? "text-white/60 hover:text-white"
-                    : "text-gray-500 hover:text-gray-900"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
+              className="transition-colors text-muted-foreground hover:text-foreground"
               aria-label="X"
             >
               <XLogo className="w-5 h-5" />
