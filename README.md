@@ -7,7 +7,11 @@
 </div>
 
 <p align="center">
-  <strong>Beautiful CSS & Tailwind patterns and buttons for modern web projects</strong>
+  <strong>Beautiful CSS & Tailwind components for modern web projects</strong>
+</p>
+
+<p align="center">
+  <strong>269+ components</strong> • Patterns • Buttons • Cards • Inputs • Badges • Loaders • Avatars • Toggles • Dividers
 </p>
 
 <p align="center">
@@ -26,15 +30,27 @@
 
 ## ✨ Features
 
-- 🎨 **100+ Patterns** - Gradients, geometric shapes, decorative effects, and more
-- 🔘 **29+ Buttons** - Primary, secondary, outline, ghost, animated, 3D, and neon styles
+### 🎨 269+ Components Available
+
+- **105 Patterns** - Gradients, geometric shapes, decorative effects, and more
+- **29 Buttons** - Primary, secondary, outline, ghost, animated, 3D, and neon styles
+- **26 Cards** - Modern card designs with various styles
+- **17 Inputs** - Beautiful form input styles
+- **21 Badges** - Badge variants for labels and tags
+- **18 Loaders** - Loading animations and spinners
+- **20 Avatars** - Avatar styles and variations
+- **13 Toggles** - Toggle switches and checkboxes
+- **20 Dividers** - Divider styles and separators
+
+### 🚀 Core Features
+
 - 📋 **One-Click Copy** - CSS and Tailwind CSS versions for every component
-- 👁️ **Live Preview** - Preview patterns directly on the website background
-- ❤️ **Favorites System** - Save your favorite patterns and buttons locally
+- 👁️ **Live Preview** - Preview components directly on the website
+- ❤️ **Favorites System** - Save your favorite components locally
 - 🔍 **Search & Filter** - Find components quickly by name or category
 - 📱 **Fully Responsive** - Beautiful on all screen sizes
 - 🚀 **Fast & Lightweight** - Built with Vite and optimized for performance
-- 💻 **CLI Tool** - Install patterns and buttons directly from the command line
+- 💻 **CLI Tool** - Install components directly from the command line
 
 ## 🚀 Quick Start
 
@@ -71,17 +87,21 @@ npm install -g @shorilabs/cli
 Then use it:
 
 ```bash
-# List all patterns
+# List all component types
 shorilabs patterns
-
-# List all buttons  
 shorilabs buttons
+shorilabs cards
+shorilabs inputs
+shorilabs badges
+shorilabs loaders
+shorilabs avatars
+shorilabs toggles
+shorilabs dividers
 
-# Get a specific pattern
+# Get a specific component
 shorilabs get aurora-glow
-
-# Get a specific button
 shorilabs get neon-blue --type button
+shorilabs get card-gradient --type card
 
 # Search across all components
 shorilabs search gradient
@@ -99,11 +119,11 @@ npm run preview
 
 ## 🎯 Usage
 
-1. **Browse Components** - Scroll through patterns and buttons on the home page
-2. **Filter by Category** - Click category pills to filter components
-3. **Search** - Use the search bar to find specific components
-4. **Preview Patterns** - Click "Preview" to see patterns on the website background
-5. **Copy Code** - View CSS and Tailwind code, then copy to clipboard
+1. **Browse Components** - Scroll through all 9 component types on the home page
+2. **Filter by Category** - Click category pills to filter components by type
+3. **Search** - Use the search bar to find specific components across all types
+4. **Preview Components** - Click "Preview" to see components in action
+5. **Copy Code** - View CSS and Tailwind code, then copy to clipboard with one click
 6. **Save Favorites** - Click the heart icon to save components you love
 
 ## 🛠️ Tech Stack
@@ -131,8 +151,15 @@ src/
 │   ├── CLISection.tsx   # CLI documentation section
 │   └── Footer.tsx       # Footer with links
 ├── data/
-│   ├── patterns.ts      # All 100+ pattern data
-│   └── buttons.ts       # All 29+ button data
+│   ├── patterns.ts      # All 105 pattern data
+│   ├── buttons.ts       # All 29 button data
+│   ├── cards.ts         # All 26 card data
+│   ├── inputs.ts        # All 17 input data
+│   ├── badges.ts        # All 21 badge data
+│   ├── loaders.ts       # All 18 loader data
+│   ├── avatars.ts       # All 20 avatar data
+│   ├── toggles.ts       # All 13 toggle data
+│   └── dividers.ts      # All 20 divider data
 ├── contexts/
 │   └── BackgroundPatternContext.tsx  # Global pattern preview state
 ├── pages/
@@ -144,15 +171,15 @@ src/
 └── App.tsx              # App root with providers
 ```
 
-## 🎨 Pattern Categories
+## 🎨 Component Categories
 
+### Patterns (105)
 - **Gradients** - Aurora, sunset, neon, arctic, forest, and more
 - **Geometric** - Grids, dots, hexagons, triangles, isometric cubes
 - **Decorative** - Noise, spotlights, waves, starbursts, blobs
 - **Effects** - Blur orbs, glass morphism, mesh gradients, holographic
 
-## 🔘 Button Categories
-
+### Buttons (29)
 - **Primary** - Solid, prominent call-to-action buttons
 - **Secondary** - Subtle, secondary action buttons
 - **Outline** - Border-only buttons with hover fill
@@ -161,27 +188,64 @@ src/
 - **3D** - Buttons with depth and shadow effects
 - **Neon** - Glowing, cyberpunk-style buttons
 
+### Cards (26)
+- Modern card designs with various styles and effects
+- Glass morphism, gradient borders, shadows, and more
+
+### Inputs (17)
+- Form input styles including text, email, password, and search inputs
+- Various border styles, focus states, and modern designs
+
+### Badges (21)
+- Badge variants for labels, tags, and status indicators
+- Different shapes, colors, and styles
+
+### Loaders (18)
+- Loading animations and spinners
+- Various styles including spinners, dots, bars, and more
+
+### Avatars (20)
+- Avatar styles and variations
+- Different shapes, sizes, and border styles
+
+### Toggles (13)
+- Toggle switches and checkboxes
+- Various styles including iOS-style, material, and custom designs
+
+### Dividers (20)
+- Divider styles and separators
+- Horizontal and vertical dividers with various styles
+
 ## 💻 CLI Usage
 
 ```bash
-# List patterns
+# List all component types
 shorilabs patterns
-shorilabs patterns --category gradients
-
-# List buttons
 shorilabs buttons
+shorilabs cards
+shorilabs inputs
+shorilabs badges
+shorilabs loaders
+shorilabs avatars
+shorilabs toggles
+shorilabs dividers
+
+# Filter by category
+shorilabs patterns --category gradients
 shorilabs buttons --category neon
 
 # Get component CSS
 shorilabs get aurora-glow
 shorilabs get neon-blue --type button
+shorilabs get card-gradient --type card
 
 # Add to project
 shorilabs add aurora-glow --file styles.css
 shorilabs add neon-blue --type button --file buttons.css
+shorilabs add card-gradient --type card --file cards.css
 
 # Search all components
-shorilabs search glow
+shorilabs search gradient
 
 # Show CLI info
 shorilabs info
@@ -204,18 +268,17 @@ Edit `src/data/patterns.ts`:
 }
 ```
 
-### Adding Buttons
+### Adding Other Components
 
-Edit `src/data/buttons.ts`:
+Edit the respective data file (`src/data/buttons.ts`, `cards.ts`, `inputs.ts`, etc.):
 
 ```typescript
 {
-  id: "your-button-id",
-  name: "Your Button Name",
-  category: "primary" | "secondary" | "outline" | "ghost" | "animated" | "3d" | "neon",
-  label: "Click Me",
+  id: "your-component-id",
+  name: "Your Component Name",
+  category: "category-name",
   isNew: true,
-  css: `your-button-css-here`,
+  css: `your-css-here`,
   tailwind: `your-tailwind-classes`,
 }
 ```
@@ -228,7 +291,7 @@ npm run export-patterns
 
 ## 📦 Packages
 
-- **[@shorilabs/cli](https://www.npmjs.com/package/@shorilabs/cli)** - CLI tool to browse and install patterns & buttons
+- **[@shorilabs/cli](https://www.npmjs.com/package/@shorilabs/cli)** - CLI tool to browse and install all component types (patterns, buttons, cards, inputs, badges, loaders, avatars, toggles, dividers)
 
 ## 🤝 Contributing
 
