@@ -1,6 +1,6 @@
 {
   "name": "@shorilabs/cli",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "CLI tool to browse and install shorilabs components (patterns, buttons, cards, inputs, badges, loaders, avatars, toggles, dividers)",
   "main": "dist/index.js",
   "bin": {

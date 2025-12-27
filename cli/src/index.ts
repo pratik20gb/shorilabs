@@ -7,7 +7,7 @@ import { getPattern, getButton } from './commands/get';
 import { addPattern, addButton } from './commands/add';
 import { searchPatterns } from './commands/search';
 
-const version = '2.0.1';
+const version = '2.1.0';
 
 const program = new Command();
 

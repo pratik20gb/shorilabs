@@ -92,7 +92,7 @@ export const CLISection = () => {
                   <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
                 </div>
                 <span className="text-xs font-mono text-muted-foreground/60">
-                  @shorilabs/cli v2.0.1
+                  @shorilabs/cli v2.1.0
                 </span>
               </div>
 
